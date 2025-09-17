@@ -1,13 +1,13 @@
 "use client";
 import { IconArrowNarrowRight } from "@tabler/icons-react";
 import { useState, useId } from "react";
+import { ExpandableCardDemo } from "./ExpandableCard"; // 👈 import expandable cards
 
 interface SlideData {
   title: string;
   button: string;
-  src?: string; // optional since you may not provide it
-  color?: string; // optional color (e.g. "#ff5733" or "bg-red-500")
-
+  src?: string;
+  color?: string;
 }
 
 interface SlideProps {
@@ -15,9 +15,10 @@ interface SlideProps {
   index: number;
   current: number;
   total: number;
+  onSelect: (title: string) => void; // 👈 new prop
 }
 
-const Slide = ({ slide, index, current, total }: SlideProps) => {
+const Slide = ({ slide, index, current, total, onSelect }: SlideProps) => {
   const angle = 360 / total;
 
   return (
@@ -31,10 +32,8 @@ const Slide = ({ slide, index, current, total }: SlideProps) => {
         className={`relative w-full h-full rounded-2xl overflow-hidden shadow-lg transition-opacity duration-700  ${
           current === index ? "opacity-100 scale-100" : "opacity-50 scale-90"
         }`}
-          style={{ backgroundColor: slide.color || "transparent" }} // 👈 Add color here
-
+        style={{ backgroundColor: slide.color || "transparent" }}
       >
-        {/* Show image only if src is provided */}
         {slide.src && (
           <img
             src={slide.src}
@@ -43,15 +42,16 @@ const Slide = ({ slide, index, current, total }: SlideProps) => {
           />
         )}
 
-        {/* Overlay content */}
         <div className="absolute inset-0 flex flex-col justify-center items-center text-white bg-black/40 px-4">
           <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-center break-words">
             {slide.title}
           </h2>
 
-          {/* Show button only if not empty */}
           {slide.button.trim() !== "" && (
-            <button className="mt-4 px-4 py-2 bg-white text-black rounded-lg hover:shadow-md transition">
+            <button
+              className="mt-4 px-4 py-2 bg-white text-black rounded-lg hover:shadow-md transition"
+              onClick={() => onSelect(slide.title)} // 👈 send title to parent
+            >
               {slide.button}
             </button>
           )}
@@ -87,15 +87,26 @@ interface CarouselProps {
 
 export function Carousel({ slides }: CarouselProps) {
   const [current, setCurrent] = useState(0);
+  const [selected, setSelected] = useState<string | null>(null); // 👈 track selection
   const id = useId();
 
   const handlePreviousClick = () => {
-    setCurrent((prev) => prev - 1); 
+    setCurrent((prev) => prev - 1);
   };
 
   const handleNextClick = () => {
-    setCurrent((prev) => prev + 1); 
+    setCurrent((prev) => prev + 1);
   };
+
+  if (selected) {
+    // 👈 show ExpandableCardDemo when something is selected
+    return (
+      <ExpandableCardDemo
+        selected={selected}
+        onBack={() => setSelected(null)} // back button
+      />
+    );
+  }
 
   return (
     <div
@@ -105,7 +116,6 @@ export function Carousel({ slides }: CarouselProps) {
       <ul
         className="absolute w-full h-full [transform-style:preserve-3d] transition-transform duration-1000 ease-in-out"
         style={{
-          // use current directly, keeps adding rotation like a spinning ball
           transform: `rotateY(-${current * (360 / slides.length)}deg)`,
         }}
       >
@@ -114,8 +124,9 @@ export function Carousel({ slides }: CarouselProps) {
             key={index}
             slide={slide}
             index={index}
-            current={((current % slides.length) + slides.length) % slides.length} 
+            current={((current % slides.length) + slides.length) % slides.length}
             total={slides.length}
+            onSelect={setSelected} // 👈 pass down
           />
         ))}
       </ul>
@@ -135,4 +146,3 @@ export function Carousel({ slides }: CarouselProps) {
     </div>
   );
 }
-

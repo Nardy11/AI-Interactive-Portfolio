@@ -6,7 +6,6 @@ import { TextGenerateEffect } from "./ui/text-generate-effect";
 import MagicButton from "./ui/MagicButton";
 import { TypewriterEffect } from "./ui/TypewriterEffectSmooth";
 import { BackgroundGradient } from "./ui/background-gradient";
-import { Carousel } from "./ui/carousel";
 import {
   MobileNav,
   MobileNavHeader,
@@ -25,6 +24,7 @@ import type { Engine } from "@tsparticles/engine";
 import { color, motion } from "framer-motion";
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
 import { LinkPreview } from "./ui/link-preview";
+import { Carousel } from "./ui/carousel";
 
 interface HeroProps {
   initialMode?: "normal" | "cv" | "nlp";
@@ -68,7 +68,7 @@ const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
   const slideData = [
     { title: "Swipe to see the projects based on their category", button: "", color: "#131e3c" },
     { title: "ML", button: "View Projects", color: "#131e3c" },
-    { title: "VR", button: "View Projects", color: "#131e3c" },
+    { title: "Game Dev", button: "View Projects", color: "#131e3c" },
     { title: "Web Dev", button: "View Projects", color: "#131e3c" },
     { title: "App Dev", button: "View Projects", color: "#131e3c" },
   ];
