@@ -45,7 +45,19 @@ interface ContactIcon {
 const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
   const [currentMode, setCurrentMode] = useState<HeroProps["initialMode"]>(initialMode);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [status, setStatus] = useState<string>("");
 
+  const startMouse = async () => {
+    const res = await fetch("http://localhost:8000/start-mouse");
+    const data = await res.json();
+    setStatus(data.status);
+  };
+    const endMouse = async () => {
+    if(status!="stopped"){
+    const res = await fetch("http://localhost:8000/stop-mouse");
+    const data = await res.json();
+    setStatus(data.status);}
+  };
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentMode]);
@@ -121,6 +133,14 @@ const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
         { title: "Try Normal Navigation", img: "/normal_navigation.png" },
         { title: "Try Using NLP", img: "/nlp_assistant.png" },
       ];
+    }
+  }, [currentMode]);
+  React.useEffect(() => {
+    if (currentMode === "cv") {
+      startMouse(); 
+    }
+    else{
+      endMouse();
     }
   }, [currentMode]);
 
@@ -294,61 +314,61 @@ const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
         </div>
       </section>
 
-{/* Timeline Section */}
-<div
-  id="timeline"
-  className="relative flex flex-col items-center justify-center min-h-[100vh] -top-10  px-4 bg-gradient-to-b"
->
-  {/* Title */}
-  <TextGenerateEffect
-    words="Timeline"
-    className="text-center text-[40px] md:text-5xl lg:text-6xl mb-10 text-white"
-  />
+      {/* Timeline Section */}
+      <div
+        id="timeline"
+        className="relative flex flex-col items-center justify-center min-h-[100vh] -top-10  px-4 bg-gradient-to-b"
+      >
+        {/* Title */}
+        <TextGenerateEffect
+          words="Timeline"
+          className="text-center text-[40px] md:text-5xl lg:text-6xl mb-10 text-white"
+        />
 
-  {/* Zigzag Circles */}
-  <div className="flex flex-col gap-12">
-    {items.map((item, idx) => {
-      // --- params you can tweak ---
-      const cycle = 5;          // pattern length (up then down)
-      const stepPx = 60;        // horizontal shift per step (px)
-      // --------------------------------
+        {/* Zigzag Circles */}
+        <div className="flex flex-col gap-12">
+          {items.map((item, idx) => {
+            // --- params you can tweak ---
+            const cycle = 5;          // pattern length (up then down)
+            const stepPx = 60;        // horizontal shift per step (px)
+            // --------------------------------
 
-      const posInCycle = idx % cycle; // 0..9
-      const offsetSteps = posInCycle <= cycle / 2
-        ? posInCycle
-        : cycle - posInCycle;
+            const posInCycle = idx % cycle; // 0..9
+            const offsetSteps = posInCycle <= cycle / 2
+              ? posInCycle
+              : cycle - posInCycle;
 
-      const blockIndex = Math.floor(idx / cycle);
-      const side = blockIndex % 2 === 0 ? -1 : 1; 
+            const blockIndex = Math.floor(idx / cycle);
+            const side = blockIndex % 2 === 0 ? -1 : 1;
 
-      const translateX = side * offsetSteps * stepPx; // px
+            const translateX = side * offsetSteps * stepPx; // px
 
-      const justifyClass = translateX <= 0 ? "justify-start" : "justify-end";
+            const justifyClass = translateX <= 0 ? "justify-start" : "justify-end";
 
-      return (
-        <div key={idx} className={`flex ${justifyClass}`}>
-          <LinkPreview url={item.url} className="block">
-            <motion.div
-              // x is static offset (px), y is the floating animation
-              animate={{ x: translateX, y: [0, -8, 0] }}
-              transition={{
-                x: { duration: 0.4 }, // small smoothing for x (instantish)
-                y: { duration: 3, repeat: Infinity, repeatType: "loop", ease: "easeInOut" },
-              }}
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center text-white font-bold bg-gradient-to-br from-cyan-500 to-purple-500 shadow-lg"
-            >
+            return (
+              <div key={idx} className={`flex ${justifyClass}`}>
+                <LinkPreview url={item.url} className="block">
+                  <motion.div
+                    // x is static offset (px), y is the floating animation
+                    animate={{ x: translateX, y: [0, -8, 0] }}
+                    transition={{
+                      x: { duration: 0.4 }, // small smoothing for x (instantish)
+                      y: { duration: 3, repeat: Infinity, repeatType: "loop", ease: "easeInOut" },
+                    }}
+                    className="w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center text-white font-bold bg-gradient-to-br from-cyan-500 to-purple-500 shadow-lg"
+                  >
 
-              {item.name}
-            </motion.div>
-          </LinkPreview>
+                    {item.name}
+                  </motion.div>
+                </LinkPreview>
+              </div>
+            );
+          })}
         </div>
-      );
-    })}
-</div>
 
 
 
-</div>
+      </div>
 
 
       {/* Contact Section */}
