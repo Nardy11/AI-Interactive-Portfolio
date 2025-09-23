@@ -26,6 +26,7 @@ import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
 import { LinkPreview } from "./ui/link-preview";
 import { Carousel } from "./ui/carousel";
 
+
 interface HeroProps {
   initialMode?: "normal" | "cv" | "nlp";
 }
@@ -46,17 +47,29 @@ const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
   const [currentMode, setCurrentMode] = useState<HeroProps["initialMode"]>(initialMode);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [status, setStatus] = useState<string>("");
-
   const startMouse = async () => {
-    const res = await fetch("http://localhost:8000/start-mouse");
+    const res = await fetch("http://localhost:8000/cv/start-mouse");
     const data = await res.json();
     setStatus(data.status);
   };
-    const endMouse = async () => {
-    if(status!="stopped"){
-    const res = await fetch("http://localhost:8000/stop-mouse");
+  const endMouse = async () => {
+    if (status != "stopped") {
+      const res = await fetch("http://localhost:8000/cv/stop-mouse");
+      const data = await res.json();
+      setStatus(data.status);
+    }
+  };
+  const startAssistant = async () => {
+    const res = await fetch("http://localhost:8000/nlp/start-assistant");
     const data = await res.json();
-    setStatus(data.status);}
+    setStatus(data.status);
+  };
+  const endAssistant = async () => {
+    if (status != "stopped") {
+      const res = await fetch("http://localhost:8000/nlp/stop-assistant");
+      const data = await res.json();
+      setStatus(data.status);
+    }
   };
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -135,14 +148,47 @@ const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
       ];
     }
   }, [currentMode]);
-  React.useEffect(() => {
-    if (currentMode === "cv") {
-      startMouse(); 
+
+const cvInUse = React.useRef(false);
+const nlpInUse = React.useRef(false);
+
+React.useEffect(() => {
+  if (currentMode === "cv") {
+    // Stop NLP if running
+    if (nlpInUse.current) {
+      endAssistant();
+      nlpInUse.current = false;
     }
-    else{
+    // Start CV if not already running
+    if (!cvInUse.current) {
+      startMouse();
+      cvInUse.current = true;
+    }
+  } 
+  else if (currentMode === "nlp") {
+    // Stop CV if running
+    if (cvInUse.current) {
       endMouse();
+      cvInUse.current = false;
     }
-  }, [currentMode]);
+    // Start NLP if not already running
+    if (!nlpInUse.current) {
+      startAssistant();
+      nlpInUse.current = true;
+    }
+  } 
+  else {
+    // Stop both
+    if (cvInUse.current) {
+      endMouse();
+      cvInUse.current = false;
+    }
+    if (nlpInUse.current) {
+      endAssistant();
+      nlpInUse.current = false;
+    }
+  }
+}, [currentMode]);
 
   const particlesInit = async (engine: Engine) => {
     await loadFull(engine);
