@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Spotlight } from "./ui/Spotlight";
 import { cn } from "@/lib/utils";
 import { TextGenerateEffect } from "./ui/text-generate-effect";
@@ -25,7 +25,8 @@ import { color, motion } from "framer-motion";
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
 import { LinkPreview } from "./ui/link-preview";
 import { Carousel } from "./ui/carousel";
-
+import AvatarOverlay from "./avatar";
+import HandTrackingMouse, { HandTrackingHandle } from "./cv1";
 
 interface HeroProps {
   initialMode?: "normal" | "cv" | "nlp";
@@ -44,21 +45,13 @@ interface ContactIcon {
 }
 
 const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
+
   const [currentMode, setCurrentMode] = useState<HeroProps["initialMode"]>(initialMode);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [Assistantstatus, setAssistantstatus] = useState(false);
+  const [Virtualmouse, setVirtualmouse] = useState(false);
+
   const [status, setStatus] = useState<string>("");
-  const startMouse = async () => {
-    const res = await fetch("http://localhost:8000/cv/start-mouse");
-    const data = await res.json();
-    setStatus(data.status);
-  };
-  const endMouse = async () => {
-    if (status != "stopped") {
-      const res = await fetch("http://localhost:8000/cv/stop-mouse");
-      const data = await res.json();
-      setStatus(data.status);
-    }
-  };
   const startAssistant = async () => {
     const res = await fetch("http://localhost:8000/nlp/start-assistant");
     const data = await res.json();
@@ -71,6 +64,8 @@ const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
       setStatus(data.status);
     }
   };
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentMode]);
@@ -149,39 +144,39 @@ const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
     }
   }, [currentMode]);
 
-const cvInUse = React.useRef(false);
-const nlpInUse = React.useRef(false);
+  const cvInUse = React.useRef(false);
+  const nlpInUse = React.useRef(false);
+
+
 
 React.useEffect(() => {
   if (currentMode === "cv") {
-    // Stop NLP if running
+    setAssistantstatus(false);
     if (nlpInUse.current) {
       endAssistant();
       nlpInUse.current = false;
     }
-    // Start CV if not already running
-    if (!cvInUse.current) {
-      startMouse();
-      cvInUse.current = true;
-    }
+    cvInUse.current = true;
+
+    // ✅ only start if the camera is not running
+    requestAnimationFrame(() => handRef.current?.startCamera());
   } 
   else if (currentMode === "nlp") {
-    // Stop CV if running
+    setAssistantstatus(true);
     if (cvInUse.current) {
-      endMouse();
       cvInUse.current = false;
+      requestAnimationFrame(() => handRef.current?.stopCamera());
     }
-    // Start NLP if not already running
     if (!nlpInUse.current) {
       startAssistant();
       nlpInUse.current = true;
     }
   } 
-  else {
-    // Stop both
+  else { // normal
+    setAssistantstatus(false);
     if (cvInUse.current) {
-      endMouse();
       cvInUse.current = false;
+      requestAnimationFrame(() => handRef.current?.stopCamera());
     }
     if (nlpInUse.current) {
       endAssistant();
@@ -232,11 +227,13 @@ React.useEffect(() => {
     { name: "Web CV", href: "/full stack cv edited.pdf", icon: "/CV.webp" },
     { name: "ML CV", href: "/ml_cv.pdf", icon: "/CV.webp" },
   ];
+  const handRef = useRef<HandTrackingHandle>(null)
 
   return (
     <div className="relative bg-white dark:bg-black-100 min-h-screen">
-      {/* Navbar */}
-      <div className="relative w-full">
+      {Assistantstatus ? <AvatarOverlay /> : null}
+
+      <HandTrackingMouse ref={handRef} />      <div className="relative w-full">
         <Navbar>
           <NavBody>
             <NavbarLogo />
@@ -334,11 +331,16 @@ React.useEffect(() => {
                 <button
                   className="relative mt-auto px-5 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-sm font-bold"
                   onClick={() => {
-                    if (card.title.includes("CV")) setCurrentMode("cv");
-                    else if (card.title.includes("NLP")) setCurrentMode("nlp");
-                    else setCurrentMode("normal");
+                    if (card.title.includes("CV")) {
+                      setCurrentMode("cv");
+                    } else if (card.title.includes("NLP")) {
+                      setCurrentMode("nlp");
+                    } else {
+                      setCurrentMode("normal");
+                    }
                   }}
                 >
+
                   Start
                 </button>
               </CardSpotlight>
@@ -434,6 +436,7 @@ React.useEffect(() => {
       </section>
     </div>
   );
+
 };
 
 export default Hero;

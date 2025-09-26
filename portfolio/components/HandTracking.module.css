@@ -1,0 +1,36 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+/* Virtual Cursor Styles - ONLY THE RED DOT */
+.cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #ff4444 0%, #cc0000 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  transform: translate(-50%, -50%);
+  transition: all 0.1s ease-out;
+  box-shadow: 
+    0 0 10px rgba(255, 68, 68, 0.6),
+    0 0 20px rgba(255, 68, 68, 0.4),
+    0 0 30px rgba(255, 68, 68, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.cursor.clicking {
+  transform: translate(-50%, -50%) scale(1.5);
+  background: radial-gradient(circle, #ff6666 0%, #ff0000 100%);
+  box-shadow: 
+    0 0 15px rgba(255, 68, 68, 0.8),
+    0 0 30px rgba(255, 68, 68, 0.6),
+    0 0 45px rgba(255, 68, 68, 0.4);
+}

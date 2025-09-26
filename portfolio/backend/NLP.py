@@ -8,19 +8,20 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.metrics.pairwise import cosine_similarity
 from faster_whisper import WhisperModel
-import tempfile
 from pathlib import Path
-import os
 from pydub import AudioSegment
 import queue
 import time
 from threading import Event
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, responses
 import io
 from fastapi.middleware.cors import CORSMiddleware
 import threading
-import uvicorn
 import pyttsx3
+# Add these imports at the top
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+from fastapi.responses import StreamingResponse
 
 nltk.download("punkt_tab")
 nltk.download("wordnet")
@@ -41,7 +42,7 @@ nlp_app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"],
 # Global variables for voice assistant control
 assistant_active = False
 assistant_thread = None
-
+audio_queue = queue.Queue()
 # NLP/Voice Assistant Section
 cv_sections_sbert = {
     "personal": [
@@ -248,23 +249,24 @@ def text_preprocessing(sentence):
     return result
 
 def text_representation_cosine_similarity(questionsentence, answersentence):
-    
-    # Preprocess both
     question_clean = text_preprocessing(questionsentence)
     answer_clean = text_preprocessing(answersentence)
-
-    # Encode
     embeddings = model.encode([question_clean, answer_clean])
     cosine_score = cosine_similarity([embeddings[0]], [embeddings[1]])[0][0]
     return cosine_score
 
 def most_similar(arr):
     return arr.index(max(arr))
+
 def NLP_start(user_question, threshold=0.36):
+    global faq_pairs
+    got_ans=False
     # Step 1: Direct FAQ lookup
+    if user_question in faq_pairs:
+        got_ans=True
+        answers=faq_pairs[user_question]
+    
     question_clean = text_preprocessing(user_question)
-    if question_clean in faq_pairs:
-        return faq_pairs[question_clean]
 
     # Step 2: Continue with your existing CV logic
     if any(word in question_clean for word in ["skill", "framework", "technology", "tool"]):
@@ -286,78 +288,37 @@ def NLP_start(user_question, threshold=0.36):
         position='home'
         section = "volunteering"
     else:    
-        position='home' 
-        best_section = None
-        best_score = -1
-        for sec, answers in cv_sections_sbert.items():
-            sims = [
-                text_representation_cosine_similarity(user_question, ans) 
-                for ans in answers
-            ]
-            if max(sims) > best_score:
-                best_score = max(sims)
-                best_section = sec
-        section = best_section if best_section else "skills"
+        position='home'
+        if(not got_ans):
+            best_section = None
+            best_score = -1
+            for sec, answers in cv_sections_sbert.items():
+                sims = [
+                    text_representation_cosine_similarity(user_question, ans) 
+                    for ans in answers
+                ]
+                if max(sims) > best_score:
+                    best_score = max(sims)
+                    best_section = sec
+            section = best_section if best_section else "skills"
+    if(not got_ans):
+        answers = cv_sections_sbert[section]
 
-    answers = cv_sections_sbert[section]
+        if section == "skills":
+            return(" and ".join(answers),position)
 
-    # ---------------- Special handling ---------------- #
-    if section == "skills":
-        return " and ".join(answers)
+        sims = [
+            text_representation_cosine_similarity(user_question, ans) 
+            for ans in answers
+        ]
+        selected = [ans for ans, score in zip(answers, sims) if score >= threshold]
 
-    # Otherwise → semantic similarity inside section
-    sims = [
-        text_representation_cosine_similarity(user_question, ans) 
-        for ans in answers
-    ]
-    selected = [ans for ans, score in zip(answers, sims) if score >= threshold]
+        if not selected:
+            selected = [answers[np.argmax(sims)]]
 
-    if not selected:
-        selected = [answers[np.argmax(sims)]]
+        return (" and ".join(selected),position)
+    return (answers,position)
 
-    return (" and ".join(selected),position)
-
-
-# Voice Activity Detection Functions
-def is_speech(audio_chunk, sample_rate=16000, volume_threshold=0.005):
-    global is_speaking
-    if (is_speaking== False):
-        import webrtcvad
-        vad = webrtcvad.Vad(3)  # Less aggressive setting
-            
-        # Convert float32 to int16
-        audio_int16 = (np.clip(audio_chunk, -1.0, 1.0) * 32767).astype(np.int16)
-            
-        # WebRTC VAD expects specific frame sizes (10, 20, or 30 ms)
-        frame_duration = 20  # ms
-        frame_size = int(sample_rate * frame_duration / 1000)
-            
-        # Ensure we have enough samples
-        if len(audio_int16) < frame_size:
-            return False
-            
-        # Process audio in chunks
-        speech_frames = 0
-        total_frames = 0
-            
-        for i in range(0, len(audio_int16) - frame_size + 1, frame_size):
-            frame = audio_int16[i:i + frame_size].tobytes()
-            if vad.is_speech(frame, sample_rate):
-                speech_frames += 1
-            total_frames += 1
-
-            
-        if total_frames == 0:
-            return False
-            
-        # Consider it speech if more than 20% of frames contain speech
-        vad_result = (speech_frames / total_frames) > 0.2
-            
-        # Also check volume as backup
-        volume = np.sqrt(np.mean(audio_chunk**2))
-        volume_result = volume > volume_threshold
-        return vad_result or volume_result
-        
 def process_audio_and_respond(audio_data, sample_rate):
     global is_speaking
     # Transcribe speech...
@@ -374,9 +335,9 @@ def process_audio_and_respond(audio_data, sample_rate):
     if not user_question:
         return
 
-    print(f"📝 You said: {user_question}")
+    print(f"📝 You said2: {user_question}")
     answer_text ,section =  NLP_start(user_question)
-    # print(f"section: {section}")
+    print(f"section: {section}")
 
     print(f"🤖 AI Answer: {answer_text}")
 
@@ -388,121 +349,96 @@ def process_audio_and_respond(audio_data, sample_rate):
     is_speaking = False
     return section
 
-def voice_activated_assistant(fs=16000, silence_threshold=3.0, chunk_duration=0.3):
-    global assistant_active
-    
-    print("Voice Assistant Ready! Speak to start...")
-    print("Note: Speak clearly and wait for processing after silence...")
-    
-    chunk_size = int(chunk_duration * fs)
-    audio_queue = queue.Queue()
-    
-    def audio_callback(indata, frames, time, status):
-        global is_speaking
-        if status:
-            print(f"Audio callback status: {status}")
-        if is_speaking:   # 🚨 Don’t capture while TTS is active
-            return
-        audio_data = indata[:, 0] if len(indata.shape) > 1 else indata
-        audio_queue.put(audio_data.astype(np.float32))
+# Create a thread pool executor for CPU-intensive tasks
+executor = ThreadPoolExecutor(max_workers=2)
 
-    # Start audio stream with better settings
-    stream = sd.InputStream(
-        callback=audio_callback,
-        samplerate=fs,
-        channels=1,
-        blocksize=chunk_size,
-        dtype='float32'
-    )
+def generate_audio_sync(text: str) -> bytes:
+    """Synchronous audio generation function to run in thread pool"""
+    tts = gTTS(text=text, lang='en', slow=False, tld='com')  # 'com' is faster
+    audio_buffer = io.BytesIO()
+    tts.write_to_fp(audio_buffer)
+    audio_buffer.seek(0)
     
-    with stream:
-        recording = False
-        recorded_audio = []
-        silence_start = None
-        min_recording_duration = 1.0  # Minimum 1 second of recording
-        recording_start_time = None
-        
-        while assistant_active:
-                try:
-                    audio_chunk = audio_queue.get(timeout=0.1)
-                except queue.Empty:
-                    continue
-                
-                # Check if this chunk contains speech
-                has_speech = is_speech(audio_chunk, fs)
-                
-                if not recording and has_speech:
-                    # Start recording
-                    print("🎤 Started recording...")
-                    recording = True
-                    recorded_audio = [audio_chunk]
-                    silence_start = None
-                    recording_start_time = time.time()
-                    
-                elif recording:
-                    recorded_audio.append(audio_chunk)
-                    
-                    if has_speech:
-                        # Reset silence timer
-                        silence_start = None
-                        print("🔊 Speech detected...")
-                    else:
-                        # Start/continue silence timer
-                        if silence_start is None:
-                            silence_start = time.time()
-                        elif time.time() - silence_start >= silence_threshold:
-                            # Check minimum recording duration
-                            recording_duration = time.time() - recording_start_time
-                            
-                            if recording_duration >= min_recording_duration:
-                                # Stop recording after silence threshold
-                                print("⏹️  Stopped recording (silence detected)")
-                                recording = False
-                                
-                                # Process the recorded audio
-                                if recorded_audio:
-                                    complete_audio = np.concatenate(recorded_audio)
-                                    process_audio_and_respond(complete_audio, fs)
-                                
-                                # Reset for next recording
-                                recorded_audio = []
-                                silence_start = None
-                                recording_start_time = None
-                                print("\n🎧 Listening for next command...")
-                            else:
-                                print(f"⚠️  Recording too short ({recording_duration:.1f}s), continuing...")
-                                silence_start = None  # Reset silence timer
-    print("Voice assistant stopped.")
+    # Convert MP3 to WAV for better browser compatibility
+    audio_segment_response = AudioSegment.from_mp3(audio_buffer)
+    wav_buffer = io.BytesIO()
+    audio_segment_response.export(wav_buffer, format="wav")
+    wav_buffer.seek(0)
+    
+    return wav_buffer.read()
 
-# Voice Assistant API Endpoints
+@nlp_app.post("/stream-audio")
+async def stream_audio(file: UploadFile = File(...)):
+    global is_speaking
+
+    # If the assistant is speaking, ignore incoming audio to avoid feedback loop
+    if is_speaking:
+        return {"status": "assistant is speaking, ignoring input"}
+
+    try:
+        # Mark as speaking immediately to prevent multiple requests
+        is_speaking = True
+
+        # Read uploaded audio
+        contents = await file.read()
+
+        # Decode to AudioSegment
+        audio_segment = AudioSegment.from_file(io.BytesIO(contents))
+        audio_segment = audio_segment.set_frame_rate(16000).set_channels(1)
+
+        # Convert to numpy float32 normalized to [-1, 1]
+        audio_np = np.array(audio_segment.get_array_of_samples()).astype(np.float32) / 32768.0
+
+        # --- Step 1: Transcribe using Whisper ---
+        segments, _ = whisper_model.transcribe(
+            audio_np,
+            beam_size=3,
+            language="en",
+            condition_on_previous_text=False,
+            temperature=0.0,
+            compression_ratio_threshold=2.4,
+            no_speech_threshold=0.6
+        )
+
+        user_question = " ".join([seg.text for seg in segments]).strip()
+
+        if not user_question:
+            is_speaking = False
+            return {"status": "no speech detected", "text": ""}
+
+        print(f"📝 User question: {user_question}")
+
+        # --- Step 2: NLP answer generation ---
+        answer_text, section = NLP_start(user_question)
+        print(f"🤖 AI Answer: {answer_text}")
+
+        is_speaking = False
+
+        # --- Step 3: Return **text** instead of audio ---
+        return {answer_text,
+        }
+
+    except Exception as e:
+        is_speaking = False
+        print(f"❌ Error: {str(e)}")
+        return {"error": str(e)}
+    
 @nlp_app.get("/start-assistant")
 def start_assistant():
-    global assistant_active, assistant_thread,is_speaking
-    
+    global assistant_active, assistant_thread, is_speaking
+
     if assistant_active:
         return {"status": "Assistant already running"}
-    
+
     assistant_active = True
-    is_speaking= True
+    is_speaking = True
     engine = pyttsx3.init()
-    engine.say('Hello i am your assistant How can i help you?')
+    engine.say('Hello I am your assistant. How can I help you?')
     engine.runAndWait()
-    is_speaking= False
-
-    def run_assistant():
-            voice_activated_assistant()
-
-    
-    assistant_thread = threading.Thread(target=run_assistant)
-    assistant_thread.daemon = True
-    assistant_thread.start()
-    
-    return {"status": "Voice-activated assistant started"}
+    is_speaking = False
 
 @nlp_app.get("/stop-assistant")
 def stop_assistant():
     global assistant_active
     assistant_active = False
     return {"status": "Voice assistant stopped"}
-
-
