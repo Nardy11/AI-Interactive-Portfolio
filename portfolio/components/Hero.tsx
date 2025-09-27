@@ -224,7 +224,7 @@ React.useEffect(() => {
     { name: "Email", href: "mailto:nardymichelle2003@gmail.com", icon: "/gmail.png" },
     { name: "LinkedIn", href: "https://www.linkedin.com/in/nardy-attallah", icon: "/linkedin.png" },
     { name: "GitHub", href: "https://github.com/Nardy11", icon: "/github.png" },
-    { name: "Web CV", href: "/full stack cv edited.pdf", icon: "/CV.webp" },
+    { name: "Web CV", href: "/full_stack_cv_edited.pdf", icon: "/CV.webp" },
     { name: "ML CV", href: "/ml_cv.pdf", icon: "/CV.webp" },
   ];
   const handRef = useRef<HandTrackingHandle>(null)

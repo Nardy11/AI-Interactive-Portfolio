@@ -22,6 +22,13 @@ import pyttsx3
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 from fastapi.responses import StreamingResponse
+import PyPDF2
+from sumy.parsers.plaintext import PlaintextParser
+from sumy.nlp.tokenizers import Tokenizer
+from sumy.summarizers.lsa import LsaSummarizer
+from io import BytesIO
+import requests
+
 
 nltk.download("punkt_tab")
 nltk.download("wordnet")
@@ -235,6 +242,8 @@ faq_pairs = {
 
 def text_preprocessing(sentence):
     output=[]
+    #make all lower case
+    sentence = sentence.lower().strip()
     # Removing punctuation
     sent=re.sub(r'[^\w\s]','',sentence)
     # Tokenizing sentences
@@ -258,66 +267,77 @@ def text_representation_cosine_similarity(questionsentence, answersentence):
 def most_similar(arr):
     return arr.index(max(arr))
 
+
 def NLP_start(user_question, threshold=0.36):
     global faq_pairs
     got_ans=False
-    # Step 1: Direct FAQ lookup
-    if user_question in faq_pairs:
-        got_ans=True
-        answers=faq_pairs[user_question]
-    
-    question_clean = text_preprocessing(user_question)
-
-    # Step 2: Continue with your existing CV logic
-    if any(word in question_clean for word in ["skill", "framework", "technology", "tool"]):
-        position="skills"
-        section = "skills"
-    elif any(word in question_clean for word in ["project", "developed", "built", "application", "app", "website", "game", "machine"]):
-        position="projects"
-        section = "projects"
-    elif any(word in question_clean for word in ["certificate", "course", "track"]):
-        position="timeline"
-        section = "certificates"
-    elif any(word in question_clean for word in ["education", "study", "university", "thesis", "degree"]):
-        position="timeline"
-        section = "education"
-    elif any(word in question_clean for word in ["experience", "worked", "intern", "job", "company"]):
-        position="testimonials"
-        section = "experience"
-    elif any(word in question_clean for word in ["volunteer", "club", "fundraising", "ieee"]):
-        position='home'
-        section = "volunteering"
+    question_clean = user_question.lower()
+    print(user_question)
+    if (user_question in ["Can you summarize CV1?","Can you summarize machine learning CV?"]):
+        answers=summarize_cv1()
+        position="contact"
+        return(answers,position)
+    elif(user_question in ["Can you summarize CV2?","Can you summarize software CV?"]):
+        answers=summarize_cv2()
+        position="contact"
+        return(answers,position)
     else:    
-        position='home'
+        if user_question in faq_pairs:
+            got_ans=True
+            answers=faq_pairs[user_question]
+        
+        question_clean = text_preprocessing(user_question)
+
+        # Step 2: Continue with your existing CV logic
+        if any(word in question_clean for word in ["skill", "framework", "technology", "tool"]):
+            position="skills"
+            section = "skills"
+        elif any(word in question_clean for word in ["project", "developed", "built", "application", "app", "website", "game", "machine"]):
+            position="projects"
+            section = "projects"
+        elif any(word in question_clean for word in ["certificate", "course", "track"]):
+            position="timeline"
+            section = "certificates"
+        elif any(word in question_clean for word in ["education", "study", "university", "thesis", "degree"]):
+            position="timeline"
+            section = "education"
+        elif any(word in question_clean for word in ["experience", "worked", "intern", "job", "company"]):
+            position="testimonials"
+            section = "experience"
+        elif any(word in question_clean for word in ["volunteer", "club", "fundraising", "ieee"]):
+            position='home'
+            section = "volunteering"
+        else:    
+            position='home'
+            if(not got_ans):
+                best_section = None
+                best_score = -1
+                for sec, answers in cv_sections_sbert.items():
+                    sims = [
+                        text_representation_cosine_similarity(user_question, ans) 
+                        for ans in answers
+                    ]
+                    if max(sims) > best_score:
+                        best_score = max(sims)
+                        best_section = sec
+                section = best_section if best_section else "skills"
         if(not got_ans):
-            best_section = None
-            best_score = -1
-            for sec, answers in cv_sections_sbert.items():
-                sims = [
-                    text_representation_cosine_similarity(user_question, ans) 
-                    for ans in answers
-                ]
-                if max(sims) > best_score:
-                    best_score = max(sims)
-                    best_section = sec
-            section = best_section if best_section else "skills"
-    if(not got_ans):
-        answers = cv_sections_sbert[section]
+            answers = cv_sections_sbert[section]
 
-        if section == "skills":
-            return(" and ".join(answers),position)
+            if section == "skills":
+                return(" and ".join(answers),position)
 
-        sims = [
-            text_representation_cosine_similarity(user_question, ans) 
-            for ans in answers
-        ]
-        selected = [ans for ans, score in zip(answers, sims) if score >= threshold]
+            sims = [
+                text_representation_cosine_similarity(user_question, ans) 
+                for ans in answers
+            ]
+            selected = [ans for ans, score in zip(answers, sims) if score >= threshold]
 
-        if not selected:
-            selected = [answers[np.argmax(sims)]]
+            if not selected:
+                selected = [answers[np.argmax(sims)]]
 
-        return (" and ".join(selected),position)
-    return (answers,position)
+            return (" and ".join(selected),position)
+        return (answers,position)
 
 def process_audio_and_respond(audio_data, sample_rate):
     global is_speaking
@@ -349,7 +369,32 @@ def process_audio_and_respond(audio_data, sample_rate):
     is_speaking = False
     return section
 
-# Create a thread pool executor for CPU-intensive tasks
+def fetch_pdf_text(url):
+    response = requests.get(url)
+    response.raise_for_status()
+    pdf_file = BytesIO(response.content)
+    reader = PyPDF2.PdfReader(pdf_file)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text()
+    return text
+
+def summarize_text(text, sentence_count=5):
+    parser = PlaintextParser.from_string(text, Tokenizer("english"))
+    summarizer = LsaSummarizer()
+    summary = summarizer(parser.document, sentence_count)
+    return " ".join([str(sentence) for sentence in summary])
+
+def summarize_cv1():
+    cv1_url = "http://localhost:3000/cv1.pdf"
+    text = fetch_pdf_text(cv1_url)
+    return "Summary of cv1:" +summarize_text(text, sentence_count=5)
+
+def summarize_cv2():
+    cv2_url = "http://localhost:3000/cv2.pdf"
+    text = fetch_pdf_text(cv2_url)
+    return "Summary of cv2:" +summarize_text(text, sentence_count=5)
+
 executor = ThreadPoolExecutor(max_workers=2)
 
 def generate_audio_sync(text: str) -> bytes:
