@@ -28,7 +28,8 @@ from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 from io import BytesIO
 import requests
-
+import spacy
+ner=spacy.load('en_core_web_md')
 
 nltk.download("punkt_tab")
 nltk.download("wordnet")
@@ -44,7 +45,7 @@ whisper_model = WhisperModel("base", device="cpu", compute_type="int8")
 
 nlp_app = FastAPI()
 
-nlp_app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+nlp_app.add_middleware(CORSMiddleware, allow_origins=[""], allow_methods=[""], allow_headers=["*"])
 
 # Global variables for voice assistant control
 assistant_active = False
@@ -267,77 +268,106 @@ def text_representation_cosine_similarity(questionsentence, answersentence):
 def most_similar(arr):
     return arr.index(max(arr))
 
+def POS_tags(sentence):
+    doc=ner(sentence)
+    filtered_token=[]
+    for token in doc:
+        if token.pos_ not in ['PRON','AUX','PUNCT','INTJ','DET','CCONJ']:
+            filtered_token.append((token.text,token.pos_))
+    return filtered_token
+
+def NER_entities(sentence):
+    doc = ner(sentence)
+    entities = [(ent.text, ent.label_) for ent in doc.ents] 
+    return entities
 
 def NLP_start(user_question, threshold=0.36):
     global faq_pairs
-    got_ans=False
+    got_ans = False
     question_clean = user_question.lower()
     print(user_question)
-    if (user_question in ["Can you summarize CV1?","Can you summarize machine learning CV?"]):
-        answers=summarize_cv1()
-        position="contact"
-        return(answers,position)
-    elif(user_question in ["Can you summarize CV2?","Can you summarize software CV?"]):
-        answers=summarize_cv2()
-        position="contact"
-        return(answers,position)
-    else:    
-        if user_question in faq_pairs:
-            got_ans=True
-            answers=faq_pairs[user_question]
-        
-        question_clean = text_preprocessing(user_question)
 
-        # Step 2: Continue with your existing CV logic
-        if any(word in question_clean for word in ["skill", "framework", "technology", "tool"]):
-            position="skills"
-            section = "skills"
-        elif any(word in question_clean for word in ["project", "developed", "built", "application", "app", "website", "game", "machine"]):
-            position="projects"
-            section = "projects"
-        elif any(word in question_clean for word in ["certificate", "course", "track"]):
-            position="timeline"
-            section = "certificates"
-        elif any(word in question_clean for word in ["education", "study", "university", "thesis", "degree"]):
-            position="timeline"
-            section = "education"
-        elif any(word in question_clean for word in ["experience", "worked", "intern", "job", "company"]):
-            position="testimonials"
-            section = "experience"
-        elif any(word in question_clean for word in ["volunteer", "club", "fundraising", "ieee"]):
-            position='home'
-            section = "volunteering"
-        else:    
-            position='home'
-            if(not got_ans):
-                best_section = None
-                best_score = -1
-                for sec, answers in cv_sections_sbert.items():
-                    sims = [
-                        text_representation_cosine_similarity(user_question, ans) 
-                        for ans in answers
-                    ]
-                    if max(sims) > best_score:
-                        best_score = max(sims)
-                        best_section = sec
-                section = best_section if best_section else "skills"
-        if(not got_ans):
-            answers = cv_sections_sbert[section]
+    if user_question in ["Can you summarize CV1?", "Can you summarize machine learning CV?"]:
+        answers = summarize_cv1()
+        position = "contact"
+        return (answers, position)
 
-            if section == "skills":
-                return(" and ".join(answers),position)
+    elif user_question in ["Can you summarize CV2?", "Can you summarize software CV?"]:
+        answers = summarize_cv2()
+        position = "contact"
+        return (answers, position)
 
+    if user_question in faq_pairs:
+        got_ans = True
+        answers = faq_pairs[user_question]
+        return (answers, "home")
+
+    question_clean = text_preprocessing(user_question)
+    pos_tags = POS_tags(user_question)  
+    ner_entities = NER_entities(user_question)  
+
+    if any(word in question_clean for word in ["skill", "framework", "technology", "tool"]):
+        position = "skills"
+        section = "skills"
+    elif any(word in question_clean for word in ["project", "developed", "built", "application", "app", "website", "game", "machine"]):
+        position = "projects"
+        section = "projects"
+    elif any(word in question_clean for word in ["certificate", "course", "track"]):
+        position = "timeline"
+        section = "certificates"
+    elif any(word in question_clean for word in ["education", "study", "university", "thesis", "degree"]):
+        position = "timeline"
+        section = "education"
+    elif any(word in question_clean for word in ["experience", "worked", "intern", "job", "company"]):
+        position = "testimonials"
+        section = "experience"
+    elif any(word in question_clean for word in ["volunteer", "club", "fundraising", "ieee"]):
+        position = "home"
+        section = "volunteering"
+    else:
+        position = 'home'
+        best_section = None
+        best_score = -1
+        for sec, answers in cv_sections_sbert.items():
             sims = [
-                text_representation_cosine_similarity(user_question, ans) 
+                text_representation_cosine_similarity(user_question, ans)
                 for ans in answers
             ]
-            selected = [ans for ans, score in zip(answers, sims) if score >= threshold]
+            if max(sims) > best_score:
+                best_score = max(sims)
+                best_section = sec
+        section = best_section if best_section else "skills"
 
-            if not selected:
-                selected = [answers[np.argmax(sims)]]
+    answers = cv_sections_sbert[section]
 
-            return (" and ".join(selected),position)
-        return (answers,position)
+    sims = [
+        text_representation_cosine_similarity(user_question, ans)
+        for ans in answers
+    ]
+
+    selected = [ans for ans, score in zip(answers, sims) if score >= threshold]
+
+    if selected:
+        refined = []
+        question_pos = {p[1] for p in pos_tags}
+        question_ents = {e[1] for e in ner_entities}
+
+        for ans in selected:
+            ans_doc = ner(ans)
+            ans_pos = {tok.pos_ for tok in ans_doc}          
+            ans_ents = {ent.label_ for ent in ans_doc.ents}  
+
+            if (question_pos & ans_pos) or (question_ents & ans_ents):
+                refined.append(ans)
+
+        if refined:
+            selected = refined
+
+
+    if not selected and answers:
+        selected = [answers[np.argmax(sims)]]
+
+    return (" and ".join(selected), position)
 
 def process_audio_and_respond(audio_data, sample_rate):
     global is_speaking
@@ -459,7 +489,7 @@ async def stream_audio(file: UploadFile = File(...)):
 
         is_speaking = False
 
-        # --- Step 3: Return **text** instead of audio ---
+        # --- Step 3: Return *text* instead of audio ---
         return {answer_text,
         }
 
