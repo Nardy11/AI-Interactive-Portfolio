@@ -75,6 +75,7 @@ This stage transforms the portfolio into a **conversational assistant** that res
 
 🎥 **Demo Video – NLP & Avatar Interaction**  
 
+https://github.com/user-attachments/assets/5b2456c6-d6b0-4a0d-95e9-eff031c72152
 
 
 ---
