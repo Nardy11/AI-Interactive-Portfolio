@@ -28,7 +28,8 @@ Beautifully crafted with **Next.js**, **TypeScript**, and **Aceternity UI** for 
 
 🎥 **Demo Video – Web Dev & Design**  
 
-Uploading Web Development (with AI Teaser) post1.mp4…
+https://github.com/user-attachments/assets/9e2b8b95-c876-4b46-bce2-ec0e4512e0ac
+
 
 ---
 
@@ -50,7 +51,6 @@ Use gestures to navigate between pages and sections — no clicks required.
 🎥 **Demo Video – Computer Vision Navigation**  
 
 
-Uploading Computer Vision Post.mp4…
 
 
 ---
@@ -76,8 +76,6 @@ This stage transforms the portfolio into a **conversational assistant** that res
 
 🎥 **Demo Video – NLP & Avatar Interaction**  
 
-
-Uploading NLP Post.mp4…
 
 
 
