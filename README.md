@@ -50,8 +50,7 @@ Use gestures to navigate between pages and sections — no clicks required.
 
 🎥 **Demo Video – Computer Vision Navigation**  
 
-
-
+https://github.com/user-attachments/assets/a477904c-0fef-4f0e-9825-44cc158ce648
 
 ---
 
@@ -75,7 +74,6 @@ This stage transforms the portfolio into a **conversational assistant** that res
 </details>
 
 🎥 **Demo Video – NLP & Avatar Interaction**  
-
 
 
 
