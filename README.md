@@ -103,24 +103,69 @@ https://github.com/user-attachments/assets/5b2456c6-d6b0-4a0d-95e9-eff031c72152
 
 ---
 
+## 🧱 Engineering Architecture
+
+The project is organized around a browser-based Next.js experience with two interactive AI paths:
+
+```mermaid
+flowchart LR
+    Browser[Browser UI] --> Next[Next.js + React]
+    Next --> Vision[MediaPipe + TensorFlow.js]
+    Next --> NLP[Python NLP service]
+    NLP --> Response[Semantic response + voice output]
+```
+
+- The frontend owns the responsive interface, navigation, gesture events, and user interaction.
+- Computer-vision inference runs in the browser through MediaPipe and TensorFlow.js.
+- NLP processing is exposed through the Python service started with Uvicorn.
+- The UI combines returned semantic results with browser speech APIs for conversational interaction.
+
+## ⚖️ Engineering Decisions and Trade-offs
+
+- **MediaPipe + TensorFlow.js:** keeps gesture processing close to the browser and avoids sending camera frames to a remote service, at the cost of client-device performance differences.
+- **SBERT + cosine similarity:** provides semantic matching beyond exact keywords, while requiring a larger model/runtime than simple keyword rules.
+- **Web Speech API:** enables voice interaction without a separate speech backend, but browser support and voice quality vary by platform.
+- **Interactive AI features:** make the portfolio demonstrable, but camera and microphone permissions must be granted for the related experiences.
+
+## 🚀 Deployment
+
+The frontend is designed for deployment on Vercel. The NLP component runs as a separate Python/Uvicorn service and must be reachable by the frontend configuration. Camera and microphone features require a secure browser context such as HTTPS.
+
+## ⚠️ Limitations
+
+- Gesture recognition depends on lighting, camera quality, and client hardware.
+- Browser speech recognition and synthesis are not equally supported across browsers.
+- SBERT similarity is approximate and depends on the supplied knowledge/content.
+- The project is a portfolio demonstration, not a general-purpose conversational AI system.
+
 ## 🧠 Goal  
 
 To push the boundaries of what a personal portfolio can be — from a static showcase to a **living, intelligent interface** that reflects both creativity and technical depth.  
 
 ---
 
-## 🛠️ Setup & Run  
+## 🛠️ Setup & Run
+
+The project uses a frontend and a separate Python NLP service. Run them in separate terminals.
+
+### Frontend
 
 ```bash
-# Clone the repository
 git clone https://github.com/Nardy11/AI-Interactive-Portfolio.git
 cd AI-Interactive-Portfolio
-
-# Install dependencies
 npm install
+npm run dev
+```
+
+### NLP service
+
+From the service directory/configured Python entry point:
+
+```bash
 pip install -r requirements.txt
 python -m spacy download en_core_web_md
+uvicorn main:main_app --host 0.0.0.0 --port 8000
+```
 
-# Run the development server
-npm run dev
-uvicorn main:main_app  --host 0.0.0.0 --port 8000
+The exact service path and environment configuration should match the repository’s current source layout.
+
