@@ -1,5 +1,7 @@
 # 🧠 AI-Driven Interactive Portfolio  
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 > 🚀 *A next-generation portfolio that doesn’t just show your skills — it **demonstrates** them using real AI.*  
 
 ---
@@ -168,4 +170,8 @@ uvicorn main:main_app --host 0.0.0.0 --port 8000
 ```
 
 The exact service path and environment configuration should match the repository’s current source layout.
+
+## License
+
+MIT — see [LICENSE](./LICENSE).
 
