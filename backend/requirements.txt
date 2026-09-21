@@ -1,12 +1,8 @@
 fastapi
 uvicorn[standard]
 nltk
-spacy
-sentence-transformers
 scikit-learn
 faster-whisper
-gtts
-pydub
 PyPDF2
 sumy
 requests
