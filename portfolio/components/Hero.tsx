@@ -52,16 +52,28 @@ const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
   const [Virtualmouse, setVirtualmouse] = useState(false);
 
   const [status, setStatus] = useState<string>("");
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
   const startAssistant = async () => {
-    const res = await fetch("http://localhost:8000/nlp/start-assistant");
-    const data = await res.json();
-    setStatus(data.status);
-  };
-  const endAssistant = async () => {
-    if (status != "stopped") {
-      const res = await fetch("http://localhost:8000/nlp/stop-assistant");
+    try {
+      const res = await fetch(`${API_URL}/nlp/start-assistant`);
       const data = await res.json();
-      setStatus(data.status);
+      setStatus(data.status || "");
+    } catch (error) {
+      console.error("Failed to start NLP assistant:", error);
+      setStatus("Backend unavailable");
+    }
+  };
+
+  const endAssistant = async () => {
+    if (status !== "stopped") {
+      try {
+        const res = await fetch(`${API_URL}/nlp/stop-assistant`);
+        const data = await res.json();
+        setStatus(data.status || "");
+      } catch (error) {
+        console.error("Failed to stop NLP assistant:", error);
+      }
     }
   };
   const videoRef = useRef<HTMLVideoElement | null>(null)
