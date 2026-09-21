@@ -1,8 +1,5 @@
 import os
 import re
-import numpy as np
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -94,101 +91,68 @@ faq_pairs = {
 }
 
 sections = {
-    "skills": [
-        "I am proficient in Python, SQL, JavaScript, React, React Native, Flutter, Spring Boot, PostgreSQL, MongoDB, Docker, Redis, RabbitMQ, Nginx, Git, and microservices.",
-    ],
+    "skills": ["I am proficient in Python, SQL, JavaScript, React, React Native, Flutter, Spring Boot, PostgreSQL, MongoDB, Docker, Redis, RabbitMQ, Nginx, Git, and microservices."],
     "projects": [
         "I developed machine learning, computer vision, mobile, web, backend, Unity, VR, and AR projects.",
         "My portfolio includes a browser-side virtual mouse and an NLP-powered virtual assistant.",
     ],
-    "education": [
-        "I studied Computer Science and Engineering at the German University in Cairo from October 2020 to July 2025.",
-    ],
-    "experience": [
-        "I completed internships at ESG& Company, the German University in Cairo, Egyptian Electrical Solution, and Mentorness.",
-    ],
-    "certificates": [
-        "I completed certificates and courses in AI, machine learning, production ML, web development, and SQL.",
-    ],
-    "volunteering": [
-        "I participated in BRUKE Student Club and the IEEE Student Branch at GUC.",
-    ],
-    "personal": [
-        "I am Nardy Attaalla, an Egyptian computer science and engineering graduate based in Cairo.",
-    ],
-    "languages": [
-        "My mother tongue is Arabic and I speak English at B2 level.",
-    ],
+    "education": ["I studied Computer Science and Engineering at the German University in Cairo from October 2020 to July 2025."],
+    "experience": ["I completed internships at ESG& Company, the German University in Cairo, Egyptian Electrical Solution, and Mentorness."],
+    "certificates": ["I completed certificates and courses in AI, machine learning, production ML, web development, and SQL."],
+    "volunteering": ["I participated in BRUKE Student Club and the IEEE Student Branch at GUC."],
+    "personal": ["I am Nardy Attaalla, an Egyptian computer science and engineering graduate based in Cairo."],
+    "languages": ["My mother tongue is Arabic and I speak English at B2 level."],
 }
 
-stop_word = set(stopwords.words("english"))
-lemmatizer = WordNetLemmatizer()
-
 def text_preprocessing(sentence: str) -> str:
-    sentence = sentence.lower().strip()
-    sent = re.sub(r'[^\w\s]', '', sentence)
-    words = sent.split()
-    words = [word for word in words if word not in stop_word]
-    return " ".join(lemmatizer.lemmatize(word) for word in words)
+    return " ".join(re.findall(r"[a-z0-9]+", sentence.lower()))
 
 def keyword_section(question: str) -> str:
     q = text_preprocessing(question)
-    if any(word in q for word in ["skill", "framework", "technology", "tool", "database", "language"]):
+    if any(word in q.split() for word in ["skill", "skills", "framework", "technology", "tool", "database"]):
         return "skills"
-    if any(word in q for word in ["project", "developed", "built", "application", "app", "website", "game", "machine"]):
+    if any(word in q.split() for word in ["project", "projects", "developed", "built", "application", "app", "website", "game", "machine"]):
         return "projects"
-    if any(word in q for word in ["certificate", "course", "track"]):
+    if any(word in q.split() for word in ["certificate", "certificates", "course", "track"]):
         return "certificates"
-    if any(word in q for word in ["education", "study", "university", "thesis", "degree"]):
+    if any(word in q.split() for word in ["education", "study", "studied", "university", "thesis", "degree"]):
         return "education"
-    if any(word in q for word in ["experience", "worked", "intern", "job", "company"]):
+    if any(word in q.split() for word in ["experience", "worked", "intern", "job", "company"]):
         return "experience"
-    if any(word in q for word in ["volunteer", "club", "fundraising", "ieee"]):
+    if any(word in q.split() for word in ["volunteer", "club", "fundraising", "ieee"]):
         return "volunteering"
     return "personal"
 
+def normalize_question(question: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", question.lower()).strip()
+
 def NLP_start(user_question: str):
-    if user_question in faq_pairs:
-        return faq_pairs[user_question], "home"
+    normalized = normalize_question(user_question)
+
+    for question, answer in faq_pairs.items():
+        if normalized == normalize_question(question):
+            return answer, "home"
 
     section = keyword_section(user_question)
     answers = sections.get(section, sections["personal"])
+    tokens = set(normalized.split())
 
-    cleaned = text_preprocessing(user_question)
-    # Simple lexical scoring keeps this serverless-friendly while preserving
-    # the original portfolio Q&A behavior without shipping multi-GB ML models.
-    tokens = set(cleaned.split())
     if tokens:
         scored = sorted(
             answers,
             key=lambda answer: len(tokens.intersection(set(text_preprocessing(answer).split()))),
             reverse=True,
         )
-        answer = scored[0]
-    else:
-        answer = answers[0]
+        return scored[0], section
 
-    return answer, section
-
-def summarize_cv(url_env_name: str, label: str) -> str:
-    # Keep the CV summary endpoint lightweight and deterministic.
-    # The frontend already hosts the PDFs, so we return a useful status text
-    # instead of pulling PyPDF2/sumy into the serverless dependency graph.
-    cv_url = os.getenv(url_env_name, "")
-    if cv_url:
-        return f"{label} is available here: {cv_url}"
-    return f"{label} is available on the portfolio website."
+    return answers[0], section
 
 @nlp_app.post("/stream-audio")
 async def stream_audio(file: UploadFile = File(...)):
-    # Browser-side speech synthesis is already used by the portfolio.
-    # The server accepts the audio upload for API compatibility, but speech
-    # recognition is intentionally not server-side because Whisper is too large
-    # for the Vercel function bundle.
     try:
         await file.read()
         return {
-            "text": "I can answer portfolio questions through the text assistant. For voice recognition, browser speech recognition is recommended.",
+            "text": "Voice recognition is handled in the browser. Please use the Ask button in the portfolio assistant.",
             "section": "home",
         }
     except Exception as exc:
@@ -204,8 +168,8 @@ def stop_assistant():
 
 @nlp_app.get("/cv1-summary")
 def cv1_summary():
-    return {"text": summarize_cv("CV1_URL", "CV1")}
+    return {"text": f"CV1 is available here: {os.getenv('CV1_URL', '/cv1.pdf')}"}
 
 @nlp_app.get("/cv2-summary")
 def cv2_summary():
-    return {"text": summarize_cv("CV2_URL", "CV2")}
+    return {"text": f"CV2 is available here: {os.getenv('CV2_URL', '/cv2.pdf')}"}
