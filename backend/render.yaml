@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: ai-portfolio-backend
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
