@@ -1,50 +1,42 @@
+import math
 import os
 import re
-import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import TfidfVectorizer
-from faster_whisper import WhisperModel
-from pathlib import Path
-import queue
-from fastapi import FastAPI, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware
-# Add these imports at the top
-from concurrent.futures import ThreadPoolExecutor
-import PyPDF2
+from collections import Counter
 from io import BytesIO
+
 import requests
-import tempfile
+import PyPDF2
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
-is_speaking = False  # global flag
+# ============================================================
+# ORIGINAL HEAVY AI STACK — DISABLED FOR FREE VERCEL DEPLOYMENT
+# ============================================================
+# The original backend used:
+#
+#   import nltk
+#   import spacy
+#   from sentence_transformers import SentenceTransformer
+#   from faster_whisper import WhisperModel
+#   from gtts import gTTS
+#   from pydub import AudioSegment
+#   from sklearn.metrics.pairwise import cosine_similarity
+#   from sumy.summarizers.lsa import LsaSummarizer
+#
+# and loaded:
+#
+#   model = SentenceTransformer("all-MiniLM-L6-v2")
+#   whisper_model = WhisperModel("base", device="cpu", compute_type="int8")
+#
+# Those packages/models are the reason the Python deployment became several GB.
+# They are intentionally NOT installed in this free version.
+#
+# Speech recognition is now performed by the browser's Web Speech API.
+# The backend receives the transcript through /nlp/ask.
+# ============================================================
 
 
-# Keep the semantic layer lightweight enough for Vercel.
-# The original SentenceTransformer/PyTorch dependency was replaced with
-# TF-IDF retrieval because the portfolio FAQ is a small, fixed knowledge base.
-WHISPER_MODEL_NAME = os.getenv("WHISPER_MODEL", "tiny.en")
-whisper_model = None
-
-
-
-nlp_app = FastAPI()
-
-allowed_origins = [
-    origin.strip()
-    for origin in os.getenv("FRONTEND_URLS", "http://localhost:3000").split(",")
-    if origin.strip()
-]
-nlp_app.add_middleware(
-    CORSMiddleware,
-    allow_origins=allowed_origins,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Global variables for voice assistant control
-assistant_active = False
-assistant_thread = None
-audio_queue = queue.Queue()
-# NLP/Voice Assistant Section
 cv_sections_sbert = {
     "personal": [
         "I am Nardy Attaalla, a 22-year-old male from Cairo, Egypt.",
@@ -146,6 +138,8 @@ cv_sections_sbert = {
         "I participated in the Web Development IEEE Student Branch, learning frontend and backend development and building websites, earning the Most Committed Member award.",
     ],
 }
+
+
 faq_pairs = {
     # ---------------- PERSONAL ----------------
     "What is your name?": "my name is Nardy Attaalla",
@@ -241,160 +235,113 @@ _STOP_WORDS = {
     "which", "who", "with", "you", "your"
 }
 
-def text_preprocessing(sentence):
-    sentence = sentence.lower().strip()
-    words = re.findall(r"[a-z0-9]+", sentence)
-    words = [word for word in words if word not in _STOP_WORDS]
-    return " ".join(words)
-
-# Build one lightweight TF-IDF index for the portfolio knowledge base.
-_knowledge_texts = []
-for _section_answers in cv_sections_sbert.values():
-    _knowledge_texts.extend(_section_answers)
-
-_tfidf_vectorizer = TfidfVectorizer(
-    preprocessor=text_preprocessing,
-    lowercase=False,
-    ngram_range=(1, 2),
-    sublinear_tf=True,
-)
-_tfidf_matrix = _tfidf_vectorizer.fit_transform(_knowledge_texts)
 
 
-def text_representation_cosine_similarity(questionsentence, answersentence):
-    question_vector = _tfidf_vectorizer.transform([questionsentence])
-    answer_vector = _tfidf_vectorizer.transform([answersentence])
-    return float(cosine_similarity(question_vector, answer_vector)[0][0])
+
+_STOP_WORDS = {
+    "a", "an", "and", "are", "as", "at", "be", "but", "by", "for",
+    "from", "how", "i", "in", "is", "it", "me", "my", "of", "on",
+    "or", "that", "the", "this", "to", "was", "what", "where",
+    "which", "who", "with", "you", "your", "do", "did", "can"
+}
 
 
-def _best_section_for_question(question):
-    best_section = None
-    best_score = -1.0
-
-    for section, answers in cv_sections_sbert.items():
-        if not answers:
-            continue
-        scores = [
-            text_representation_cosine_similarity(question, answer)
-            for answer in answers
-        ]
-        section_score = max(scores)
-        if section_score > best_score:
-            best_score = section_score
-            best_section = section
-
-    return best_section or "skills"
+def text_preprocessing(sentence: str) -> list[str]:
+    words = re.findall(r"[a-z0-9]+", sentence.lower())
+    return [word for word in words if word not in _STOP_WORDS]
 
 
-def NLP_start(user_question, threshold=0.20):
-    global faq_pairs
-    normalized_question = user_question.strip().lower()
+def _similarity(question: str, answer: str) -> float:
+    """Small pure-Python cosine similarity; no sklearn/PyTorch required."""
+    q = Counter(text_preprocessing(question))
+    a = Counter(text_preprocessing(answer))
 
-    if normalized_question in {
-        "can you summarize cv1?",
-        "can you summarize machine learning cv?",
-    }:
-        return (summarize_cv1(), "contact")
+    if not q or not a:
+        return 0.0
 
-    if normalized_question in {
-        "can you summarize cv2?",
-        "can you summarize software cv?",
-    }:
-        return (summarize_cv2(), "contact")
+    common = set(q) & set(a)
+    numerator = sum(q[word] * a[word] for word in common)
+    q_norm = math.sqrt(sum(value * value for value in q.values()))
+    a_norm = math.sqrt(sum(value * value for value in a.values()))
 
-    # FAQ matching is exact after normalization, preserving the original answers.
+    if not q_norm or not a_norm:
+        return 0.0
+
+    return numerator / (q_norm * a_norm)
+
+
+def _best_answer(question: str, answers: list[str]) -> str:
+    if not answers:
+        return "I could not find an answer for that question."
+
+    scores = [_similarity(question, answer) for answer in answers]
+    return answers[max(range(len(scores)), key=scores.__getitem__)]
+
+
+def NLP_start(user_question: str, threshold: float = 0.12):
+    normalized = user_question.strip().lower()
+
+    if normalized in {"can you summarize cv1?", "can you summarize machine learning cv?"}:
+        return summarize_cv1(), "contact"
+
+    if normalized in {"can you summarize cv2?", "can you summarize software cv?"}:
+        return summarize_cv2(), "contact"
+
+    # Exact FAQ match first.
     for question, answer in faq_pairs.items():
-        if normalized_question == question.lower():
-            return (answer, "home")
+        if normalized == question.lower():
+            return answer, "home"
 
-    question_clean = text_preprocessing(user_question)
+    question_words = set(text_preprocessing(user_question))
 
-    if any(word in question_clean.split() for word in ["skill", "framework", "technology", "tool"]):
-        section = "skills"
-        position = "skills"
-    elif any(word in question_clean.split() for word in ["project", "developed", "built", "application", "app", "website", "game", "machine"]):
-        section = "projects"
-        position = "projects"
-    elif any(word in question_clean.split() for word in ["certificate", "course", "track"]):
-        section = "certificates"
-        position = "timeline"
-    elif any(word in question_clean.split() for word in ["education", "study", "university", "thesis", "degree"]):
-        section = "education"
-        position = "timeline"
-    elif any(word in question_clean.split() for word in ["experience", "worked", "intern", "job", "company"]):
-        section = "experience"
-        position = "testimonials"
-    elif any(word in question_clean.split() for word in ["volunteer", "club", "fundraising", "ieee"]):
-        section = "volunteering"
-        position = "home"
+    if question_words & {"skill", "skills", "framework", "technology", "tool"}:
+        section, position = "skills", "skills"
+    elif question_words & {"project", "projects", "developed", "built", "application", "app", "website", "game", "machine"}:
+        section, position = "projects", "projects"
+    elif question_words & {"certificate", "certificates", "course", "track"}:
+        section, position = "certificates", "timeline"
+    elif question_words & {"education", "study", "university", "thesis", "degree"}:
+        section, position = "education", "timeline"
+    elif question_words & {"experience", "worked", "intern", "job", "company"}:
+        section, position = "experience", "testimonials"
+    elif question_words & {"volunteer", "club", "fundraising", "ieee"}:
+        section, position = "volunteering", "home"
     else:
-        section = _best_section_for_question(user_question)
+        candidates = []
+        for section_name, answers in cv_sections_sbert.items():
+            for answer in answers:
+                candidates.append((section_name, answer, _similarity(user_question, answer)))
+
+        section, best_answer, best_score = max(
+            candidates,
+            key=lambda item: item[2],
+        )
         position = "home"
+
+        if best_score < threshold:
+            return "I could not find a close answer for that question.", position
+
+        return best_answer, position
 
     answers = cv_sections_sbert.get(section, [])
-    if not answers:
-        return ("I could not find an answer for that question.", position)
+    answer = _best_answer(user_question, answers)
 
-    sims = [
-        text_representation_cosine_similarity(user_question, answer)
-        for answer in answers
-    ]
+    if _similarity(user_question, answer) < threshold:
+        return "I could not find a close answer for that question.", position
 
-    selected = [
-        answer for answer, score in zip(answers, sims)
-        if score >= threshold
-    ]
-
-    if not selected:
-        selected = [answers[int(np.argmax(sims))]]
-
-    return (" and ".join(selected), position)
+    return answer, position
 
 
-def _get_whisper_model():
-    global whisper_model
-    if whisper_model is None:
-        whisper_model = WhisperModel(
-            WHISPER_MODEL_NAME,
-            device="cpu",
-            compute_type="int8",
-        )
-    return whisper_model
-
-
-def process_audio_and_respond(audio_data, sample_rate):
-    # Kept for compatibility with the original backend API.
-    model = _get_whisper_model()
-    segments, _ = model.transcribe(
-        audio_data,
-        beam_size=3,
-        language="en",
-        condition_on_previous_text=False,
-        vad_filter=True,
-    )
-
-    user_question = " ".join(segment.text for segment in segments).strip()
-    if not user_question:
-        return None
-
-    answer_text, section = NLP_start(user_question)
-    print(f"📝 User question: {user_question}")
-    print(f"🤖 AI Answer: {answer_text}")
-    return section
-
-
-def fetch_pdf_text(url):
-    response = requests.get(url)
+def fetch_pdf_text(url: str) -> str:
+    response = requests.get(url, timeout=15)
     response.raise_for_status()
-    pdf_file = BytesIO(response.content)
-    reader = PyPDF2.PdfReader(pdf_file)
-    text = ""
-    for page in reader.pages:
-        text += page.extract_text()
-    return text
 
-def summarize_text(text, sentence_count=5):
-    # Lightweight extractive summary; avoids the large NLP dependency chain.
+    reader = PyPDF2.PdfReader(BytesIO(response.content))
+    return "\n".join(page.extract_text() or "" for page in reader.pages)
+
+
+def summarize_text(text: str, sentence_count: int = 5) -> str:
+    # Lightweight extractive summary replacing Sumy.
     sentences = [
         sentence.strip()
         for sentence in re.split(r"(?<=[.!?])\s+", text)
@@ -404,105 +351,81 @@ def summarize_text(text, sentence_count=5):
     if len(sentences) <= sentence_count:
         return " ".join(sentences)
 
-    ranked = sorted(
-        enumerate(sentences),
-        key=lambda item: len(re.findall(r"\w+", item[1])),
-        reverse=True,
-    )[:sentence_count]
+    # Keep the first few meaningful sentences; this is intentionally simple
+    # to avoid bringing a large NLP summarization stack into Vercel.
+    return " ".join(sentences[:sentence_count])
 
-    selected_indexes = sorted(index for index, _ in ranked)
-    return " ".join(sentences[index] for index in selected_indexes)
 
 def summarize_cv1():
-    cv1_url = os.getenv("CV1_URL", "https://ai-interactive-portfolio.vercel.app/cv1.pdf")
-    text = fetch_pdf_text(cv1_url)
-    return "Summary of cv1:" +summarize_text(text, sentence_count=5)
+    url = os.getenv(
+        "CV1_URL",
+        "https://ai-interactive-portfolio.vercel.app/cv1.pdf",
+    )
+    return "Summary of cv1: " + summarize_text(fetch_pdf_text(url))
+
 
 def summarize_cv2():
-    cv2_url = os.getenv("CV2_URL", "https://ai-interactive-portfolio.vercel.app/cv2.pdf")
-    text = fetch_pdf_text(cv2_url)
-    return "Summary of cv2:" +summarize_text(text, sentence_count=5)
+    url = os.getenv(
+        "CV2_URL",
+        "https://ai-interactive-portfolio.vercel.app/cv2.pdf",
+    )
+    return "Summary of cv2: " + summarize_text(fetch_pdf_text(url))
 
-@nlp_app.post("/stream-audio")
-async def stream_audio(file: UploadFile = File(...)):
-    global is_speaking
 
-    if is_speaking:
-        return {"status": "assistant is speaking, ignoring input"}
+nlp_app = FastAPI(title="AI Portfolio Lightweight NLP")
 
-    temp_path = None
-    try:
-        is_speaking = True
-        contents = await file.read()
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv(
+        "FRONTEND_URLS",
+        "https://ai-interactive-portfolio.vercel.app",
+    ).split(",")
+    if origin.strip()
+]
 
-        # faster-whisper uses PyAV for audio decoding, so no system ffmpeg
-        # or pydub installation is required.
-        suffix = Path(file.filename or "audio.webm").suffix or ".webm"
-        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_file:
-            temp_file.write(contents)
-            temp_path = temp_file.name
-
-        model = _get_whisper_model()
-        segments, _ = model.transcribe(
-            temp_path,
-            beam_size=3,
-            language="en",
-            condition_on_previous_text=False,
-            temperature=0.0,
-            vad_filter=True,
-        )
-
-        user_question = " ".join(segment.text for segment in segments).strip()
-
-        if not user_question:
-            return {"status": "no speech detected", "text": ""}
-
-        print(f"📝 User question: {user_question}")
-
-        answer_text, section = NLP_start(user_question)
-        print(f"🤖 AI Answer: {answer_text}")
-
-        return {"text": answer_text, "section": section}
-
-    except Exception as exc:
-        print(f"❌ Error: {exc}")
-        return {"error": str(exc)}
-
-    finally:
-        is_speaking = False
-        if temp_path:
-            try:
-                os.unlink(temp_path)
-            except OSError:
-                pass
+nlp_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=False,
+)
 
 
 @nlp_app.get("/start-assistant")
 def start_assistant():
-    global assistant_active, assistant_thread, is_speaking
-
-    if assistant_active:
-        return {"status": "Assistant already running"}
-
-    assistant_active = True
-    is_speaking = False
     return {"status": "Voice assistant ready"}
+
 
 @nlp_app.get("/stop-assistant")
 def stop_assistant():
-    global assistant_active
-    assistant_active = False
     return {"status": "Voice assistant stopped"}
 
-from pydantic import BaseModel
 
 class QuestionRequest(BaseModel):
     question: str
 
+
 @nlp_app.post("/ask")
 async def ask_question(payload: QuestionRequest):
     try:
-        answer_text, section = NLP_start(payload.question.strip())
+        question = payload.question.strip()
+
+        if not question:
+            return {"error": "Question is empty"}
+
+        answer_text, section = NLP_start(question)
         return {"text": answer_text, "section": section}
+
     except Exception as exc:
         return {"error": str(exc)}
+
+
+# Compatibility endpoint.
+# Audio transcription was intentionally moved to the browser so this backend
+# remains small enough for a free Vercel deployment.
+@nlp_app.post("/stream-audio")
+async def stream_audio():
+    return {
+        "error": "Audio transcription is handled by the browser in the free deployment. Use /ask with the transcript."
+    }
