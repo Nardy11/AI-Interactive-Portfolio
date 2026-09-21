@@ -2,6 +2,7 @@ import os
 import re
 import nltk
 import numpy as np
+from gtts import gTTS
 from sentence_transformers import SentenceTransformer
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
