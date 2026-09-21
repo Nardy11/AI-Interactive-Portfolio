@@ -1,9 +1,6 @@
 import os
 import re
-import nltk
 import numpy as np
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 from faster_whisper import WhisperModel
@@ -14,20 +11,12 @@ from fastapi.middleware.cors import CORSMiddleware
 # Add these imports at the top
 from concurrent.futures import ThreadPoolExecutor
 import PyPDF2
-from sumy.parsers.plaintext import PlaintextParser
-from sumy.nlp.tokenizers import Tokenizer
-from sumy.summarizers.lsa import LsaSummarizer
 from io import BytesIO
 import requests
 import tempfile
 
-nltk.download("punkt_tab")
-nltk.download("wordnet")
-nltk.download("stopwords")
 is_speaking = False  # global flag
 
-stop_word = stopwords.words("english")
-lemmatizer = WordNetLemmatizer()
 
 # Keep the semantic layer lightweight enough for Vercel.
 # The original SentenceTransformer/PyTorch dependency was replaced with
@@ -245,22 +234,18 @@ faq_pairs = {
     "Did you join ieee?": "I participated in the Web Development IEEE Student Branch, learning frontend and backend development and building websites, earning the Most Committed Member award.",
 }
 
+_STOP_WORDS = {
+    "a", "an", "and", "are", "as", "at", "be", "but", "by", "for",
+    "from", "how", "i", "in", "is", "it", "me", "my", "of", "on",
+    "or", "that", "the", "this", "to", "was", "what", "where",
+    "which", "who", "with", "you", "your"
+}
+
 def text_preprocessing(sentence):
-    output=[]
-    #make all lower case
     sentence = sentence.lower().strip()
-    # Removing punctuation
-    sent=re.sub(r'[^\w\s]','',sentence)
-    # Tokenizing sentences
-    words=nltk.word_tokenize(sent)
-    # Removing stopwords 
-    words=[word for word in words if not word in stop_word]
-    # Lemmatizating
-    for word in words:
-        output.append(lemmatizer.lemmatize(word))
-    # Joining back
-    result=" ".join(output) 
-    return result
+    words = re.findall(r"[a-z0-9]+", sentence)
+    words = [word for word in words if word not in _STOP_WORDS]
+    return " ".join(words)
 
 # Build one lightweight TF-IDF index for the portfolio knowledge base.
 _knowledge_texts = []
@@ -409,10 +394,24 @@ def fetch_pdf_text(url):
     return text
 
 def summarize_text(text, sentence_count=5):
-    parser = PlaintextParser.from_string(text, Tokenizer("english"))
-    summarizer = LsaSummarizer()
-    summary = summarizer(parser.document, sentence_count)
-    return " ".join([str(sentence) for sentence in summary])
+    # Lightweight extractive summary; avoids the large NLP dependency chain.
+    sentences = [
+        sentence.strip()
+        for sentence in re.split(r"(?<=[.!?])\s+", text)
+        if sentence.strip()
+    ]
+
+    if len(sentences) <= sentence_count:
+        return " ".join(sentences)
+
+    ranked = sorted(
+        enumerate(sentences),
+        key=lambda item: len(re.findall(r"\w+", item[1])),
+        reverse=True,
+    )[:sentence_count]
+
+    selected_indexes = sorted(index for index, _ in ranked)
+    return " ".join(sentences[index] for index in selected_indexes)
 
 def summarize_cv1():
     cv1_url = os.getenv("CV1_URL", "https://ai-interactive-portfolio.vercel.app/cv1.pdf")
