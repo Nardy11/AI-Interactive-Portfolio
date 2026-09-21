@@ -421,12 +421,12 @@ def summarize_text(text, sentence_count=5):
     return " ".join([str(sentence) for sentence in summary])
 
 def summarize_cv1():
-    cv1_url = os.getenv("CV1_URL", "http://localhost:3000/cv1.pdf")
+    cv1_url = os.getenv("CV1_URL", "https://ai-interactive-portfolio.vercel.app/cv1.pdf")
     text = fetch_pdf_text(cv1_url)
     return "Summary of cv1:" +summarize_text(text, sentence_count=5)
 
 def summarize_cv2():
-    cv2_url = os.getenv("CV2_URL", "http://localhost:3000/cv2.pdf")
+    cv2_url = os.getenv("CV2_URL", "https://ai-interactive-portfolio.vercel.app/cv2.pdf")
     text = fetch_pdf_text(cv2_url)
     return "Summary of cv2:" +summarize_text(text, sentence_count=5)
 
