@@ -1,9 +1,7 @@
 import os
 import re
 import nltk
-import sounddevice as sd
 import numpy as np
-from gtts import gTTS
 from sentence_transformers import SentenceTransformer
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -18,7 +16,6 @@ from fastapi import FastAPI, UploadFile, File, responses
 import io
 from fastapi.middleware.cors import CORSMiddleware
 import threading
-import pyttsx3
 # Add these imports at the top
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
@@ -30,7 +27,7 @@ from sumy.summarizers.lsa import LsaSummarizer
 from io import BytesIO
 import requests
 import spacy
-ner=spacy.load('en_core_web_md')
+ner=spacy.blank("en")
 
 nltk.download("punkt_tab")
 nltk.download("wordnet")
@@ -46,12 +43,14 @@ whisper_model = WhisperModel("base", device="cpu", compute_type="int8")
 
 nlp_app = FastAPI()
 
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("FRONTEND_URLS", "http://localhost:3000").split(",")
+    if origin.strip()
+]
 nlp_app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:3000/",
-    ],
+    allow_origins=allowed_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -401,10 +400,6 @@ def process_audio_and_respond(audio_data, sample_rate):
     print(f"🤖 AI Answer: {answer_text}")
 
     # 🚨 Pause mic listening while speaking
-    is_speaking = True
-    engine = pyttsx3.init()
-    engine.say(answer_text)
-    engine.runAndWait()
     is_speaking = False
     return section
 
@@ -498,9 +493,8 @@ async def stream_audio(file: UploadFile = File(...)):
 
         is_speaking = False
 
-        # --- Step 3: Return *text* instead of audio ---
-        return {answer_text,
-        }
+        # Return structured JSON for browser-side speech synthesis.
+        return {"text": answer_text, "section": section}
 
     except Exception as e:
         is_speaking = False
@@ -515,11 +509,8 @@ def start_assistant():
         return {"status": "Assistant already running"}
 
     assistant_active = True
-    is_speaking = True
-    engine = pyttsx3.init()
-    engine.say('Hello I am your assistant. How can I help you?')
-    engine.runAndWait()
     is_speaking = False
+    return {"status": "Voice assistant ready"}
 
 @nlp_app.get("/stop-assistant")
 def stop_assistant():
