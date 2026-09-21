@@ -119,7 +119,7 @@ function AvatarModel({ isTalking }: AvatarOverlayProps) {
   const mediaStreamRef = useRef<MediaStream | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://ai-interactive-portfolio-back-end.vercel.app";
 
   const processRecording = useCallback(async (audioBlob: Blob) => {
     setStatusText("🤔 Transcribing...");
@@ -263,7 +263,7 @@ export default function AvatarOverlay() {
 
   const recognitionRef = useRef<any>(null);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://ai-interactive-portfolio-back-end.vercel.app";
 
   const getSpeechRecognition = () => {
     if (typeof window === "undefined") return null;
