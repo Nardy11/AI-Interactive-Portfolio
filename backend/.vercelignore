@@ -1,0 +1,7 @@
+CV.py
+Dockerfile
+render.yaml
+__pycache__/
+*.pyc
+.venv/
+venv/
