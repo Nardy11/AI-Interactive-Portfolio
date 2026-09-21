@@ -52,7 +52,7 @@ const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
   const [Virtualmouse, setVirtualmouse] = useState(false);
 
   const [status, setStatus] = useState<string>("");
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://ai-interactive-portfolio-back-end.vercel.app";
 
   const startAssistant = async () => {
     try {
