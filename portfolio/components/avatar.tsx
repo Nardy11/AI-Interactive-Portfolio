@@ -261,140 +261,105 @@ export default function AvatarOverlay() {
   const [recognizing, setRecognizing] = useState(false);
   const [statusText, setStatusText] = useState("💬 Ready");
 
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const mediaStreamRef = useRef<MediaStream | null>(null);
-  const audioChunksRef = useRef<Blob[]>([]);
+  const recognitionRef = useRef<any>(null);
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
-  const processRecording = useCallback(async (audioBlob: Blob) => {
-    setStatusText("🤔 Transcribing...");
+  const getSpeechRecognition = () => {
+    if (typeof window === "undefined") return null;
+    return (
+      (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition ||
+      null
+    );
+  };
 
-    try {
-      const formData = new FormData();
-      const extension = audioBlob.type.includes("mp4") ? "m4a" : "webm";
-      formData.append("file", audioBlob, `voice.${extension}`);
+  const startListening = useCallback(() => {
+    const SpeechRecognitionCtor = getSpeechRecognition();
 
-      const response = await fetch(`${API_URL}/nlp/stream-audio`, {
-        method: "POST",
-        body: formData,
-      });
+    if (!SpeechRecognitionCtor) {
+      setStatusText("❌ Speech recognition is not supported in this browser");
+      return;
+    }
 
-      const data = await response.json();
+    const recognition = new SpeechRecognitionCtor();
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
 
-      if (!response.ok || data.error) {
-        throw new Error(data.error || "Assistant request failed");
-      }
+    recognition.onstart = () => {
+      setRecognizing(true);
+      setStatusText("🎙️ Listening...");
+    };
 
-      if (!data.text) {
+    recognition.onerror = (event: any) => {
+      console.error("Speech recognition error:", event);
+      setRecognizing(false);
+      setStatusText("❌ Could not understand speech");
+    };
+
+    recognition.onend = () => {
+      setRecognizing(false);
+    };
+
+    recognition.onresult = async (event: any) => {
+      const transcript = event.results?.[0]?.[0]?.transcript?.trim();
+
+      if (!transcript) {
         setStatusText("❌ No speech detected");
         return;
       }
 
-      setStatusText("🗣️ AI Speaking...");
-      setIsTalking(true);
+      setStatusText("🤔 Thinking...");
 
-      const utterance = new SpeechSynthesisUtterance(data.text);
-      utterance.rate = 1;
-
-      utterance.onend = () => {
-        setIsTalking(false);
-        setStatusText("💬 Ready");
-      };
-
-      speechSynthesis.cancel();
-      speechSynthesis.speak(utterance);
-    } catch (error) {
-      console.error("Assistant error:", error);
-      setIsTalking(false);
-      setStatusText("❌ Assistant error");
-    }
-  }, [API_URL]);
-
-  const startListening = useCallback(async () => {
-    if (isTalking || recognizing) return;
-
-    if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
-      setStatusText("❌ Audio recording is not supported in this browser");
-      return;
-    }
-
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaStreamRef.current = stream;
-      audioChunksRef.current = [];
-
-      const preferredTypes = [
-        "audio/webm;codecs=opus",
-        "audio/webm",
-        "audio/mp4",
-      ];
-      const mimeType = preferredTypes.find((type) => MediaRecorder.isTypeSupported(type));
-
-      const recorder = mimeType
-        ? new MediaRecorder(stream, { mimeType })
-        : new MediaRecorder(stream);
-
-      recorder.onstart = () => {
-        setRecognizing(true);
-        setStatusText("🎙️ Listening...");
-      };
-
-      recorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          audioChunksRef.current.push(event.data);
-        }
-      };
-
-      recorder.onerror = () => {
-        setRecognizing(false);
-        setStatusText("❌ Recording failed");
-      };
-
-      recorder.onstop = async () => {
-        setRecognizing(false);
-        mediaStreamRef.current?.getTracks().forEach((track) => track.stop());
-        mediaStreamRef.current = null;
-
-        const chunks = audioChunksRef.current;
-        audioChunksRef.current = [];
-
-        if (!chunks.length) {
-          setStatusText("❌ No audio captured");
-          return;
-        }
-
-        const blob = new Blob(chunks, {
-          type: recorder.mimeType || "audio/webm",
+      try {
+        const response = await fetch(`${API_URL}/nlp/ask`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question: transcript }),
         });
 
-        await processRecording(blob);
-      };
+        const data = await response.json();
 
-      mediaRecorderRef.current = recorder;
-      recorder.start();
-    } catch (error) {
-      console.error("Microphone error:", error);
-      setStatusText("❌ Microphone permission denied");
-    }
-  }, [isTalking, recognizing, processRecording]);
+        if (!response.ok || data.error) {
+          throw new Error(data.error || "Assistant request failed");
+        }
+
+        setStatusText("🗣️ AI Speaking...");
+        setIsTalking(true);
+
+        const utterance = new SpeechSynthesisUtterance(data.text || "");
+        utterance.rate = 1;
+
+        utterance.onend = () => {
+          setIsTalking(false);
+          setStatusText("💬 Ready");
+        };
+
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utterance);
+      } catch (error) {
+        console.error("Assistant error:", error);
+        setIsTalking(false);
+        setStatusText("❌ Assistant error");
+      }
+    };
+
+    recognitionRef.current = recognition;
+    recognition.start();
+  }, [API_URL]);
 
   const stopListening = useCallback(() => {
-    const recorder = mediaRecorderRef.current;
-
-    if (recorder && recorder.state !== "inactive") {
-      setStatusText("🤔 Processing...");
-      recorder.stop();
-    }
-
-    mediaRecorderRef.current = null;
+    recognitionRef.current?.stop?.();
+    recognitionRef.current = null;
     setRecognizing(false);
+    setStatusText("💬 Ready");
   }, []);
 
   useEffect(() => {
     return () => {
-      mediaRecorderRef.current?.stop();
-      mediaStreamRef.current?.getTracks().forEach((track) => track.stop());
+      recognitionRef.current?.stop?.();
       speechSynthesis.cancel();
     };
   }, []);
