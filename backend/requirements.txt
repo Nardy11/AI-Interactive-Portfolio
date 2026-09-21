@@ -1,10 +1,8 @@
 fastapi
 uvicorn[standard]
-nltk
 scikit-learn
 faster-whisper
 PyPDF2
-sumy
 requests
 numpy
 python-multipart
