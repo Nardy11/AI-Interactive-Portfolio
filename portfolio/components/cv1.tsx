@@ -30,6 +30,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
   const streamRef = useRef<MediaStream | null>(null)
   const lastClickRef = useRef(0)
   const lastYRef = useRef<number | null>(null)
+  const lastScrollTimeRef = useRef(0)
   const runningRef = useRef(false)
 
   useImperativeHandle(ref, () => ({
@@ -102,6 +103,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
     setHandDetected(false)
     setIsClicking(false)
     lastYRef.current = null
+    lastScrollTimeRef.current = 0
   }
 
   const processFrame = async () => {
@@ -116,8 +118,29 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
         const hand = hands[0]
         const keypoints = hand.keypoints
         const indexTip = keypoints[8]
-        const thumbTip = keypoints[4]
+        const indexPip = keypoints[6]
+        const indexMcp = keypoints[5]
+        const middleTip = keypoints[12]
+        const middlePip = keypoints[10]
         const middleMcp = keypoints[9]
+        const thumbTip = keypoints[4]
+
+        const distance = (a: any, b: any) =>
+          Math.hypot(a.x - b.x, a.y - b.y)
+
+        // Finger extension is measured relative to the MCP joint so that
+        // bent fingers do not accidentally trigger the two-finger mode.
+        const indexExtended =
+          !!indexTip &&
+          !!indexPip &&
+          !!indexMcp &&
+          distance(indexTip, indexMcp) > distance(indexPip, indexMcp) * 1.15
+
+        const middleExtended =
+          !!middleTip &&
+          !!middlePip &&
+          !!middleMcp &&
+          distance(middleTip, middleMcp) > distance(middlePip, middleMcp) * 1.15
 
         if (indexTip) {
           const cursorX = Math.min(
@@ -129,29 +152,53 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
             Math.max(0, (indexTip.y / videoRef.current.videoHeight) * window.innerHeight)
           )
 
-          setCursorPosition({ x: cursorX, y: cursorY })
           setHandDetected(true)
 
-          const pinchDistance = thumbTip && indexTip
-            ? Math.hypot(indexTip.x - thumbTip.x, indexTip.y - thumbTip.y)
+          const pinchDistance = thumbTip
+            ? distance(indexTip, thumbTip)
             : Infinity
 
           const now = Date.now()
-          if (pinchDistance < 35 && now - lastClickRef.current > 700) {
+
+          // INDEX + THUMB PINCH = CLICK.
+          // Keep this separate from scrolling so a normal two-finger gesture
+          // does not accidentally click.
+          if (
+            indexExtended &&
+            pinchDistance < 42 &&
+            now - lastClickRef.current > 700
+          ) {
             lastClickRef.current = now
             setIsClicking(true)
             handleVirtualClick(cursorX, cursorY)
             window.setTimeout(() => setIsClicking(false), 180)
           }
 
-          if (middleMcp) {
+          // TWO FINGERS (INDEX + MIDDLE) = SCROLL.
+          // Move both fingertips upward to scroll up and downward to scroll down.
+          if (indexExtended && middleExtended && middleTip) {
+            const averageY = (indexTip.y + middleTip.y) / 2
+
             if (lastYRef.current !== null) {
-              const deltaY = middleMcp.y - lastYRef.current
-              if (Math.abs(deltaY) > 10) {
-                window.scrollBy({ top: deltaY * 3, behavior: "auto" })
+              const deltaY = averageY - lastYRef.current
+
+              if (Math.abs(deltaY) > 3 && now - lastScrollTimeRef.current > 20) {
+                window.scrollBy({
+                  top: deltaY * 5,
+                  behavior: "auto",
+                })
+                lastScrollTimeRef.current = now
               }
             }
-            lastYRef.current = middleMcp.y
+
+            lastYRef.current = averageY
+          } else {
+            // ONE FINGER = MOVE CURSOR WITH INDEX FINGER.
+            // Do not update the scroll baseline while only one finger is active.
+            lastYRef.current = null
+            if (indexExtended) {
+              setCursorPosition({ x: cursorX, y: cursorY })
+            }
           }
         }
       } else {
