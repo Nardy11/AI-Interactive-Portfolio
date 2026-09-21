@@ -308,7 +308,7 @@ export default function AvatarOverlay() {
   setStatusText("🤔 Thinking...");
 
   try {
-      const response = await fetch("http://localhost:8000/nlp/stream-audio", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/nlp/stream-audio`, {
       method: "POST",
       body: formData,
     });
