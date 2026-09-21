@@ -106,7 +106,9 @@ const stopCamera = () => {
 
   const connectWebSocket = () => {
     if (!isMountedRef.current) return
-    wsRef.current = new WebSocket('ws://localhost:8000/cv/hand-tracking')
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    const wsURL = API_URL.replace(/^http/, "ws");
+    wsRef.current = new WebSocket(`${wsURL}/cv/hand-tracking`)
 
     wsRef.current.onopen = () => {
       console.log('✅ Connected to backend')
