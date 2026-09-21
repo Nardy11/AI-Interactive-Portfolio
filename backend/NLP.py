@@ -518,3 +518,16 @@ def stop_assistant():
     global assistant_active
     assistant_active = False
     return {"status": "Voice assistant stopped"}
+
+from pydantic import BaseModel
+
+class QuestionRequest(BaseModel):
+    question: str
+
+@nlp_app.post("/ask")
+async def ask_question(payload: QuestionRequest):
+    try:
+        answer_text, section = NLP_start(payload.question.strip())
+        return {"text": answer_text, "section": section}
+    except Exception as exc:
+        return {"error": str(exc)}
