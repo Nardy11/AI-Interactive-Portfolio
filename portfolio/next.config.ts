@@ -1,18 +1,24 @@
 import type { NextConfig } from "next";
 
+const backendUrl = process.env.BACKEND_URL || "http://localhost:8000";
+
 const nextConfig: NextConfig = {
   images: {
-    domains: [
-      "api.microlink.io", // Microlink Image Preview
-    ],
+    domains: ["api.microlink.io"],
   },
   eslint: {
-    // ✅ Prevent ESLint errors from breaking your Vercel build
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // ✅ Prevent TS errors from breaking Vercel build
     ignoreBuildErrors: true,
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${backendUrl}/:path*`,
+      },
+    ];
   },
 };
 
