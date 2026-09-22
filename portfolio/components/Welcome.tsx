@@ -38,7 +38,7 @@ const Welcome = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="relative w-full min-h-screen flex flex-col items-center justify-start overflow-y-auto -top-14"
+          className="relative w-full min-h-screen flex flex-col items-center justify-start overflow-x-hidden overflow-y-auto -top-14"
         >
           <LampContainer>
             <motion.div layoutId="avatar">
@@ -55,16 +55,16 @@ const Welcome = () => {
                 />
               </BackgroundGradient>
             </motion.div>
-            <div className="text-center w-full max-w-3xl translate-x-5 translate-y-9">
+            <div className="text-center w-full max-w-3xl px-4 sm:px-0 translate-y-9">
               <TypewriterEffect words={words} />
             </div>
           </LampContainer>
 
-          <CardContainer className="w-full max-w-6xl flex flex-wrap justify-center gap-4 -top-64">
+          <CardContainer className="w-full max-w-6xl flex flex-col md:flex-row items-center justify-center gap-5 px-4 sm:px-6 md:px-4 -top-64">
             {cards.map((card, idx) => (
               <CardBody
                 key={idx}
-                className="group relative flex flex-col bg-gray-50 dark:bg-black border border-black/10 dark:border-white/20 rounded-xl p-3 sm:p-4 flex-1 min-w-[240px] max-w-[300px] hover:scale-105 transition-transform"
+                className="group relative flex flex-col bg-gray-50 dark:bg-black border border-black/10 dark:border-white/20 rounded-xl p-3 sm:p-4 w-full max-w-[330px] md:flex-1 md:max-w-[300px] hover:scale-105 transition-transform"
               >
                 <CardItem
                   translateZ="50"
