@@ -52,6 +52,7 @@ const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
   const [Virtualmouse, setVirtualmouse] = useState(false);
 
   const [status, setStatus] = useState<string>("");
+  const [timelineStep, setTimelineStep] = useState(24);
   const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://ai-interactive-portfolio-back-end.vercel.app";
 
   const startAssistant = async () => {
@@ -81,6 +82,18 @@ const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentMode]);
+
+  useEffect(() => {
+    const updateTimelineStep = () => {
+      // Keep the zigzag proportional to the viewport without letting it
+      // push the timeline bubbles outside a narrow mobile screen.
+      setTimelineStep(Math.min(60, Math.max(24, window.innerWidth * 0.12)));
+    };
+
+    updateTimelineStep();
+    window.addEventListener("resize", updateTimelineStep);
+    return () => window.removeEventListener("resize", updateTimelineStep);
+  }, []);
 
   const words = [
     { text: "Hi!" },
@@ -377,47 +390,37 @@ React.useEffect(() => {
       {/* Timeline Section */}
       <div
         id="timeline"
-        className="relative flex flex-col items-center justify-center min-h-[100vh] -top-10  px-4 bg-gradient-to-b"
+        className="relative flex w-full flex-col items-center justify-center min-h-[100vh] -top-10 px-4 sm:px-6 overflow-hidden"
       >
-        {/* Title */}
         <TextGenerateEffect
           words="Timeline"
           className="text-center text-[40px] md:text-5xl lg:text-6xl mb-10 text-white"
         />
 
-        {/* Zigzag Circles */}
-        <div className="flex flex-col gap-12">
+        {/* Responsive centered zigzag */}
+        <div className="flex w-full max-w-2xl flex-col items-center gap-10 sm:gap-12">
           {items.map((item, idx) => {
-            // --- params you can tweak ---
-            const cycle = 5;          // pattern length (up then down)
-            const stepPx = 60;        // horizontal shift per step (px)
-            // --------------------------------
-
-            const posInCycle = idx % cycle; // 0..9
+            const cycle = 5;
+            const posInCycle = idx % cycle;
             const offsetSteps = posInCycle <= cycle / 2
               ? posInCycle
               : cycle - posInCycle;
 
             const blockIndex = Math.floor(idx / cycle);
             const side = blockIndex % 2 === 0 ? -1 : 1;
-
-            const translateX = side * offsetSteps * stepPx; // px
-
-            const justifyClass = translateX <= 0 ? "justify-start" : "justify-end";
+            const translateX = side * offsetSteps * timelineStep;
 
             return (
-              <div key={idx} className={`flex ${justifyClass}`}>
+              <div key={idx} className="flex w-full items-center justify-center">
                 <LinkPreview url={item.url} className="block">
                   <motion.div
-                    // x is static offset (px), y is the floating animation
                     animate={{ x: translateX, y: [0, -8, 0] }}
                     transition={{
-                      x: { duration: 0.4 }, // small smoothing for x (instantish)
+                      x: { duration: 0.4 },
                       y: { duration: 3, repeat: Infinity, repeatType: "loop", ease: "easeInOut" },
                     }}
-                    className="w-32 h-32 md:w-40 md:h-40 rounded-full flex items-center justify-center text-white font-bold bg-gradient-to-br from-cyan-500 to-purple-500 shadow-lg"
+                    className="w-[min(9rem,42vw)] h-[min(9rem,42vw)] md:w-40 md:h-40 rounded-full flex items-center justify-center text-center px-3 text-sm md:text-base leading-tight text-white font-bold bg-gradient-to-br from-cyan-500 to-purple-500 shadow-lg"
                   >
-
                     {item.name}
                   </motion.div>
                 </LinkPreview>
@@ -425,22 +428,21 @@ React.useEffect(() => {
             );
           })}
         </div>
-
-
-
       </div>
 
 
       {/* Contact Section */}
-      <section id="contact" className="relative flex flex-col items-center justify-center min-h-screen py-20 overflow-hidden">
+      <section id="contact" className="relative flex w-full flex-col items-center justify-center min-h-screen py-20 px-4 sm:px-6 overflow-hidden">
         <Particles id="tsparticles" init={particlesInit} options={particlesOptions} className="absolute inset-0 z-0" />
-        <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} viewport={{ once: true }} className="relative z-10 flex flex-col items-center text-center">
-          <h2 className="text-5xl md:text-6xl font-bold text-cyan-400 glow-neon mb-10">Thank you for visiting my journey</h2>
-          <div className="flex flex-row gap-8">
+        <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} viewport={{ once: true }} className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
+          <h2 className="w-full max-w-3xl text-3xl sm:text-4xl md:text-6xl leading-tight font-bold text-cyan-400 glow-neon mb-10 px-2">
+            Thank you for visiting my journey
+          </h2>
+          <div className="flex w-full max-w-xl flex-wrap items-center justify-center gap-4 sm:gap-6">
             {contactIcons.map((icon, idx) => (
-              <motion.a key={idx} href={icon.href} target="_blank" whileHover={{ scale: 1.2, rotate: 10 }} whileTap={{ scale: 0.95 }} className="relative w-20 h-20 flex items-center justify-center rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:shadow-cyan-500/50 transition-shadow duration-300">
-                <img src={icon.icon} alt={icon.name} className="w-10 h-10" />
-                <span className="absolute w-24 h-24 rounded-full bg-cyan-400 opacity-20 animate-ping"></span>
+              <motion.a key={idx} href={icon.href} target="_blank" whileHover={{ scale: 1.2, rotate: 10 }} whileTap={{ scale: 0.95 }} className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 flex items-center justify-center rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:shadow-cyan-500/50 transition-shadow duration-300">
+                <img src={icon.icon} alt={icon.name} className="w-8 h-8 sm:w-10 sm:h-10" />
+                <span className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-cyan-400 opacity-20 animate-ping pointer-events-none"></span>
               </motion.a>
             ))}
           </div>
