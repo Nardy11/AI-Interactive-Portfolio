@@ -323,7 +323,7 @@ React.useEffect(() => {
 
       {/* Projects Section */}
       <div id="projects" className="flex flex-col items-center mt-40 text-center w-full">
-        <TextGenerateEffect words="Projects" className="text-center text-[40px] md:text-5xl lg:text-6xl" />
+        <TextGenerateEffect words="Projects" className="text-center text-[32px] sm:text-[40px] md:text-5xl lg:text-6xl px-4" />
         <div className="flex justify-center w-full max-w-6xl py-10 overflow-visible">
           <Carousel slides={slideData} />
         </div>
@@ -332,13 +332,13 @@ React.useEffect(() => {
       {/* Modes Section */}
       <div id="modes" className="flex flex-col items-center mt-40">
         <TextGenerateEffect words="Try another Mode" className="text-center text-[40px] md:text-5xl lg:text-6xl mt-20" />
-        <div className="w-full flex justify-center mt-10">
-          <div className="flex flex-row items-center justify-center gap-10">
+        <div className="w-full flex justify-center mt-10 px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row w-full items-center justify-center gap-6 md:gap-10">
             {modeCards.map((card, idx) => (
-              <CardSpotlight key={idx} className="h-96 w-96 flex flex-col items-center justify-between p-4">
+              <CardSpotlight key={idx} className="h-auto min-h-[22rem] w-full max-w-[22rem] sm:max-w-[24rem] md:h-96 md:w-96 flex flex-col items-center justify-between p-4">
                 <div className="flex flex-col items-center justify-center text-center mt-4">
                   <p className="relative text-xl font-bold text-white">{card.title}</p>
-                  <img src={card.img} alt={card.title} width={220} height={220} className="relative object-cover w-full h-64 mt-4" />
+                  <img src={card.img} alt={card.title} width={220} height={220} className="relative object-cover w-full h-52 sm:h-56 md:h-64 mt-4" />
                 </div>
                 <button
                   className="relative mt-auto px-5 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-sm font-bold"
@@ -362,9 +362,9 @@ React.useEffect(() => {
       </div>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="relative flex flex-col items-center justify-center py-40  dark:bg-black-100">
+      <section id="testimonials" className="relative flex flex-col items-center justify-center py-24 sm:py-32 md:py-40 overflow-hidden">
         <TextGenerateEffect words="What People Say About My Work" className="text-center text-[40px] md:text-5xl lg:text-6xl" />
-        <div className="h-[30rem] w-full max-w-6xl rounded-md flex flex-col antialiased bg-white dark:bg-black-100 dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden ">
+        <div className="h-auto min-h-[24rem] sm:h-[30rem] w-full max-w-6xl flex flex-col antialiased bg-transparent items-center justify-center relative overflow-hidden">
           <InfiniteMovingCards
             items={testimonials}
             direction="right"
