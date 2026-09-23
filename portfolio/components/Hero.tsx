@@ -32,6 +32,7 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
   const [hand,setHand]=useState(false);
   const [tracking,setTracking]=useState(false);
   const [status,setStatus]=useState('Ready');
+  const [cursorPosition,setCursorPosition]=useState({x:50,y:50});
   const handRef=useRef<HandTrackingHandle>(null);
   const previewRef=useRef<HTMLVideoElement>(null);
   const streamRef=useRef<MediaStream|null>(null);
@@ -43,10 +44,11 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
     if(previewRef.current){ previewRef.current.srcObject=stream; if(stream) previewRef.current.play().catch(()=>{}); }
   };
   const onHand=(detected:boolean)=>{ setHand(detected); };
+  const onCursorMove=(position:{x:number;y:number})=>setCursorPosition(position);
 
   useEffect(()=>{
     if(mode==='cv'){ setStatus('Camera initializing...'); requestAnimationFrame(()=>handRef.current?.startCamera()); }
-    else { handRef.current?.stopCamera(); setCamera(false); setHand(false); setTracking(false); setStatus('Ready'); }
+    else { handRef.current?.stopCamera(); setCamera(false); setHand(false); setTracking(false); setStatus('Ready'); setCursorPosition({x:50,y:50}); }
   },[mode]);
   useEffect(()=>()=>{ handRef.current?.stopCamera(); streamRef.current?.getTracks().forEach(t=>t.stop()); },[]);
   useEffect(()=>{ if(camera) setStatus(hand?'Hand detected':'Camera connected'); },[camera,hand]);
@@ -58,7 +60,7 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
 
   return <div className={`${styles.page} ${dark?styles.dark:styles.light}`}>
     {mode==='nlp' && <AvatarOverlay />}
-    <HandTrackingMouse ref={handRef} onStreamChange={onStream} onHandStatusChange={onHand}/>
+    <HandTrackingMouse ref={handRef} onStreamChange={onStream} onHandStatusChange={onHand} onCursorMove={onCursorMove}/>
 
     <header className={styles.navbar}>
       <a href="#home" className={styles.brand} onClick={()=>changeMode('normal')}><span className={styles.brandMark}>NA</span><span><strong>Nardy Attalla</strong><small>CS Engineer | Aspiring ML Engineer</small></span></a>
@@ -82,7 +84,8 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
           <p>I build modern web and mobile applications, explore Machine Learning, and turn ideas into practical software.</p>
           <div className={styles.heroButtons}><a className={styles.primaryButton} href="#projects">View My Projects <ArrowRight size={17}/></a><a className={styles.outlineButton} href="/full_stack_cv_edited.pdf" target="_blank"><Download size={16}/> Download CV</a></div>
         </div>
-        <div className={styles.heroVisual}><div className={styles.visualGlow}/><div className={styles.cityLine}/><div className={styles.visualQuote}>Same<br/>Engineer.<br/>Bigger<br/>Possibilities.</div><div className={styles.cursorDemo}><CircleDot size={26}/><span>Controlled by Hand</span></div></div>
+        <div className={styles.heroVisual}><div className={styles.visualGlow}/><div className={styles.cityLine}/><div className={styles.visualQuote}>Same<br/>Engineer.<br/>Bigger<br/>Possibilities.</div></div>
+        {mode==='cv' && hand && <div className={styles.cursorDemo} style={{left:cursorPosition.x,top:cursorPosition.y}}><CircleDot size={26}/><span>Controlled by Hand</span></div>}
 
         {mode==='cv' && <aside className={styles.cvPanel}>
           <div className={styles.panelHeader}><div><h3><Hand size={18}/> Computer Vision Mode</h3><p>Control this portfolio using hand gestures</p></div><div className={styles.panelHeaderActions}><span className={styles.activePill}><span/>{camera?'Active':'Starting'}</span><button className={styles.panelIcon} onClick={()=>changeMode('normal')} aria-label="Close"><X size={17}/></button></div></div>
@@ -97,13 +100,13 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
 
       <section className={styles.statsBar}>{stats.map(([value,label])=><div key={label}><span>{value}</span><small>{label}</small></div>)}</section>
 
-      <section id="projects" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>SELECTED WORK</span><h2>Featured Projects</h2></div><a href="#projects">View All <ChevronRight size={17}/></a></div><div className={styles.projectGrid}>{projects.map(p=><article className={styles.projectCard} key={p.title}><div className={styles.projectImageWrap}><img src={p.image} alt="" className={styles.projectImage}/></div><div className={styles.projectBody}><h3>{p.title}</h3><p>{p.description}</p><div className={styles.tags}>{p.tags.map(t=><span key={t}>{t}</span>)}</div></div></article>)}</div></section>
+      <section id="projects" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>SELECTED WORK</span><h2>Featured Projects</h2></div><a href="#projects" onClick={(e)=>{e.preventDefault();document.getElementById('projects')?.scrollIntoView({behavior:'smooth',block:'start'});}}>View All Projects <ChevronRight size={17}/></a></div><div className={styles.projectGrid}>{projects.map(p=><article className={styles.projectCard} key={p.title}><div className={styles.projectImageWrap}><img src={p.image} alt="" className={styles.projectImage}/></div><div className={styles.projectBody}><h3>{p.title}</h3><p>{p.description}</p><div className={styles.tags}>{p.tags.map(t=><span key={t}>{t}</span>)}</div></div></article>)}</div></section>
 
       <section id="experience" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>CAREER</span><h2>Experience</h2></div><a href="#contact">Open to opportunities <ChevronRight size={17}/></a></div><div className={styles.experienceGrid}><article className={styles.experienceCard}><BriefcaseBusiness size={20}/><div><h3>Full-Stack / Software Engineer</h3><p>Prime Softworks × Poseidon X · Jul 2026 – Present</p><span>React · React Native · TypeScript · NestJS · PostgreSQL/Supabase · Docker</span></div></article><article className={styles.experienceCard}><Server size={20}/><div><h3>Backend Systems Engineer</h3><p>Huawei Technologies · Dec 2025 – Jun 2026</p><span>Linux production environments · SQL · operational data · troubleshooting</span></div></article></div></section>
 
       <section id="skills" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>CAPABILITIES</span><h2>What I Work On</h2></div></div><div className={styles.skillGrid}>{skills.map(([Icon,title,text])=>{const SkillIcon=Icon as React.ElementType;return <div className={styles.skillCard} key={String(title)}><SkillIcon size={21}/><h3>{String(title)}</h3><p>{String(text)}</p></div>})}</div><div className={styles.learningBlock}><div><span className={styles.sectionKicker}>CURRENT DIRECTION</span><h3>Growing deeper into ML</h3><p>Machine Learning fundamentals and Computer Vision are already part of my projects. Deep learning, MLOps and RAG are the next steps.</p></div><div className={styles.learningGrid}>{[[BrainCircuit,'Machine Learning'],[Cpu,'Computer Vision'],[Server,'MLOps'],[Sparkles,'RAG — Next']].map(([Icon,title])=>{const I=Icon as React.ElementType;return <div key={String(title)}><I size={18}/><span>{String(title)}</span></div>})}</div></div></section>
 
-      <section id="about" className={styles.section}><div className={styles.aboutCard}><div><span className={styles.sectionKicker}>ABOUT</span><h2>Software engineer with a growing ML focus.</h2></div><p>I’m a Computer Science and Engineering graduate from the German University in Cairo. I enjoy building full-stack and mobile products while developing practical Machine Learning and Computer Vision skills through projects, research and continuous learning.</p><div className={styles.aboutMeta}><span><Database size={16}/> SQL / NoSQL</span><span><Github size={16}/> GitHub / CI</span><span><Linkedin size={16}/> Professional network</span></div></div></section>
+      <section id="about" className={styles.section}><div className={styles.aboutCard}><div><span className={styles.sectionKicker}>ABOUT</span><h2>Software engineer with a growing ML focus.</h2></div><p>I’m a Computer Science and Engineering graduate from the German University in Cairo. I enjoy building full-stack and mobile products while developing practical Machine Learning and Computer Vision skills through projects, research and continuous learning.</p><div className={styles.aboutMeta}><span><Database size={16}/> SQL / NoSQL</span><a href="https://github.com/Nardy11" target="_blank" rel="noreferrer"><Github size={16}/> GitHub</a><a href="https://www.linkedin.com/in/nardy-attallah" target="_blank" rel="noreferrer"><Linkedin size={16}/> LinkedIn</a></div></div></section>
 
       <section id="contact" className={styles.contact}><div><span className={styles.sectionKicker}>LET’S CONNECT</span><h2>Open to opportunities.</h2><p>Software engineering, full-stack development and ML-focused opportunities.</p></div><div className={styles.contactLinks}><a href="mailto:nardymichelle2003@gmail.com"><CircleDot size={16}/> Email</a><a href="https://www.linkedin.com/in/nardy-attallah" target="_blank"><Linkedin size={16}/> LinkedIn</a><a href="https://github.com/Nardy11" target="_blank"><Github size={16}/> GitHub</a></div></section>
     </main>
