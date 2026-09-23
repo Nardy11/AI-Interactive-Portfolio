@@ -117,3 +117,42 @@
   .heroVisual{height:335px}.portraitCard{left:18%;top:18px;width:210px;height:205px}.learningNote{left:3%;top:18px}.heroQuote{right:0;top:24px;width:130px;font-size:9px}.heroStats{right:0;bottom:0;width:145px}
   .earth{display:none}.projectGrid,.lowerGrid{grid-template-columns:1fr}.lowerColumn:last-child{grid-column:auto}.lowerColumn+.lowerColumn{border-left:0}.skillCloud{grid-template-columns:repeat(3,1fr)}.testimonialGrid{grid-template-columns:1fr}.testimonial{height:auto;min-height:150px}.opportunity{height:auto;min-height:82px;flex-wrap:wrap}.opportunity>a{margin-left:auto}
 }
+
+/* UNIFIED THEME */
+:global(html[data-theme="light"]) .home{background:#f5f8fc;color:#172033}
+:global(html[data-theme="light"]) .hero{background:linear-gradient(105deg,#f8fbff,#eef4fb);border-bottom-color:#dce5ef}
+:global(html[data-theme="light"]) .heroGridLines{opacity:.35;background-image:linear-gradient(rgba(74,104,145,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(74,104,145,.12) 1px,transparent 1px)}
+:global(html[data-theme="light"]) .heroGlow{background:radial-gradient(circle,rgba(50,91,210,.12),transparent 68%)}
+:global(html[data-theme="light"]) .heroCopy h1{color:#172033}
+:global(html[data-theme="light"]) .heroCopy p{color:#5f6f84}
+:global(html[data-theme="light"]) .heroCopy p strong{color:#3978d8}
+:global(html[data-theme="light"]) .secondaryButton{color:#243247;border-color:#aebed1;background:rgba(255,255,255,.7)}
+:global(html[data-theme="light"]) .featured{background:linear-gradient(180deg,#f4f8fc,#edf3f9);border-bottom-color:#dce5ef}
+:global(html[data-theme="light"]) .sectionTitleWrap h2,:global(html[data-theme="light"]) .sectionHeadingCompact h2{color:#172033}
+:global(html[data-theme="light"]) .sectionTitleWrap p,:global(html[data-theme="light"]) .sectionHeadingCompact p{color:#68778c}
+:global(html[data-theme="light"]) .projectCard{background:#fff;border-color:#d5dfeb;box-shadow:0 7px 18px rgba(31,53,82,.08)}
+:global(html[data-theme="light"]) .projectBody h3{color:#172033}
+:global(html[data-theme="light"]) .projectBody p{color:#68778c}
+:global(html[data-theme="light"]) .projectTags span{background:#eaf2ff;color:#416b9d}
+:global(html[data-theme="light"]) .lower{background:linear-gradient(180deg,#edf3f9,#f6f9fc)}
+:global(html[data-theme="light"]) .timelineContent b,:global(html[data-theme="light"]) .testimonial b{color:#172033}
+:global(html[data-theme="light"]) .timelineContent small,:global(html[data-theme="light"]) .testimonial small{color:#718096}
+:global(html[data-theme="light"]) .timelineRow em{background:#eaf3ff;border-color:#c7d9ee}
+:global(html[data-theme="light"]) .skillTabs{background:#dfe8f2}
+:global(html[data-theme="light"]) .skillTabs button{color:#64748b}
+:global(html[data-theme="light"]) .skillCloud span,:global(html[data-theme="light"]) .learningCard,:global(html[data-theme="light"]) .testimonial,:global(html[data-theme="light"]) .opportunity{background:#fff;border-color:#d5dfeb}
+:global(html[data-theme="light"]) .skillCloud span,:global(html[data-theme="light"]) .learningItems span{color:#53657b}
+:global(html[data-theme="light"]) .learningHeader{color:#172033}
+:global(html[data-theme="light"]) .learningItems span{background:#edf3f9}
+:global(html[data-theme="light"]) .testimonial>p{color:#334155}
+:global(html[data-theme="light"]) .opportunityCopy b{color:#172033}
+:global(html[data-theme="light"]) .opportunityCopy p{color:#718096}
+
+/* UNIFIED HERO ALIGNMENT */
+.hero{height:276px}.heroGrid{height:276px;grid-template-columns:49% 51%}.heroCopy{padding-left:0}.heroCopy h1{font-size:39px;letter-spacing:-1.7px}.kicker{font-size:9px;letter-spacing:4px}
+@media(max-width:1050px){.hero{height:auto;min-height:540px}.heroGrid{height:auto;min-height:540px;grid-template-columns:1fr}.heroCopy{padding:60px 0 20px}}
+@media(max-width:680px){.hero{min-height:650px}.heroGrid{min-height:650px}.heroCopy h1{font-size:36px}.heroCopy{padding-top:42px}}
+
+:global(html[data-theme="light"]) .dashboardFooter{background:#f8fafc;border-top-color:#dce5ef}
+:global(html[data-theme="light"]) .dashboardFooterMiddle,:global(html[data-theme="light"]) .dashboardFooterLocation{color:#64748b}
+:global(html[data-theme="light"]) .dashboardFooterMiddle span{color:#94a3b8}

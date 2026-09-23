@@ -67,3 +67,28 @@
 .cta{height:91px;margin:0 41px;position:relative;border:1px solid #5477d7;border-radius:9px;overflow:hidden;display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 38px;box-sizing:border-box;background:linear-gradient(100deg,#0b284d,#101c46 55%,#34205a)}.ctaBackdrop{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(7,23,45,.88),rgba(13,26,54,.55),rgba(43,27,71,.35)),url("https://turbo.6tu.com/2023/08/20230827095625730.jpg");background-size:cover;background-position:center 58%;opacity:.62}.ctaCopy,.ctaButton{position:relative;z-index:1}.ctaCopy h2{margin:0;color:#f2f5fb;font-size:18px;letter-spacing:-.4px}.ctaCopy p{margin:6px 0 0;color:#a9b9d1;font-size:9px}.ctaButton{height:38px;padding:0 22px;display:inline-flex;align-items:center;gap:8px;border-radius:18px;text-decoration:none;color:#fff;font-size:9px;font-weight:700;background:linear-gradient(105deg,#367dff,#625cff);box-shadow:0 8px 24px rgba(49,98,255,.3)}
 @media(max-width:900px){.skillsHero{height:auto;min-height:430px;grid-template-columns:1fr}.heroCopy{padding:38px 7% 20px}.heroVisual{height:250px}.technicalSection{height:auto;padding:20px 6% 28px}.skillGrid{grid-template-columns:repeat(2,1fr);grid-template-rows:auto}.roadmapSection{height:auto;padding:20px 6% 24px}.workflowSection{height:auto;grid-template-columns:1fr 1fr;padding:16px 6%}.quoteCard{grid-column:1/-1;margin-top:12px}.softSection{height:auto;padding:16px 6% 24px}.cta{margin:0 6%;height:100px}.sectionHeading{grid-template-columns:auto 1fr}.sectionHeading>em{display:none}}
 @media(max-width:620px){.skillsHero{min-height:570px}.heroCopy h1{font-size:35px}.desktopBreak{display:none}.heroVisual{height:245px}.heroQuote{top:40px}.heroNote{right:10px}.skillGrid{grid-template-columns:1fr}.roadmap{grid-template-columns:1fr;height:auto;gap:12px}.roadGroup{height:auto}.roadLine{display:none}.roadItems{justify-content:flex-start;gap:8px}.workflowSection{grid-template-columns:1fr}.currentLearning{border-left:0;border-top:1px solid rgba(83,113,157,.18);padding:14px 0 0;margin-top:14px}.dailyGrid{grid-template-columns:repeat(4,1fr)}.softGrid{grid-template-columns:1fr}.cta{margin:0 4%;padding:0 18px}.ctaCopy h2{font-size:15px}.ctaButton{padding:0 15px}.sectionHeading{display:block;height:auto}.sectionHeading>p{text-align:left;margin:4px 0 8px}.logoGrid{grid-template-columns:repeat(3,1fr)!important}}
+
+/* UNIFIED THEME */
+:global(html[data-theme="light"]) .skillsPage{background:#f5f8fc;color:#172033}
+:global(html[data-theme="light"]) .skillsHero{background:#f8fbff;border-bottom-color:#dce5ef}
+:global(html[data-theme="light"]) .heroCopy h1,:global(html[data-theme="light"]) .sectionHeading h2{color:#172033}
+:global(html[data-theme="light"]) .heroCopy p,:global(html[data-theme="light"]) .sectionHeading>p,:global(html[data-theme="light"]) .sectionHeading>em{color:#64748b}
+:global(html[data-theme="light"]) .secondaryButton{color:#243247;border-color:#b8c5d5;background:#fff}
+:global(html[data-theme="light"]) .technicalSection,:global(html[data-theme="light"]) .roadmapSection,:global(html[data-theme="light"]) .workflowSection,:global(html[data-theme="light"]) .softSection{border-bottom-color:#dce5ef}
+:global(html[data-theme="light"]) .skillCard,:global(html[data-theme="light"]) .roadmap,:global(html[data-theme="light"]) .dailyTool>span,:global(html[data-theme="light"]) .learningGrid span,:global(html[data-theme="light"]) .softCard{background:linear-gradient(145deg,#fff,#f3f6fa);border-color:#d5dfeb}
+:global(html[data-theme="light"]) .skillCardHeading h3,:global(html[data-theme="light"]) .skillLogo small,:global(html[data-theme="light"]) .softCard h3{color:#172033}
+:global(html[data-theme="light"]) .skillCardHeading p,:global(html[data-theme="light"]) .roadGroup span,:global(html[data-theme="light"]) .softCard p,:global(html[data-theme="light"]) .dailyTool small{color:#64748b}
+:global(html[data-theme="light"]) .skillLogo>span{background:#eef3f8;border-color:#d5dfeb}
+:global(html[data-theme="light"]) .roadGroup h3{color:#47627f}
+:global(html[data-theme="light"]) .progressTrack{background:#e1e8f0;border-color:#cdd8e5}
+:global(html[data-theme="light"]) .roadLegend{color:#64748b}
+:global(html[data-theme="light"]) .quoteCard{background:#fff;border-color:#d5dfeb;color:#334155}
+:global(html[data-theme="light"]) .cta{background:linear-gradient(110deg,#e9f2ff,#f4efff);border-color:#b8c8e6}
+:global(html[data-theme="light"]) .ctaCopy h2{color:#172033}
+:global(html[data-theme="light"]) .ctaCopy p{color:#64748b}
+
+/* UNIFIED HERO ALIGNMENT */
+.skillsHero{height:276px;grid-template-columns:49% 51%;padding:0}
+.heroCopy{padding:42px 0 0 6.3%}.kicker{font-size:9px;letter-spacing:4px;margin-bottom:10px}.heroCopy h1{font-size:39px}.heroCopy p{font-size:10.5px}.heroVisual{min-height:276px}
+@media(max-width:900px){.skillsHero{height:auto;min-height:430px}.heroCopy{padding:38px 7% 20px}}
+@media(max-width:620px){.skillsHero{min-height:570px}.heroCopy h1{font-size:35px}}
