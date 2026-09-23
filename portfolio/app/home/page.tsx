@@ -1,7 +1,2 @@
-"use client";
-
-import Hero from "@/components/Hero";
-
-export default function HomePage() {
-  return <Hero initialMode="normal" />;
-}
+import DashboardHome from "@/components/DashboardHome";
+export default function HomePage(){return <DashboardHome/>}
