@@ -1,23 +1,230 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, BriefcaseBusiness, GraduationCap, MapPin, Target, Award, BookOpen } from "lucide-react";
+import { ArrowRight, Award, BookOpen, BriefcaseBusiness, CalendarDays, GraduationCap, MapPin, Plane, Target } from "lucide-react";
 import { PageFrame } from "@/components/PortfolioPages";
 import styles from "@/components/PortfolioPages.module.css";
 
-const items=[
-["Dec 2025 – Jun 2026","Huawei (Via Premier Service & Recruitment)","Linux & Database Administrator","Cairo, Egypt (Onsite)","Linux, Databases, Monitoring, Telecom","Worked in a UAE telecom client environment (du), involved in system monitoring, incident and change management, log analysis and reporting."],
-["Aug 2024 – Oct 2024","German University in Cairo (GUC)","Flutter Developer Intern","Cairo, Egypt","Flutter, Firebase, Dart, Mobile","Developed a mobile application as part of an internship, gaining hands-on experience in Flutter development and Firebase integration."],
-["Jun 2024 – Aug 2024","ESG & Company","Flutter Developer Intern","Cairo, Egypt","Flutter, Firebase, App Development","Worked on a Flutter mobile application for environmental data management, focusing on real-world data integration and user-centric design."],
-["Mar 2025","Egyptian Electrical Solution (EES)","Flutter App & Web Developer Intern","Cairo, Egypt","Flutter, Firebase, Web Dashboard","Built a Flutter mobile app and a web dashboard using Firebase, contributing to a complete full-stack solution."],
-["2023","MIE Competition – Stuttgart","Participant","Stuttgart, Germany","Competition, Innovation, Teamwork","Participated in the Microsoft Innovation in Education competition, working on innovative technology solutions."]
+type ExperienceItem = {
+  date: string;
+  company: string;
+  role: string;
+  place: string;
+  tags: string[];
+  description: string;
+  mark: string;
+  markClass: string;
+};
+
+const experiences: ExperienceItem[] = [
+  {
+    date: "Dec 2025
+– Present",
+    company: "Huawei (Via Premier Service & Recruitment)",
+    role: "Linux & Database Administrator",
+    place: "Cairo, Egypt (Onsite)",
+    tags: ["Linux", "Databases", "Monitoring", "Telecom"],
+    description: "Working as a Linux and Database Administrator in a UAE telecom client environment (du). Involved in system monitoring, incident and change management, log analysis and reporting.",
+    mark: "HUAWEI",
+    markClass: "huawei",
+  },
+  {
+    date: "Aug 2024
+– Oct 2024",
+    company: "German University in Cairo (GUC)",
+    role: "Flutter Developer Intern",
+    place: "Cairo, Egypt",
+    tags: ["Flutter", "Firebase", "Dart", "Mobile"],
+    description: "Developed a mobile application as part of an internship, gaining hands-on experience in Flutter development and Firebase integration.",
+    mark: "GUC",
+    markClass: "guc",
+  },
+  {
+    date: "Jun 2024
+– Aug 2024",
+    company: "ESG & Company",
+    role: "Flutter Developer Intern",
+    place: "Cairo, Egypt",
+    tags: ["Flutter", "Firebase", "App Development"],
+    description: "Worked on a Flutter mobile application for environmental data management, focusing on real-world data integration and user-centric design.",
+    mark: "ESG",
+    markClass: "esg",
+  },
+  {
+    date: "Mar 2025",
+    company: "Egyptian Electrical Solution (EES)",
+    role: "Flutter App & Web Developer Intern",
+    place: "Cairo, Egypt",
+    tags: ["Flutter", "Firebase", "Web Dashboard"],
+    description: "Built a Flutter mobile app and a web dashboard using Firebase, contributing to a complete full-stack solution.",
+    mark: "EES",
+    markClass: "ees",
+  },
+  {
+    date: "2023",
+    company: "MIE Competition – Stuttgart",
+    role: "Participant",
+    place: "Stuttgart, Germany",
+    tags: ["Competition", "Innovation", "Teamwork"],
+    description: "Participated in the Microsoft Innovation in Education (MIE) competition, working on innovative technology solutions in a global environment.",
+    mark: "MIE",
+    markClass: "mie",
+  },
 ];
 
-export default function Experience(){return <PageFrame active="Experience"><main className={styles.container}>
-<section className={styles.projectPageHero}><div><div className={styles.kicker}>EXPERIENCE &amp; EDUCATION</div><h1 className={styles.sectionTitle} style={{fontSize:54}}>My Journey <span className={styles.gradient}>So Far</span></h1><p className={styles.sectionIntro}>A journey of learning, building and continuously improving. From working in industry to building real-world projects and diving deeper into Machine Learning and AI — every step has shaped what I want to build next.</p><div className={styles.heroButtons}><a href="/full_stack_cv_edited.pdf" target="_blank" className={styles.button}>Download CV</a><a href="https://www.linkedin.com/in/nardy-attallah" target="_blank" rel="noreferrer" className={styles.buttonGhost}>View LinkedIn <ArrowRight size={14}/></a></div></div><div className={styles.experienceHeroVisual}><Image src="/Distance_stereo.jpeg" alt="" fill sizes="500px"/><div>“A little progress every day adds up to big results.”<small>— Nardy Attalla</small></div></div></section>
+const coursework = [
+  "Data Structures & Algorithms",
+  "Machine Learning",
+  "Computer Vision",
+  "Databases",
+  "Software Engineering",
+  "Computer Networks",
+];
 
-<section className={styles.sectionBlock}><div className={styles.experienceLayout}><div><div className={styles.sectionLabel}><BriefcaseBusiness/><h2>Professional Experience</h2><span>Real experience. Real impact.</span></div><div className={styles.timeline}>{items.map(([date,company,role,place,tags,desc])=><article className={styles.timelineItem} key={company}><div className={styles.timelineDate}>{date}</div><div className={styles.timelineCard}><div className={styles.timelineTop}><div><h3>{role}</h3><div className={styles.sub}>{company}</div></div><span><MapPin size={11}/> {place}</span></div><div className={styles.chips}>{tags.split(", ").map(t=><span key={t}>{t}</span>)}</div><p>{desc}</p></div></article>)}</div></div><aside className={styles.quickFacts}><h3>Quick Facts</h3><div><BriefcaseBusiness/><b>4+</b><span>Professional &amp; Internship Experiences</span></div><div><Target/><b>10+</b><span>Projects Completed</span></div><div><GraduationCap/><b>B.Sc.</b><span>Computer Science and Engineering (GUC)</span></div><div><MapPin/><b>Cairo, Egypt</b><span>Open to opportunities worldwide</span></div></aside></div></section>
+const certificates = [
+  { mark: "IBM", title: "AI Workflow Specialization", provider: "Coursera", className: "ibm" },
+  { mark: "C", title: "Machine Learning Specialization", provider: "Coursera", className: "coursera" },
+  { mark: "✦", title: "Building AI", provider: "Helsinki", className: "helsinki" },
+  { mark: "S", title: "SQL", provider: "SoloLearn", className: "sololearn" },
+];
 
-<section className={styles.sectionBlock}><div className={styles.sectionLabel}><GraduationCap/><h2>Education</h2></div><div className={styles.educationGrid}><div className={styles.card}><h3>German University in Cairo (GUC)</h3><p>B.Sc. Computer Science and Engineering · 2021 – 2025</p><div className={styles.chips}><span>Computer Science</span><span>Software Engineering</span><span>Machine Learning</span></div><p>Studied software systems, algorithms, databases, machine learning and emerging technologies. Graduated in July 2025.</p></div><div className={styles.coursework}><h3><BookOpen size={17}/> Relevant Coursework</h3>{["Data Structures & Algorithms","Machine Learning","Computer Vision","Databases","Software Engineering","Computer Networks"].map(x=><span key={x}>{x}</span>)}</div></div></section>
+function BrandMark({ text, className }: { text: string; className: string }) {
+  return <div className={`${styles.experienceBrandMark} ${styles[className as keyof typeof styles]}`}>{text}</div>;
+}
 
-<section className={styles.sectionBlock}><div className={styles.sectionLabel}><Award/><h2>Certifications &amp; Learning</h2><span>Always learning. Always improving.</span></div><div className={styles.certGrid}>{["IBM AI Workflow Specialization","Machine Learning Specialization","Building AI — University of Helsinki","SQL — SoloLearn"].map(x=><div className={styles.certCard} key={x}><Award size={22}/><h3>{x}</h3><p>Learning &amp; professional development</p><a href="/full_stack_cv_edited.pdf" target="_blank">View Certificate <ArrowRight size={12}/></a></div>)}</div></section>
-</main></PageFrame>}
+export default function Experience() {
+  return (
+    <PageFrame active="Experience">
+      <main className={styles.experiencePage}>
+        <section className={styles.experienceHero}>
+          <div className={styles.experienceHeroCopy}>
+            <div className={styles.kicker}>EXPERIENCE &amp; EDUCATION</div>
+            <h1>My Journey <span>So Far</span></h1>
+            <p className={styles.experienceLead}>A journey of learning, building and continuously improving.</p>
+            <p className={styles.experienceDescription}>
+              From working in industry, to building real-world projects, to diving deeper
+              into Machine Learning and AI — every step has shaped who I am today
+              and where I want to go next.
+            </p>
+            <div className={styles.experienceHeroButtons}>
+              <a href="/full_stack_cv_edited.pdf" target="_blank" rel="noreferrer" className={styles.button}>
+                ↓&nbsp; Download CV
+              </a>
+              <a href="https://www.linkedin.com/in/nardy-attallah" target="_blank" rel="noreferrer" className={styles.buttonGhost}>
+                View LinkedIn <ArrowRight size={14} />
+              </a>
+            </div>
+          </div>
+
+          <div className={styles.experienceHeroImage}>
+            <div className={styles.experienceMountain} />
+            <div className={styles.experienceHeroQuote}>
+              <span>“A little progress<br />every day adds up to<br />big results.”</span>
+              <small>— Nardy Attalla</small>
+            </div>
+          </div>
+
+          <div className={styles.experienceHeroFacts}>
+            <article><GraduationCap /><div><b>B.Sc. Computer Science<br />and Engineering</b><span>German University in Cairo</span><small>2021 – 2025</small></div></article>
+            <article><MapPin /><div><b>Based in</b><span>Cairo, Egypt</span></div></article>
+            <article><Target /><div><b>Goal</b><span>Build impactful solutions<br />with ML &amp; Software Engineering</span></div></article>
+          </div>
+        </section>
+
+        <section className={styles.experienceSection}>
+          <div className={styles.experienceMainColumn}>
+            <div className={styles.experienceSectionHeading}>
+              <h2><BriefcaseBusiness /> Professional Experience</h2>
+              <em>Real experience. Real impact.</em>
+            </div>
+
+            <div className={styles.experienceTimeline}>
+              {experiences.map((item) => (
+                <article className={styles.experienceTimelineItem} key={item.company}>
+                  <div className={styles.experienceDate}>{item.date.split("\n").map((line, index) => <span key={index}>{line}</span>)}</div>
+                  <div className={styles.experienceNode} />
+                  <div className={styles.experienceCard}>
+                    <BrandMark text={item.mark} className={item.markClass} />
+                    <div className={styles.experienceCardContent}>
+                      <div className={styles.experienceCardTop}>
+                        <div>
+                          <b>{item.company}</b>
+                          <h3>{item.role}</h3>
+                        </div>
+                        <span><MapPin size={10} /> {item.place}</span>
+                      </div>
+                      <div className={styles.experienceTags}>{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
+                      <p>{item.description}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <aside className={styles.experienceAside}>
+            <div className={styles.quickFactsExact}>
+              <h3>♙&nbsp; Quick Facts</h3>
+              <div><BriefcaseBusiness /><strong>4+</strong><span>Professional &amp; Internship<br />Experiences</span></div>
+              <div><div className={styles.factFolder}>▰</div><strong>10+</strong><span>Projects Completed</span></div>
+              <div><GraduationCap /><strong>B.Sc.</strong><span>Computer Science and Engineering<br />(GUC)</span></div>
+              <div><MapPin /><strong>Cairo, Egypt</strong><span>Open to opportunities worldwide</span></div>
+            </div>
+
+            <div className={styles.experienceQuoteCard}>
+              <p>“The best time to plant a tree was 10 years ago. The second best time is now.”</p>
+              <span>— Chinese Proverb</span>
+              <div className={styles.experienceQuoteMountains} />
+            </div>
+
+            <div className={styles.opportunityCard}>
+              <h3><i /> Open to Opportunities</h3>
+              <p>I&apos;m currently open to internship and full-time opportunities in Software Engineering and Machine Learning.</p>
+              <Link href="/contact">✈&nbsp; Let&apos;s Connect <ArrowRight size={13} /></Link>
+            </div>
+          </aside>
+        </section>
+
+        <section className={styles.experienceEducation}>
+          <div className={styles.experienceSectionHeading}>
+            <h2><GraduationCap /> Education</h2>
+          </div>
+          <div className={styles.educationExactGrid}>
+            <article className={styles.educationExactCard}>
+              <BrandMark text="GUC" className="guc" />
+              <div>
+                <b>German University in Cairo (GUC)</b>
+                <h3>B.Sc. Computer Science and Engineering</h3>
+                <div className={styles.educationTags}><span>Computer Science</span><span>Software Engineering</span><span>Machine Learning</span></div>
+                <p>Studied Computer Science and Engineering with a focus on software systems, AI and emerging technologies. Graduated in July 2025.</p>
+              </div>
+              <span className={styles.educationPlace}><MapPin size={10}/> Cairo, Egypt</span>
+            </article>
+            <article className={styles.courseworkExact}>
+              <h3><BookOpen size={14} /> Relevant Coursework</h3>
+              <ul>{coursework.map(item => <li key={item}>{item}</li>)}</ul>
+            </article>
+          </div>
+        </section>
+
+        <section className={styles.experienceCertifications}>
+          <div className={styles.certHeading}>
+            <h2><Award /> Certifications &amp; Learning</h2>
+            <em>Always learning. Always improving.</em>
+          </div>
+          <div className={styles.certExactGrid}>
+            {certificates.map(cert => (
+              <article className={styles.certExactCard} key={cert.title}>
+                <div className={`${styles.certLogo} ${styles[cert.className as keyof typeof styles]}`}>{cert.mark}</div>
+                <div className={styles.certCopy}>
+                  <b>{cert.title}</b>
+                  <span>{cert.provider}</span>
+                  <a href="/full_stack_cv_edited.pdf" target="_blank" rel="noreferrer">View Certificate <ArrowRight size={11} /></a>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className={styles.certArrows}><button aria-label="Previous certifications">←</button><button aria-label="Next certifications">→</button></div>
+        </section>
+      </main>
+    </PageFrame>
+  );
+}

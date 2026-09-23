@@ -74,3 +74,81 @@
 .footer{width:92.2%;padding-top:26px}
 @media(max-width:1050px){.projectsPage{width:92%}.projectsHero{grid-template-columns:50% 50%}.projectGridExact{grid-template-columns:repeat(2,minmax(0,1fr))}.projectToolbarExact{align-items:flex-start}.projectFilters{flex-wrap:wrap}}
 @media(max-width:760px){.projectsPage{width:92%}.projectsHero{display:block;padding-top:34px}.projectsHeroCopy h1{font-size:34px}.projectsHeroArt{height:240px;margin-top:12px}.projectToolbarExact{display:block}.projectFilters{gap:7px;margin-bottom:10px}.projectFilter,.projectFilterActive{padding:0 11px}.projectGridExact{grid-template-columns:1fr}.projectCardExact,.moreProjectsCard{height:300px}.projectsCta{height:auto;min-height:130px;align-items:flex-start;flex-direction:column}.headerSearch{display:none}}
+
+/* EXPERIENCE PAGE — reference-matched composition */
+.experiencePage{width:92.2%;max-width:1060px;margin:0 auto;padding-bottom:0}
+.experienceHero{position:relative;display:grid;grid-template-columns:46% 29% 25%;gap:0;min-height:276px;padding:29px 3px 27px;border-bottom:1px solid rgba(101,132,190,.13);box-sizing:border-box}
+.experienceHeroCopy{padding:3px 16px 0 13px;z-index:2}
+.experienceHeroCopy .kicker{font-size:8px;letter-spacing:3.5px;margin-bottom:11px}
+.experienceHeroCopy h1{font-size:36px;line-height:1.03;letter-spacing:-1.8px;margin:0 0 12px;font-weight:800;color:#f6f7fb}
+.experienceHeroCopy h1 span{background:linear-gradient(90deg,#719eff,#9b70ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.experienceLead{margin:0 0 13px;color:#d5dce9;font-size:12px;line-height:1.35}
+.experienceDescription{margin:0;max-width:410px;color:#9eabc2;font-size:10px;line-height:1.5}
+.experienceHeroButtons{display:flex;gap:14px;margin-top:18px}
+.experienceHeroButtons .button,.experienceHeroButtons .buttonGhost{height:36px;box-sizing:border-box;padding:0 17px;font-size:9px}
+.experienceHeroImage{position:relative;height:231px;margin:0 5px;border:1px solid #345281;border-radius:11px;overflow:hidden;background:linear-gradient(160deg,#172a4b 0%,#354d77 48%,#101d31 100%);transform:rotate(-.2deg)}
+.experienceMountain{position:absolute;inset:0;background:
+radial-gradient(circle at 18% 17%,rgba(150,192,255,.8) 0 1px,transparent 2px),
+radial-gradient(circle at 78% 27%,rgba(255,255,255,.22) 0 1px,transparent 2px),
+linear-gradient(180deg,rgba(38,73,132,.3),rgba(4,13,28,.25) 52%,rgba(2,8,18,.95)),
+linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
+}
+.experienceMountain:after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:105px;background:linear-gradient(153deg,transparent 17%,#263954 18% 29%,transparent 30%),linear-gradient(202deg,transparent 26%,#172942 27% 43%,transparent 44%),linear-gradient(157deg,transparent 38%,#0a1629 39% 67%,transparent 68%);opacity:.95}
+.experienceMountain:before{content:"";position:absolute;width:6px;height:18px;background:#111827;border-radius:50% 50% 20% 20%;left:68%;bottom:76px;box-shadow:0 0 0 1px rgba(0,0,0,.3)}
+.experienceHeroQuote{position:absolute;z-index:3;left:15px;bottom:27px;color:#e0e5f1;font-size:10px;line-height:1.55;font-style:italic;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.experienceHeroQuote:before{content:"“";position:absolute;left:-4px;top:-14px;color:#9db8ff;font-size:25px;opacity:.8}
+.experienceHeroQuote small{display:block;margin-top:9px;color:#9aaac4;font-size:7px;font-style:normal}
+.experienceHeroFacts{padding:11px 2px 0 13px;display:grid;gap:8px;align-content:start}
+.experienceHeroFacts article{min-height:67px;box-sizing:border-box;padding:11px 10px;display:grid;grid-template-columns:27px 1fr;gap:8px;border:1px solid #18365b;border-radius:8px;background:linear-gradient(145deg,#08172b,#071224);box-shadow:0 5px 15px rgba(0,0,0,.12)}
+.experienceHeroFacts svg{width:20px;height:20px;color:#9a6cff;filter:drop-shadow(0 0 7px rgba(122,91,255,.35))}
+.experienceHeroFacts b{display:block;font-size:9px;line-height:1.25;color:#f0f3f9}.experienceHeroFacts span{display:block;color:#a3b0c7;font-size:7.5px;line-height:1.4;margin-top:2px}.experienceHeroFacts small{display:block;color:#8294b0;font-size:7px;margin-top:4px}
+.experienceSection{display:grid;grid-template-columns:minmax(0,1fr) 255px;gap:25px;padding:14px 3px 21px;border-bottom:1px solid rgba(101,132,190,.13)}
+.experienceSectionHeading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:0 0 11px;padding:0 13px}
+.experienceSectionHeading h2,.certHeading h2{display:flex;align-items:center;gap:9px;margin:0;font-size:17px;line-height:1.2;color:#edf1f8}.experienceSectionHeading h2 svg,.certHeading h2 svg{color:#6b9eff;width:22px;height:22px}
+.experienceSectionHeading em,.certHeading em{color:#8295b5;font-size:8px;font-style:italic}
+.experienceTimeline{position:relative;padding:1px 0 0}
+.experienceTimeline:before{content:"";position:absolute;left:89px;top:5px;bottom:3px;width:1px;background:linear-gradient(180deg,#5b70ff,#334d79 92%,transparent)}
+.experienceTimelineItem{display:grid;grid-template-columns:89px 1px minmax(0,1fr);column-gap:0;position:relative;margin-bottom:8px;min-height:109px}
+.experienceDate{padding:13px 10px 0 0;color:#9f8aff;font-size:8px;line-height:1.45;text-align:left;white-space:pre-line}
+.experienceDate span{display:block}.experienceNode{width:10px;height:10px;margin:13px 0 0 -5px;border-radius:50%;background:#6d79ff;border:2px solid #e9edff;box-shadow:0 0 0 3px #172a50,0 0 10px rgba(100,120,255,.7);z-index:2}
+.experienceCard{min-height:101px;margin-left:25px;padding:11px 12px 10px;display:grid;grid-template-columns:48px 1fr;gap:11px;border:1px solid #19365a;border-radius:8px;background:linear-gradient(145deg,#07182d,#061426);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.experienceBrandMark{width:43px;height:43px;border-radius:5px;display:grid;place-items:center;align-self:start;font-size:9px;font-weight:900;letter-spacing:-.5px;color:#f1f4fa;background:#0a1a31;border:1px solid #213c61}
+.experienceBrandMark.huawei{color:#ef3340;font-size:7px;letter-spacing:.1px;background:linear-gradient(145deg,#101b2d,#081426)}
+.experienceBrandMark.guc{color:#ffcf33;font-size:15px;background:linear-gradient(135deg,#14243a,#091529)}
+.experienceBrandMark.esg{color:#25b9b0;font-size:13px;background:linear-gradient(145deg,#11253a,#081528)}
+.experienceBrandMark.ees{color:#c1cad8;font-size:8px;background:#101a2a}
+.experienceBrandMark.mie{color:#ef4d67;font-size:11px;background:linear-gradient(145deg,#172b49,#0a1529)}
+.experienceCardContent{min-width:0}
+.experienceCardTop{display:flex;justify-content:space-between;gap:10px}
+.experienceCardTop b{display:block;color:#b9c5d9;font-size:8px;font-weight:500;margin-bottom:4px}
+.experienceCardTop h3{margin:0;color:#e8edf6;font-size:9px;font-weight:700;line-height:1.2}
+.experienceCardTop>span{display:flex;align-items:flex-start;gap:4px;color:#9caac0;font-size:7.5px;white-space:nowrap}
+.experienceTags{display:flex;flex-wrap:wrap;gap:7px;margin:7px 0 7px}
+.experienceTags span,.educationTags span{padding:5px 8px;border-radius:6px;background:#0b284a;color:#a7c7ec;font-size:6.8px;line-height:1}
+.experienceCardContent p{margin:0;color:#9aaac1;font-size:7.6px;line-height:1.45}
+.experienceAside{padding-top:1px}
+.quickFactsExact{padding:12px 14px;border:1px solid #1b3a61;border-radius:10px;background:linear-gradient(145deg,#08182c,#061325)}
+.quickFactsExact h3{margin:0 0 8px;color:#edf2fa;font-size:11px}
+.quickFactsExact>div{display:grid;grid-template-columns:27px 43px 1fr;align-items:center;column-gap:8px;min-height:55px;border-top:1px solid rgba(95,127,180,.13)}
+.quickFactsExact>div svg{width:19px;height:19px;color:#6c9fff}.quickFactsExact strong{font-size:11px;color:#f0f3f9}.quickFactsExact span{font-size:7.2px;line-height:1.4;color:#a2b1c9}.factFolder{color:#8875ff;font-size:20px;text-align:center}
+.experienceQuoteCard{height:139px;margin-top:14px;position:relative;overflow:hidden;border:1px solid #303f83;border-radius:9px;background:linear-gradient(180deg,#1c2c5d,#07162b)}
+.experienceQuoteCard p{position:relative;z-index:2;margin:17px 16px 8px;color:#dce3ef;font-size:10px;line-height:1.45;font-style:italic}.experienceQuoteCard>span{position:relative;z-index:2;margin-left:16px;color:#8798b5;font-size:7px}
+.experienceQuoteMountains{position:absolute;left:-20px;right:-20px;bottom:-7px;height:76px;background:linear-gradient(160deg,transparent 29%,#304a74 30% 44%,transparent 45%),linear-gradient(204deg,transparent 37%,#203958 38% 56%,transparent 57%),linear-gradient(150deg,transparent 46%,#0b1729 47% 78%,transparent 79%)}
+.opportunityCard{margin-top:14px;padding:14px 14px 16px;border:1px solid #405291;border-radius:9px;background:radial-gradient(circle at 77% 105%,rgba(73,70,176,.44),transparent 46%),linear-gradient(145deg,#071a30,#08132b 58%,#15163e)}
+.opportunityCard h3{margin:0;color:#edf2fa;font-size:10px;display:flex;align-items:center;gap:7px}.opportunityCard h3 i{width:7px;height:7px;border-radius:50%;background:#36d49c;box-shadow:0 0 9px rgba(54,212,156,.7)}
+.opportunityCard p{margin:13px 0;color:#aebbd0;font-size:8px;line-height:1.6}.opportunityCard a{display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1px solid #4d9aff;border-radius:16px;color:#fff;text-decoration:none;font-size:8px;background:rgba(8,20,43,.42)}
+.experienceEducation{padding:15px 3px 14px;border-bottom:1px solid rgba(101,132,190,.13)}
+.educationExactGrid{display:grid;grid-template-columns:minmax(0,1fr) 255px;gap:25px;padding:0 13px}
+.educationExactCard{min-height:106px;position:relative;display:grid;grid-template-columns:70px 1fr auto;gap:11px;align-items:center;padding:11px 12px;border:1px solid #19365a;border-radius:8px;background:#07182d}
+.educationExactCard .experienceBrandMark{width:58px;height:58px}.educationExactCard>b,.educationExactCard div>b{font-size:8px;color:#b8c5d8;font-weight:500}.educationExactCard h3{margin:4px 0 7px;font-size:9px;color:#edf1f8}.educationExactCard p{margin:7px 0 0;color:#8fa0b9;font-size:7px;line-height:1.45}.educationTags{display:flex;gap:6px;flex-wrap:wrap}.educationPlace{align-self:start;display:flex;align-items:center;gap:4px;color:#9aaac1;font-size:7.5px;padding-top:6px;white-space:nowrap}
+.courseworkExact{padding:13px 14px;border:1px solid #1b3a61;border-radius:9px;background:#07182d}.courseworkExact h3{display:flex;align-items:center;gap:7px;margin:0 0 8px;font-size:10px;color:#e8edf6}.courseworkExact ul{margin:0;padding:0 0 0 14px;list-style:none}.courseworkExact li{position:relative;margin:6px 0;color:#9db0cc;font-size:7.5px}.courseworkExact li:before{content:"";position:absolute;left:-12px;top:2px;width:5px;height:5px;border-radius:50%;background:#83a9ff;box-shadow:0 0 0 2px #1b3152}
+.experienceCertifications{position:relative;padding:17px 3px 30px}
+.certHeading{display:flex;align-items:center;justify-content:space-between;padding:0 13px;margin-bottom:13px}.certHeading h2{font-size:17px}
+.certExactGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:0 27px}
+.certExactCard{height:94px;box-sizing:border-box;padding:10px 10px;display:grid;grid-template-columns:49px 1fr;gap:10px;border:1px solid #1b385d;border-radius:8px;background:linear-gradient(145deg,#08192e,#071326)}
+.certLogo{width:42px;height:42px;border-radius:7px;display:grid;place-items:center;font-weight:900;font-size:14px;color:#fff;background:#092044;border:1px solid #244b83}
+.certLogo.ibm{color:#20a4f4;font-size:15px}.certLogo.coursera{background:#153a7e;color:#5da4ff;font-size:20px}.certLogo.helsinki{background:#13203d;color:#fff;font-size:19px}.certLogo.sololearn{background:linear-gradient(135deg,#27204c,#44245f);color:#ffcf48}
+.certCopy b{display:block;color:#eef2f8;font-size:8.5px;line-height:1.3}.certCopy span{display:block;color:#8ea0bc;font-size:7px;margin-top:4px}.certCopy a{display:inline-flex;align-items:center;gap:4px;color:#7ea8ff;text-decoration:none;font-size:7px;margin-top:12px}
+.certArrows{position:absolute;left:0;right:0;top:73px;display:flex;justify-content:space-between;pointer-events:none}.certArrows button{pointer-events:auto;width:29px;height:29px;border:0;border-radius:50%;background:#12233e;color:#dbe5f4;font-size:14px;cursor:pointer}
+@media(max-width:900px){.experienceHero{grid-template-columns:1fr 1fr;}.experienceHeroFacts{grid-column:1/-1;grid-template-columns:repeat(3,1fr);padding:10px 13px 0}.experienceSection{grid-template-columns:1fr}.experienceAside{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.experienceQuoteCard,.opportunityCard{margin-top:0}.educationExactGrid{grid-template-columns:1fr}.certExactGrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.experienceHero{grid-template-columns:1fr;padding-top:28px}.experienceHeroImage{height:230px;margin:18px 13px 0}.experienceHeroFacts{grid-template-columns:1fr;padding:10px 13px}.experienceSection{padding-top:20px}.experienceSectionHeading{padding:0}.experienceTimeline:before{left:15px}.experienceTimelineItem{grid-template-columns:15px 1fr;column-gap:0;padding-top:0}.experienceDate{grid-column:2;padding:0 0 5px 27px;text-align:left}.experienceNode{grid-column:1;grid-row:1/span 2;margin-left:10px;margin-top:32px}.experienceCard{grid-column:2;margin-left:12px;grid-template-columns:1fr;padding:11px}.experienceCard>.experienceBrandMark{display:none}.experienceAside{grid-template-columns:1fr}.experienceHeroCopy{padding-right:13px}.experienceCardTop{flex-direction:column}.experienceCardTop>span{white-space:normal}.educationExactCard{grid-template-columns:55px 1fr}.educationPlace{grid-column:2}.certExactGrid{grid-template-columns:1fr;padding:0 13px}.certArrows{display:none}}
