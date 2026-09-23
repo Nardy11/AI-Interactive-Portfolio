@@ -9,6 +9,7 @@ import styles from "./HandTracking.module.css"
 interface HandTrackingProps {
   onStreamChange?: (stream: MediaStream | null) => void
   onHandStatusChange?: (detected: boolean) => void
+  onCursorMove?: (position: { x: number; y: number }) => void
 }
 
 export interface HandTrackingHandle {
@@ -17,7 +18,7 @@ export interface HandTrackingHandle {
 }
 
 const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
-  ({ onStreamChange, onHandStatusChange }, ref) => {
+  ({ onStreamChange, onHandStatusChange, onCursorMove }, ref) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 50, y: 50 })
   const [isClicking, setIsClicking] = useState(false)
   const [handDetected, setHandDetected] = useState(false)
@@ -206,7 +207,9 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
             // Do not update the scroll baseline while only one finger is active.
             lastYRef.current = null
             if (indexExtended) {
-              setCursorPosition({ x: cursorX, y: cursorY })
+              const position = { x: cursorX, y: cursorY }
+              setCursorPosition(position)
+              onCursorMove?.(position)
             }
           }
         }
@@ -245,12 +248,8 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
     return (
       <div className={styles.container}>
       <video ref={videoRef} style={{ display: "none" }} muted playsInline />
-      {handDetected && (
-        <div
-          className={`${styles.cursor} ${isClicking ? styles.clicking : ""}`}
-          style={{ left: `${cursorPosition.x}px`, top: `${cursorPosition.y}px` }}
-        />
-      )}
+      {/* The visible cursor is rendered by Hero so it can match the blue design cursor. */}
+
     </div>
     )
   }
