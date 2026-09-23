@@ -12,7 +12,7 @@ export default function SiteHeader({ active }: { active: string }) {
   }, [dark]);
 
   const links = [
-    ["Home", "/"],
+    ["Home", "/home"],
     ["Projects", "/projects"],
     ["Experience", "/experience"],
     ["Skills", "/skills"],
@@ -22,7 +22,7 @@ export default function SiteHeader({ active }: { active: string }) {
 
   return (
     <header className={styles.header}>
-      <Link href="/" className={styles.brand}>
+      <Link href="/home" className={styles.brand}>
         <span className={styles.brandMark}>NA</span>
         <span><b>Nardy Attalla</b><small>CS Engineer | Aspiring ML Engineer</small></span>
       </Link>
