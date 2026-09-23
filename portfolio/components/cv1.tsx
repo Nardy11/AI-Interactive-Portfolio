@@ -41,8 +41,12 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
     }, [])
 
     const updateHandStatus = (detected: boolean) => {
-      setHandDetected(detected)
-      onHandStatusChange?.(detected)
+      setHandDetected((previous) => {
+        if (previous !== detected) {
+          onHandStatusChange?.(detected)
+        }
+        return detected
+      })
     }
 
   const startCamera = async () => {
