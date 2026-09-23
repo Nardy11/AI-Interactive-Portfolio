@@ -5,9 +5,9 @@ import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { PageFrame } from "@/components/PortfolioPages";
 import styles from "@/components/PortfolioPages.module.css";
 
-export default function Home() {
+export default function Landing() {
   return (
-    <PageFrame active="Home">
+    <PageFrame active="">
       <main>
         <section className={styles.heroHome}>
           <div className={styles.container}>
@@ -51,7 +51,7 @@ export default function Home() {
                 <h3>Normal Navigation</h3>
                 <p>Explore my portfolio with the traditional interface.</p>
                 <ul><li>Projects</li><li>Skills</li><li>Experience</li><li>And more</li></ul>
-                <Link href="/projects" className={styles.buttonGhost}>Start Exploring <ArrowRight size={14} /></Link>
+                <Link href="/home" className={styles.buttonGhost}>Start Exploring <ArrowRight size={14} /></Link>
               </article>
 
               <article className={styles.modeCard}>
