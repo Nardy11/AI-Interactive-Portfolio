@@ -191,7 +191,7 @@ export default function SkillsPage() {
         </section>
 
         <section className={styles.softSection}>
-          <SectionHeading icon={UsersRound} title="Beyond Technical Skills" />
+          <SectionHeading icon={UsersRound} title="Beyond Technical Skills" showIcon />
           <div className={styles.softGrid}>
             {softSkills.map(([Icon,title,desc]) => (
               <article className={styles.softCard} key={title}>
@@ -230,7 +230,7 @@ function SectionHeading({
 }) {
   return (
     <div className={`${styles.sectionHeading} ${stacked ? styles.stackedHeading : ""}`}>
-      <div className={styles.headingTitle}><Icon/><h2>{title}</h2></div>
+      <div className={styles.headingTitle}>{(stacked || showIcon) ? <Icon/> : <i/>}<h2>{title}</h2></div>
       {right && <p>{right}</p>}
       {farRight && <em>{farRight}</em>}
     </div>
