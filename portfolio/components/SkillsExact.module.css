@@ -92,3 +92,22 @@
 .heroCopy{padding:42px 0 0 6.3%}.kicker{font-size:9px;letter-spacing:4px;margin-bottom:10px}.heroCopy h1{font-size:39px}.heroCopy p{font-size:10.5px}.heroVisual{min-height:276px}
 @media(max-width:900px){.skillsHero{height:auto;min-height:430px}.heroCopy{padding:38px 7% 20px}}
 @media(max-width:620px){.skillsHero{min-height:570px}.heroCopy h1{font-size:35px}}
+
+
+/* CONSISTENT SITE GRID */
+.skillsHero{grid-template-columns:49% 51%}
+.heroCopy{padding-left:var(--site-gutter)}
+.technicalSection,.roadmapSection,.workflowSection,.softSection{padding-left:var(--site-gutter);padding-right:var(--site-gutter)}
+.cta{margin-left:var(--site-gutter);margin-right:var(--site-gutter)}
+
+@media(max-width:900px){
+  .heroCopy{padding-left:24px;padding-right:24px}
+  .technicalSection,.roadmapSection,.workflowSection,.softSection{padding-left:24px;padding-right:24px}
+  .cta{margin-left:24px;margin-right:24px}
+}
+@media(max-width:620px){
+  .heroCopy{padding-left:24px;padding-right:24px}
+  .technicalSection,.roadmapSection,.workflowSection,.softSection{padding-left:24px;padding-right:24px}
+  .cta{margin-left:24px;margin-right:24px}
+}
+

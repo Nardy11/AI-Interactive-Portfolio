@@ -182,3 +182,30 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 :global(html[data-theme="light"]) .experienceHeroFacts article,:global(html[data-theme="light"]) .experienceCard,:global(html[data-theme="light"]) .quickFactsExact,:global(html[data-theme="light"]) .experienceQuoteCard,:global(html[data-theme="light"]) .opportunityCard,:global(html[data-theme="light"]) .educationExactCard,:global(html[data-theme="light"]) .courseworkExact,:global(html[data-theme="light"]) .certExactCard{background:linear-gradient(145deg,#fff,#f4f7fb);border-color:#d4deea;box-shadow:0 6px 18px rgba(30,50,80,.06)}
 :global(html[data-theme="light"]) .experienceCardContent b,:global(html[data-theme="light"]) .experienceCardContent h3,:global(html[data-theme="light"]) .quickFactsExact strong,:global(html[data-theme="light"]) .educationExactCard b{color:#172033}
 :global(html[data-theme="light"]) .experienceCardContent p,:global(html[data-theme="light"]) .experienceCardContent span,:global(html[data-theme="light"]) .quickFactsExact span,:global(html[data-theme="light"]) .courseworkExact li{color:#64748b}
+
+
+/* CONSISTENT SITE GRID */
+:global(:root){--site-gutter:clamp(24px,5.7vw,58px)}
+.container{width:calc(100% - (2 * var(--site-gutter)));max-width:none}
+.projectsPage,.experiencePage{width:calc(100% - (2 * var(--site-gutter)));max-width:none}
+.projectsHero{padding-left:0;padding-right:0}
+.experienceHero{padding-left:0;padding-right:0}
+.experienceHeroCopy{padding-left:0}
+.experienceSection{padding-left:0;padding-right:0}
+.experienceSectionHeading{padding-left:0;padding-right:0}
+.footer{width:calc(100% - (2 * var(--site-gutter)));margin-left:var(--site-gutter);margin-right:var(--site-gutter)}
+
+@media(max-width:760px){
+  .projectsPage,.experiencePage{width:calc(100% - 48px)}
+  .footer{width:calc(100% - 48px);margin-left:24px;margin-right:24px}
+}
+
+
+
+/* CONSISTENT HERO SCALE */
+.projectsHero{min-height:276px}
+.projectsHeroCopy h1,.experienceHeroCopy h1{font-size:39px}
+
+@media(max-width:760px){
+  .projectsHeroCopy h1,.experienceHeroCopy h1{font-size:36px}
+}
