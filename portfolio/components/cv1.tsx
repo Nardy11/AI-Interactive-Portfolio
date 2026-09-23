@@ -6,12 +6,9 @@ import "@tensorflow/tfjs-core"
 import "@tensorflow/tfjs-converter"
 import styles from "./HandTracking.module.css"
 
-interface HandData {
-  cursor_x: number
-  cursor_y: number
-  click: boolean
-  scroll: number
-  hand_detected: boolean
+interface HandTrackingProps {
+  onStreamChange?: (stream: MediaStream | null) => void
+  onHandStatusChange?: (detected: boolean) => void
 }
 
 export interface HandTrackingHandle {
@@ -19,7 +16,8 @@ export interface HandTrackingHandle {
   stopCamera: () => void
 }
 
-const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
+const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
+  ({ onStreamChange, onHandStatusChange }, ref) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 50, y: 50 })
   const [isClicking, setIsClicking] = useState(false)
   const [handDetected, setHandDetected] = useState(false)
@@ -33,14 +31,19 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
   const lastScrollTimeRef = useRef(0)
   const runningRef = useRef(false)
 
-  useImperativeHandle(ref, () => ({
-    startCamera,
-    stopCamera,
-  }))
+    useImperativeHandle(ref, () => ({
+      startCamera,
+      stopCamera,
+    }))
 
-  useEffect(() => {
-    return () => stopCamera()
-  }, [])
+    useEffect(() => {
+      return () => stopCamera()
+    }, [])
+
+    const updateHandStatus = (detected: boolean) => {
+      setHandDetected(detected)
+      onHandStatusChange?.(detected)
+    }
 
   const startCamera = async () => {
     if (runningRef.current) return
@@ -69,6 +72,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
       })
 
       streamRef.current = stream
+      onStreamChange?.(stream)
 
       if (!videoRef.current) {
         runningRef.current = false
@@ -95,6 +99,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
 
     streamRef.current?.getTracks().forEach((track) => track.stop())
     streamRef.current = null
+    onStreamChange?.(null)
 
     if (videoRef.current) {
       videoRef.current.srcObject = null
@@ -152,7 +157,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
             Math.max(0, (indexTip.y / videoRef.current.videoHeight) * window.innerHeight)
           )
 
-          setHandDetected(true)
+          updateHandStatus(true)
 
           const pinchDistance = thumbTip
             ? distance(indexTip, thumbTip)
@@ -202,7 +207,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
           }
         }
       } else {
-        setHandDetected(false)
+        updateHandStatus(false)
         lastYRef.current = null
       }
     } catch (error) {
@@ -233,8 +238,8 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
     }
   }
 
-  return (
-    <div className={styles.container}>
+    return (
+      <div className={styles.container}>
       <video ref={videoRef} style={{ display: "none" }} muted playsInline />
       {handDetected && (
         <div
@@ -243,8 +248,9 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle>((_, ref) => {
         />
       )}
     </div>
-  )
-})
+    )
+  }
+)
 
 HandTrackingMouse.displayName = "HandTrackingMouse"
 
