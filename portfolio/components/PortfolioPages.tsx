@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Download, Github, Linkedin, Mail, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import styles from "./PortfolioPages.module.css";
@@ -22,11 +21,11 @@ export default function SiteHeader({ active }: { active: string }) {
 
   return (
     <header className={styles.header}>
-      <Link href="/home" className={styles.brand}>
+      <a href="/home" className={styles.brand}>
         <span className={styles.brandMark}>NA</span>
         <span><b>Nardy Attalla</b><small>CS Engineer | Aspiring ML Engineer</small></span>
-      </Link>
-      <nav>{links.map(([label, href]) => <Link key={label} className={active === label ? styles.active : ""} href={href}>{label}</Link>)}</nav>
+      </a>
+      <nav>{links.map(([label, href]) => <a key={label} className={active === label ? styles.active : ""} href={href}>{label}</a>)}</nav>
       <div className={styles.headerActions}>
         <button aria-label="Toggle theme" onClick={() => setDark(v => !v)}>{dark ? <Moon size={16}/> : <Sun size={16}/>}</button>
         <a href="/full_stack_cv_edited.pdf" target="_blank" rel="noreferrer" className={styles.headerCv}><Download size={15}/> Download CV</a>
