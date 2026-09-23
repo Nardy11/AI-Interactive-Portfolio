@@ -88,13 +88,13 @@ const testimonials = [
     quote: "Nardy showcased exceptional creativity and technical skills in VR/AR projects, as well as thorough research on XR for therapeutic applications. A proactive learner with a problem-solving mindset.",
     name: "Yomna M.I. Hassan",
     role: "Assistant Professor, GUC",
-    image: "/testimonial-1.png",
+    image: "/picprofile.png",
   },
   {
     quote: "Nardy exhibited exceptional dedication and analytical thinking in ML, successfully applying concepts in innovative ways. His communication, collaborative spirit, and research potential are outstanding.",
     name: "Assoc. Prof. Dr. Mohamed Hamed",
     role: "Professor of Bioinformatics & Computational Biology, GUC",
-    image: "/testimonial-2.png",
+    image: "/picprofile.png",
   },
 ];
 
