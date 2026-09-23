@@ -1,456 +1,111 @@
-"use client";
-import React, { useState, useEffect, useRef } from "react";
-import { Spotlight } from "./ui/Spotlight";
-import { cn } from "@/lib/utils";
-import { TextGenerateEffect } from "./ui/text-generate-effect";
-import MagicButton from "./ui/MagicButton";
-import { TypewriterEffect } from "./ui/TypewriterEffectSmooth";
-import { BackgroundGradient } from "./ui/background-gradient";
-import {
-  MobileNav,
-  MobileNavHeader,
-  MobileNavMenu,
-  MobileNavToggle,
-  Navbar,
-  NavbarLogo,
-  NavBody,
-  NavItems,
-} from "./ui/resizable-navbar";
-import { CardSpotlight } from "./ui/card-spotlight";
-import SkillBubble from "./ui/SkillBubble";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
-import type { Engine } from "@tsparticles/engine";
-import { color, motion } from "framer-motion";
-import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
-import { LinkPreview } from "./ui/link-preview";
-import { Carousel } from "./ui/carousel";
-import AvatarOverlay from "./avatar";
-import HandTrackingMouse, { HandTrackingHandle } from "./cv1";
+'use client';
 
-interface HeroProps {
-  initialMode?: "normal" | "cv" | "nlp";
-}
+import React, { useEffect, useRef, useState } from 'react';
+import HandTrackingMouse, { HandTrackingHandle } from './cv1';
+import AvatarOverlay from './avatar';
+import { ArrowRight, BrainCircuit, BriefcaseBusiness, CheckCircle2, ChevronRight, CircleDot, Code2, Cpu, Database, Download, Github, Hand, Layers3, Linkedin, Server, Smartphone, Sparkles, Sun, Moon, X } from 'lucide-react';
+import styles from './Hero.module.css';
 
-interface Testimonial {
-  name: string;
-  role: string;
-  text: string;
-}
+type Mode = 'normal' | 'cv' | 'nlp';
+interface HeroProps { initialMode?: Mode }
 
-interface ContactIcon {
-  name: string;
-  href: string;
-  icon: string;
-}
+const projects = [
+  { title: 'Cooperative Perception and Control (CPAC)', description: 'Real-time perception and control research for connected autonomous vehicles.', image: '/Distance_stereo.jpeg', tags: ['YOLOv8','ROS','OpenCV'] },
+  { title: 'Transaction Category Prediction', description: 'Hybrid NLP and machine-learning project combining TF-IDF, K-Means and Logistic Regression.', image: '/data analysis.png', tags: ['NLP','ML','Scikit-learn'] },
+  { title: 'WorkBoard — Full-Stack Work Management Platform', description: 'Production-oriented architecture with APIs, databases, automated testing and load testing.', image: '/Clinic Webs.png', tags: ['Next.js','NestJS','PostgreSQL'] },
+  { title: 'AI-Integrated Portfolio Platform', description: 'Full-stack platform exposing AI functionality through REST APIs.', image: '/CV.webp', tags: ['Next.js','FastAPI','Docker'] },
+];
+const navItems = [['Home','#home'],['Projects','#projects'],['Experience','#experience'],['Skills','#skills'],['About','#about'],['Contact','#contact']];
+const stats = [['5+','Production web projects'],['3+','Internships'],['ML + CV','AI focus'],['Open','To opportunities']];
+const skills = [
+  [Code2,'Software Engineering','Web, mobile, backend and APIs'],
+  [BrainCircuit,'Machine Learning','Applying ML to solve real problems'],
+  [Smartphone,'Mobile Development','Cross-platform applications'],
+  [Server,'Production Systems','Testing, Docker and deployment'],
+];
 
-const Hero: React.FC<HeroProps> = ({ initialMode = "normal" }) => {
+export default function Hero({ initialMode='normal' }: HeroProps) {
+  const [mode,setMode]=useState<Mode>(initialMode);
+  const [mobileOpen,setMobileOpen]=useState(false);
+  const [dark,setDark]=useState(true);
+  const [camera,setCamera]=useState(false);
+  const [hand,setHand]=useState(false);
+  const [tracking,setTracking]=useState(false);
+  const [status,setStatus]=useState('Ready');
+  const handRef=useRef<HandTrackingHandle>(null);
+  const previewRef=useRef<HTMLVideoElement>(null);
+  const streamRef=useRef<MediaStream|null>(null);
+  const API_URL=process.env.NEXT_PUBLIC_API_URL || 'https://ai-interactive-portfolio-back-end.vercel.app';
 
-  const [currentMode, setCurrentMode] = useState<HeroProps["initialMode"]>(initialMode);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [Assistantstatus, setAssistantstatus] = useState(false);
-  const [Virtualmouse, setVirtualmouse] = useState(false);
-
-  const [status, setStatus] = useState<string>("");
-  const [timelineStep, setTimelineStep] = useState(24);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://ai-interactive-portfolio-back-end.vercel.app";
-
-  const startAssistant = async () => {
-    try {
-      const res = await fetch(`${API_URL}/nlp/start-assistant`);
-      const data = await res.json();
-      setStatus(data.status || "");
-    } catch (error) {
-      console.error("Failed to start NLP assistant:", error);
-      setStatus("Backend unavailable");
-    }
+  const changeMode=(next:Mode)=>{ setMode(next); setMobileOpen(false); window.scrollTo({top:0,behavior:'smooth'}); };
+  const onStream=(stream:MediaStream|null)=>{
+    streamRef.current=stream; setCamera(!!stream); setTracking(!!stream);
+    if(previewRef.current){ previewRef.current.srcObject=stream; if(stream) previewRef.current.play().catch(()=>{}); }
   };
+  const onHand=(detected:boolean)=>{ setHand(detected); };
 
-  const endAssistant = async () => {
-    if (status !== "stopped") {
-      try {
-        const res = await fetch(`${API_URL}/nlp/stop-assistant`);
-        const data = await res.json();
-        setStatus(data.status || "");
-      } catch (error) {
-        console.error("Failed to stop NLP assistant:", error);
-      }
-    }
-  };
-  const videoRef = useRef<HTMLVideoElement | null>(null)
+  useEffect(()=>{
+    if(mode==='cv'){ setStatus('Camera initializing...'); requestAnimationFrame(()=>handRef.current?.startCamera()); }
+    else { handRef.current?.stopCamera(); setCamera(false); setHand(false); setTracking(false); setStatus('Ready'); }
+  },[mode]);
+  useEffect(()=>()=>{ handRef.current?.stopCamera(); streamRef.current?.getTracks().forEach(t=>t.stop()); },[]);
+  useEffect(()=>{ if(camera) setStatus(hand?'Hand detected':'Camera connected'); },[camera,hand]);
+  useEffect(()=>{
+    if(mode!=='nlp') return;
+    fetch(API_URL+'/nlp/start-assistant').catch(()=>setStatus('NLP backend unavailable'));
+    return ()=>{ fetch(API_URL+'/nlp/stop-assistant').catch(()=>{}); };
+  },[mode,API_URL]);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [currentMode]);
+  return <div className={`${styles.page} ${dark?styles.dark:styles.light}`}>
+    {mode==='nlp' && <AvatarOverlay />}
+    <HandTrackingMouse ref={handRef} onStreamChange={onStream} onHandStatusChange={onHand}/>
 
-  useEffect(() => {
-    const updateTimelineStep = () => {
-      // Keep the zigzag proportional to the viewport without letting it
-      // push the timeline bubbles outside a narrow mobile screen.
-      setTimelineStep(Math.min(60, Math.max(24, window.innerWidth * 0.12)));
-    };
-
-    updateTimelineStep();
-    window.addEventListener("resize", updateTimelineStep);
-    return () => window.removeEventListener("resize", updateTimelineStep);
-  }, []);
-
-  const words = [
-    { text: "Hi!" },
-    { text: "I'm" },
-    { text: "Nardy" },
-    { text: "👋," },
-    { text: "A" },
-    { text: "Web" },
-    { text: "&" },
-    { text: "ML" },
-    { text: "Developer" },
-    { text: "based" },
-    { text: "in" },
-    { text: "Egypt." },
-  ];
-
-  const slideData = [
-    { title: "Swipe to see the projects based on their category", button: "", color: "#131e3c" },
-    { title: "ML", button: "View Projects", color: "#131e3c" },
-    { title: "Game Dev", button: "View Projects", color: "#131e3c" },
-    { title: "Web Dev", button: "View Projects", color: "#131e3c" },
-    { title: "App Dev", button: "View Projects", color: "#131e3c" },
-  ];
-
-  const navItems = [
-    { name: "Home", link: "#home" },
-    { name: "Skills", link: "#skills" },
-    { name: "Projects", link: "#projects" },
-    { name: "Modes", link: "#modes" },
-    { name: "Timeline", link: "#timeline" },
-    { name: "Testimonials", link: "#testimonials" },
-    { name: "Contact", link: "#contact" },
-  ];
-  const testimonials = [
-    {
-      name: "Assoc. Prof. Mervat Abu-Elkheir",
-      title: "Computer Science Dept., GUC",
-      quote: "Nardy is determined, focused, and worked independently on his graduation project, demonstrating diverse computer science skills and eagerness to learn. He will excel in any research environment."
-    },
-    {
-      name: "Yomna M.I. Hassan",
-      title: "Assistant Professor, GUC",
-      quote: "Nardy showcased exceptional creativity and technical skills in VR/AR projects, as well as thorough research on XR for therapeutic applications. A proactive learner with a problem-solving mindset."
-    },
-    {
-      name: "Assoc. Prof. Dr. Mohamed Hamed",
-      title: "Professor of Bioinformatics & Computational Biology, GUC",
-      quote: "Nardy exhibited exceptional dedication and analytical thinking in ML, successfully applying concepts in innovative ways. His communication, collaborative spirit, and research potential are outstanding."
-    },
-    {
-      name: "Eng. Kareem El Hossainy",
-      title: "ESG& Company",
-      quote: "During his internship, Nardy demonstrated strong commitment, reliability, and technical skills. He proactively offered innovative suggestions and adapted quickly to new challenges."
-    }
-  ];
-
-  const modeCards = React.useMemo(() => {
-    if (currentMode === "normal") {
-      return [
-        { title: "Try Using CV", img: "/cv.png" },
-        { title: "Try Using NLP", img: "/nlp_assistant.png" },
-      ];
-    } else if (currentMode === "nlp") {
-      return [
-        { title: "Try Normal Navigation", img: "/normal_navigation.png" },
-        { title: "Try Using CV", img: "/cv.png" },
-      ];
-    } else {
-      return [
-        { title: "Try Normal Navigation", img: "/normal_navigation.png" },
-        { title: "Try Using NLP", img: "/nlp_assistant.png" },
-      ];
-    }
-  }, [currentMode]);
-
-  const cvInUse = React.useRef(false);
-  const nlpInUse = React.useRef(false);
-
-
-
-React.useEffect(() => {
-  if (currentMode === "cv") {
-    setAssistantstatus(false);
-    if (nlpInUse.current) {
-      endAssistant();
-      nlpInUse.current = false;
-    }
-    cvInUse.current = true;
-
-    // ✅ only start if the camera is not running
-    requestAnimationFrame(() => handRef.current?.startCamera());
-  } 
-  else if (currentMode === "nlp") {
-    setAssistantstatus(true);
-    if (cvInUse.current) {
-      cvInUse.current = false;
-      requestAnimationFrame(() => handRef.current?.stopCamera());
-    }
-    if (!nlpInUse.current) {
-      startAssistant();
-      nlpInUse.current = true;
-    }
-  } 
-  else { // normal
-    setAssistantstatus(false);
-    if (cvInUse.current) {
-      cvInUse.current = false;
-      requestAnimationFrame(() => handRef.current?.stopCamera());
-    }
-    if (nlpInUse.current) {
-      endAssistant();
-      nlpInUse.current = false;
-    }
-  }
-}, [currentMode]);
-
-  const particlesInit = async (engine: Engine) => {
-    await loadFull(engine);
-  };
-
-  const particlesOptions = {
-    fullScreen: { enable: false },
-    background: { color: { value: "#0a1a3a" } },
-    fpsLimit: 60,
-    particles: {
-      number: { value: 80 },
-      color: { value: "#00ffff" },
-      opacity: { value: 0.3 },
-      size: { value: { min: 1, max: 3 } },
-      move: { enable: true, speed: 1, random: true },
-      shape: { type: "circle" },
-    },
-  };
-  const items = [
-    { name: "Web dev fwb", url: "https://drive.google.com/file/d/1HvqmZ7ETcSElUEYU3RBHxOh4F1F8BTMG/view?usp=sharing" },
-    { name: "sql sololearn", url: "https://www.sololearn.com/en/certificates/CT-DXISDL2V" },
-    { name: "AI Helsinki", url: "https://certificates.mooc.fi/validate/w0kub6oay8d" },
-    { name: "Building AI Helsinki", url: "https://drive.google.com/file/d/1MpLNH1ntP52X19YI6Tzd8p9KU2G_1rpu/view?usp=sharing" },
-    { name: "Bachelor Project", url: "https://www.linkedin.com/posts/nardy-attallah_bscthesis-computerengineering-autonomousvehicles-activity-7337153907036450816-wBex?utm_source=share&utm_medium=member_desktop&rcm=ACoAADazzPYB-RN2yg0rDt8vIBKAbuz0lL5Ale0" },
-    { name: "Valeo Competition", url: "https://www.linkedin.com/posts/nardy-attallah_innovation-valeomentorshipprogram-autonomousvehicles-activity-7337154117687042048-82j-?utm_source=share&utm_medium=member_desktop&rcm=ACoAADazzPYB-RN2yg0rDt8vIBKAbuz0lL5Ale0" },
-    { name: "MIE Competition", url: "https://www.linkedin.com/posts/nardy-attallah_mie2024-bestdesignaward-autonomousvehicles-activity-7337154367872991232-fSQJ?utm_source=share&utm_medium=member_desktop&rcm=ACoAADazzPYB-RN2yg0rDt8vIBKAbuz0lL5Ale0" },
-    { name: "Stuttgart Workshop", url: "https://www.linkedin.com/posts/nardy-attallah_daad-universityofstuttgart-turtlebot3-activity-7337156766280966144-ZBf0?utm_source=share&utm_medium=member_desktop&rcm=ACoAADazzPYB-RN2yg0rDt8vIBKAbuz0lL5Ale0" },
-    { name: "Flutter Dev intern ESG&", url: "https://www.linkedin.com/in/nardy-attallah/" },
-    { name: "Flutter Dev intern GUC", url: "https://www.linkedin.com/in/nardy-attallah/" },
-    { name: "Supervised Learning", url: "https://www.linkedin.com/posts/nardy-attallah_supervised-machine-learning-regression-and-activity-7337159723231686657-mlwo?utm_source=share&utm_medium=member_desktop&rcm=ACoAADazzPYB-RN2yg0rDt8vIBKAbuz0lL5Ale0" },
-    { name: "Unsupervised Learning", url: "https://www.linkedin.com/posts/nardy-attallah_unsupervised-learning-recommendersrl-activity-7337160203462717440-A7Sa?utm_source=share&utm_medium=member_desktop&rcm=ACoAADazzPYB-RN2yg0rDt8vIBKAbuz0lL5Ale0" },
-    { name: "Machine learning Specialization", url: "https://www.linkedin.com/posts/nardy-attallah_machine-learning-specialization-activity-7337160571370229760-c8cO?utm_source=share&utm_medium=member_desktop&rcm=ACoAADazzPYB-RN2yg0rDt8vIBKAbuz0lL5Ale0" },
-    { name: "Machine Learning in Production", url: "https://www.linkedin.com/posts/nardy-attallah_machine-learning-in-production-activity-7337164552381370368-CiHq?utm_source=share&utm_medium=member_desktop&rcm=ACoAADazzPYB-RN2yg0rDt8vIBKAbuz0lL5Ale0" },
-    { name: "Junior TA", url: "https://www.linkedin.com/in/nardy-attallah/" },
-
-  ];
-  const contactIcons: ContactIcon[] = [
-    { name: "Email", href: "mailto:nardymichelle2003@gmail.com", icon: "/gmail.png" },
-    { name: "LinkedIn", href: "https://www.linkedin.com/in/nardy-attallah", icon: "/linkedin.png" },
-    { name: "GitHub", href: "https://github.com/Nardy11", icon: "/github.png" },
-    { name: "Web CV", href: "/full_stack_cv_edited.pdf", icon: "/CV.webp" },
-    { name: "ML CV", href: "/ml_cv.pdf", icon: "/CV.webp" },
-  ];
-  const handRef = useRef<HandTrackingHandle>(null)
-
-  return (
-    <div className="relative bg-white dark:bg-black-100 min-h-screen">
-      {Assistantstatus ? <AvatarOverlay /> : null}
-
-      <HandTrackingMouse ref={handRef} />      <div className="relative w-full">
-        <Navbar>
-          <NavBody>
-            <NavbarLogo />
-            <NavItems items={navItems} />
-          </NavBody>
-          <MobileNav>
-            <MobileNavHeader>
-              <NavbarLogo />
-              <MobileNavToggle
-                isOpen={isMobileMenuOpen}
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              />
-            </MobileNavHeader>
-            <MobileNavMenu
-              isOpen={isMobileMenuOpen}
-              onClose={() => setIsMobileMenuOpen(false)}
-            >
-              {navItems.map((item, idx) => (
-                <a
-                  key={`mobile-link-${idx}`}
-                  href={item.link}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="relative text-neutral-600 dark:text-neutral-300"
-                >
-                  <span className="block">{item.name}</span>
-                </a>
-              ))}
-            </MobileNavMenu>
-          </MobileNav>
-        </Navbar>
+    <header className={styles.navbar}>
+      <a href="#home" className={styles.brand} onClick={()=>changeMode('normal')}><span className={styles.brandMark}>NA</span><span><strong>Nardy Attalla</strong><small>CS Engineer | Aspiring ML Engineer</small></span></a>
+      <nav className={`${styles.navLinks} ${mobileOpen?styles.navOpen:''}`}>{navItems.map(([label,href])=><a key={label} href={href} onClick={()=>setMobileOpen(false)}>{label}</a>)}</nav>
+      <div className={styles.navActions}>
+        <button className={styles.iconButton} onClick={()=>setDark(v=>!v)} aria-label="Toggle theme">{dark?<Sun size={17}/>:<Moon size={17}/>}</button>
+        <button className={styles.outlineButton} onClick={()=>changeMode('cv')}><Hand size={16}/> CV Mode</button>
+        <button className={styles.outlineButton} onClick={()=>changeMode('nlp')}><BrainCircuit size={16}/> NLP Assistant</button>
+        <a className={styles.outlineButton} href="/full_stack_cv_edited.pdf" target="_blank"><Download size={16}/> Download CV</a>
+        <button className={styles.mobileMenuButton} onClick={()=>setMobileOpen(v=>!v)} aria-label="Menu">{mobileOpen?<X size={20}/>:<Layers3 size={20}/>}</button>
       </div>
+    </header>
 
-      {/* Spotlights */}
-      <Spotlight className="-top-40 -left-10 md:-left-32 md:-top-20 h-[150vh] absolute" fill="white" />
-      <Spotlight className="-top-10 left-full h-[80vh] w-[50vw] absolute" fill="purple" />
-      <Spotlight className="-top-28 left-80 h-[80vh] w-[50vw] absolute" fill="blue" />
-
-      {/* Hero Section */}
-      <div id="home" className="relative z-10 flex flex-col items-center justify-start pt-20 pb-40 px-6">
-        <BackgroundGradient className="w-48 h-48 flex items-center justify-center overflow-hidden bg-white dark:bg-zinc-900 rounded-[22px] mb-6 mt-1 mx-1">
-          <img
-            src="/picprofile.png"
-            alt="my profile pic"
-            className="object-cover w-full h-full rounded-t-full rounded-b-none"
-          />
-        </BackgroundGradient>
-
-        <TextGenerateEffect
-          words="Welcome to my dynamic AI-powered portfolio"
-          className="text-center text-[40px] md:text-5xl lg:text-6xl mb-6"
-        />
-        <TypewriterEffect words={words} />
-        <a href="#testimonials" className="mt-6">
-          <MagicButton />
-        </a>
-      </div>
-
-      {/* Skills Section */}
-      <div id="skills" className="flex flex-col items-center mt-20">
-        <TextGenerateEffect
-          words="Skills"
-          className="text-center text-[40px] md:text-5xl lg:text-6xl mt-20 font-bold"
-        />
-        <div className="flex flex-wrap justify-center gap-8 mt-10">
-          <SkillBubble title="Programming" skills={["Python", "JavaScript", "Java", "Dart"]} width={120} height={120} skillSize={60} radius={100} orbitDuration={10} />
-          <SkillBubble title="Languages" skills={["Arabic", "English"]} width={120} height={120} skillSize={60} radius={100} orbitDuration={10} />
-          <SkillBubble title="Frameworks & Libraries" skills={["Flutter", "React", "React Native", "Next.js", "Spring Boot", "TensorFlow", "PyTorch", "OpenCV", "ROS", "YOLO"]} width={120} height={120} skillSize={60} radius={100} orbitDuration={10} />
-          <SkillBubble title="Backend" skills={["PostgreSQL", "MongoDB", "Firebase", "Redis", "RabbitMQ"]} width={120} height={120} skillSize={60} radius={100} orbitDuration={10} />
-          <SkillBubble title="DevOps" skills={["Docker", "Nginx", "Unit Testing", "JMeter", "Git"]} width={120} height={120} skillSize={60} radius={100} orbitDuration={10} />
-          <SkillBubble title="ML" skills={["ML Models", "Computer Vision", "Regression", "Classification", "Clustering", "Reinforcement Learning"]} width={120} height={120} skillSize={60} radius={100} orbitDuration={10} />
-          <SkillBubble title="Soft Skills" skills={["Problem Solving", "Teamwork", "Microsoft Office", "Event Management"]} width={120} height={120} skillSize={60} radius={100} orbitDuration={10} />
-          <SkillBubble title="Game Dev" skills={["Unity", "VR", "AR"]} width={120} height={120} skillSize={60} radius={100} orbitDuration={10} />
+    <main>
+      <section id="home" className={styles.hero}>
+        <div className={styles.heroBackdrop}/>
+        <div className={styles.heroCopy}>
+          <div className={styles.eyebrow}>BUILD · LEARN · IMPROVE · REPEAT</div>
+          <h1>Hi, I’m <span>Nardy Attalla</span></h1>
+          <h2>Computer Science Engineer</h2>
+          <p>I build modern web and mobile applications, explore Machine Learning, and turn ideas into practical software.</p>
+          <div className={styles.heroButtons}><a className={styles.primaryButton} href="#projects">View My Projects <ArrowRight size={17}/></a><a className={styles.outlineButton} href="/full_stack_cv_edited.pdf" target="_blank"><Download size={16}/> Download CV</a></div>
         </div>
-      </div>
+        <div className={styles.heroVisual}><div className={styles.visualGlow}/><div className={styles.cityLine}/><div className={styles.visualQuote}>Same<br/>Engineer.<br/>Bigger<br/>Possibilities.</div><div className={styles.cursorDemo}><CircleDot size={26}/><span>Controlled by Hand</span></div></div>
 
-      {/* Projects Section */}
-      <div id="projects" className="flex flex-col items-center mt-40 text-center w-full">
-        <TextGenerateEffect words="Projects" className="text-center text-[32px] sm:text-[40px] md:text-5xl lg:text-6xl px-4" />
-        <div className="flex justify-center w-full max-w-6xl py-10 overflow-visible">
-          <Carousel slides={slideData} />
-        </div>
-      </div>
-
-      {/* Modes Section */}
-      <div id="modes" className="flex flex-col items-center mt-40">
-        <TextGenerateEffect words="Try another Mode" className="text-center text-[40px] md:text-5xl lg:text-6xl mt-20" />
-        <div className="w-full flex justify-center mt-10 px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row w-full items-center justify-center gap-6 md:gap-10">
-            {modeCards.map((card, idx) => (
-              <CardSpotlight key={idx} className="h-auto min-h-[22rem] w-full max-w-[22rem] sm:max-w-[24rem] md:h-96 md:w-96 flex flex-col items-center justify-between p-4">
-                <div className="flex flex-col items-center justify-center text-center mt-4">
-                  <p className="relative text-xl font-bold text-white">{card.title}</p>
-                  <img src={card.img} alt={card.title} width={220} height={220} className="relative object-cover w-full h-52 sm:h-56 md:h-64 mt-4" />
-                </div>
-                <button
-                  className="relative mt-auto px-5 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-sm font-bold"
-                  onClick={() => {
-                    if (card.title.includes("CV")) {
-                      setCurrentMode("cv");
-                    } else if (card.title.includes("NLP")) {
-                      setCurrentMode("nlp");
-                    } else {
-                      setCurrentMode("normal");
-                    }
-                  }}
-                >
-
-                  Start
-                </button>
-              </CardSpotlight>
-            ))}
+        {mode==='cv' && <aside className={styles.cvPanel}>
+          <div className={styles.panelHeader}><div><h3><Hand size={18}/> Computer Vision Mode</h3><p>Control this portfolio using hand gestures</p></div><div className={styles.panelHeaderActions}><span className={styles.activePill}><span/>{camera?'Active':'Starting'}</span><button className={styles.panelIcon} onClick={()=>changeMode('normal')} aria-label="Close"><X size={17}/></button></div></div>
+          <div className={styles.cameraFrame}><video ref={previewRef} muted playsInline className={styles.cameraVideo}/><div className={styles.cameraBadge}><span/>{hand?'Hand Detected':'Waiting for Hand'}</div></div>
+          <div className={styles.cvInfoGrid}>
+            <div className={styles.infoCard}><h4>Gestures</h4><ul><li><Hand size={15}/> Move Hand = Move Cursor</li><li><CircleDot size={15}/> Pinch Fingers = Click</li><li><Hand size={15}/> Two Fingers = Scroll</li><li><CheckCircle2 size={15}/> Closed Hand = Pause</li></ul></div>
+            <div className={styles.infoCard}><h4>Camera Status</h4><ul><li><CircleDot size={15}/> Camera: {camera?'Connected':'Starting'}</li><li><CheckCircle2 size={15}/> Hand: {hand?'Detected':'Not detected'}</li><li><Cpu size={15}/> Tracking: {tracking?'Active':'Idle'}</li><li><Sparkles size={15}/> Status: {status}</li></ul></div>
           </div>
-        </div>
-      </div>
-
-      {/* Testimonials Section */}
-      <section id="testimonials" className="relative flex flex-col items-center justify-center py-24 sm:py-32 md:py-40 overflow-hidden">
-        <TextGenerateEffect words="What People Say About My Work" className="text-center text-[40px] md:text-5xl lg:text-6xl" />
-        <div className="h-auto min-h-[24rem] sm:h-[30rem] w-full max-w-6xl flex flex-col antialiased bg-transparent items-center justify-center relative overflow-hidden">
-          <InfiniteMovingCards
-            items={testimonials}
-            direction="right"
-            speed="slow"
-          />
-
-        </div>
+          <div className={styles.panelFooter}><button className={styles.panelAction} onClick={()=>{ if(tracking){handRef.current?.stopCamera();setTracking(false)}else handRef.current?.startCamera(); }}>{tracking?'Pause':'Start Camera'}</button><button className={styles.exitButton} onClick={()=>changeMode('normal')}>Exit CV Mode</button></div>
+        </aside>}
       </section>
 
-      {/* Timeline Section */}
-      <div
-        id="timeline"
-        className="relative flex w-full flex-col items-center justify-center min-h-[100vh] -top-10 px-4 sm:px-6 overflow-hidden"
-      >
-        <TextGenerateEffect
-          words="Timeline"
-          className="text-center text-[40px] md:text-5xl lg:text-6xl mb-10 text-white"
-        />
+      <section className={styles.statsBar}>{stats.map(([value,label])=><div key={label}><span>{value}</span><small>{label}</small></div>)}</section>
 
-        {/* Responsive centered zigzag */}
-        <div className="flex w-full max-w-2xl flex-col items-center gap-10 sm:gap-12">
-          {items.map((item, idx) => {
-            const cycle = 5;
-            const posInCycle = idx % cycle;
-            const offsetSteps = posInCycle <= cycle / 2
-              ? posInCycle
-              : cycle - posInCycle;
+      <section id="projects" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>SELECTED WORK</span><h2>Featured Projects</h2></div><a href="#projects">View All <ChevronRight size={17}/></a></div><div className={styles.projectGrid}>{projects.map(p=><article className={styles.projectCard} key={p.title}><div className={styles.projectImageWrap}><img src={p.image} alt="" className={styles.projectImage}/></div><div className={styles.projectBody}><h3>{p.title}</h3><p>{p.description}</p><div className={styles.tags}>{p.tags.map(t=><span key={t}>{t}</span>)}</div></div></article>)}</div></section>
 
-            const blockIndex = Math.floor(idx / cycle);
-            const side = blockIndex % 2 === 0 ? -1 : 1;
-            const translateX = side * offsetSteps * timelineStep;
+      <section id="experience" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>CAREER</span><h2>Experience</h2></div><a href="#contact">Open to opportunities <ChevronRight size={17}/></a></div><div className={styles.experienceGrid}><article className={styles.experienceCard}><BriefcaseBusiness size={20}/><div><h3>Full-Stack / Software Engineer</h3><p>Prime Softworks × Poseidon X · Jul 2026 – Present</p><span>React · React Native · TypeScript · NestJS · PostgreSQL/Supabase · Docker</span></div></article><article className={styles.experienceCard}><Server size={20}/><div><h3>Backend Systems Engineer</h3><p>Huawei Technologies · Dec 2025 – Jun 2026</p><span>Linux production environments · SQL · operational data · troubleshooting</span></div></article></div></section>
 
-            return (
-              <div key={idx} className="flex w-full items-center justify-center">
-                <LinkPreview url={item.url} className="block">
-                  <motion.div
-                    animate={{ x: translateX, y: [0, -8, 0] }}
-                    transition={{
-                      x: { duration: 0.4 },
-                      y: { duration: 3, repeat: Infinity, repeatType: "loop", ease: "easeInOut" },
-                    }}
-                    className="w-[min(9rem,42vw)] h-[min(9rem,42vw)] md:w-40 md:h-40 rounded-full flex items-center justify-center text-center px-3 text-sm md:text-base leading-tight text-white font-bold bg-gradient-to-br from-cyan-500 to-purple-500 shadow-lg"
-                  >
-                    {item.name}
-                  </motion.div>
-                </LinkPreview>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <section id="skills" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>CAPABILITIES</span><h2>What I Work On</h2></div></div><div className={styles.skillGrid}>{skills.map(([Icon,title,text])=>{const SkillIcon=Icon as React.ElementType;return <div className={styles.skillCard} key={String(title)}><SkillIcon size={21}/><h3>{String(title)}</h3><p>{String(text)}</p></div>})}</div><div className={styles.learningBlock}><div><span className={styles.sectionKicker}>CURRENT DIRECTION</span><h3>Growing deeper into ML</h3><p>Machine Learning fundamentals and Computer Vision are already part of my projects. Deep learning, MLOps and RAG are the next steps.</p></div><div className={styles.learningGrid}>{[[BrainCircuit,'Machine Learning'],[Cpu,'Computer Vision'],[Server,'MLOps'],[Sparkles,'RAG — Next']].map(([Icon,title])=>{const I=Icon as React.ElementType;return <div key={String(title)}><I size={18}/><span>{String(title)}</span></div>})}</div></div></section>
 
+      <section id="about" className={styles.section}><div className={styles.aboutCard}><div><span className={styles.sectionKicker}>ABOUT</span><h2>Software engineer with a growing ML focus.</h2></div><p>I’m a Computer Science and Engineering graduate from the German University in Cairo. I enjoy building full-stack and mobile products while developing practical Machine Learning and Computer Vision skills through projects, research and continuous learning.</p><div className={styles.aboutMeta}><span><Database size={16}/> SQL / NoSQL</span><span><Github size={16}/> GitHub / CI</span><span><Linkedin size={16}/> Professional network</span></div></div></section>
 
-      {/* Contact Section */}
-      <section id="contact" className="relative flex w-full flex-col items-center justify-center min-h-screen py-20 px-4 sm:px-6 overflow-hidden">
-        <Particles id="tsparticles" init={particlesInit} options={particlesOptions} className="absolute inset-0 z-0" />
-        <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} viewport={{ once: true }} className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
-          <h2 className="w-full max-w-3xl text-3xl sm:text-4xl md:text-6xl leading-tight font-bold text-cyan-400 glow-neon mb-10 px-2">
-            Thank you for visiting my journey
-          </h2>
-          <div className="flex w-full max-w-xl flex-wrap items-center justify-center gap-4 sm:gap-6">
-            {contactIcons.map((icon, idx) => (
-              <motion.a key={idx} href={icon.href} target="_blank" whileHover={{ scale: 1.2, rotate: 10 }} whileTap={{ scale: 0.95 }} className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 flex items-center justify-center rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:shadow-cyan-500/50 transition-shadow duration-300">
-                <img src={icon.icon} alt={icon.name} className="w-8 h-8 sm:w-10 sm:h-10" />
-                <span className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-cyan-400 opacity-20 animate-ping pointer-events-none"></span>
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-    </div>
-  );
-
-};
-
-export default Hero;
+      <section id="contact" className={styles.contact}><div><span className={styles.sectionKicker}>LET’S CONNECT</span><h2>Open to opportunities.</h2><p>Software engineering, full-stack development and ML-focused opportunities.</p></div><div className={styles.contactLinks}><a href="mailto:nardymichelle2003@gmail.com"><CircleDot size={16}/> Email</a><a href="https://www.linkedin.com/in/nardy-attallah" target="_blank"><Linkedin size={16}/> LinkedIn</a><a href="https://github.com/Nardy11" target="_blank"><Github size={16}/> GitHub</a></div></section>
+    </main>
+  </div>;
+}
