@@ -10,8 +10,8 @@ type ExperienceItem = {
   place: string;
   tags: string[];
   description: string;
-  mark: string;
-  markClass: string;
+  logo: string;
+  logoAlt: string;
 };
 
 const experiences: ExperienceItem[] = [
@@ -22,8 +22,8 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt (Onsite)",
     tags: ["Linux", "Databases", "Monitoring", "Telecom"],
     description: "Working as a Linux and Database Administrator in a UAE telecom client environment (du). Involved in system monitoring, incident and change management, log analysis and reporting.",
-    mark: "HUAWEI",
-    markClass: "huawei",
+    logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Huawei_wordmark.svg?width=260",
+    logoAlt: "Huawei",
   },
   {
     date: "Aug 2024\n– Oct 2024",
@@ -32,8 +32,8 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "Dart", "Mobile"],
     description: "Developed a mobile application as part of an internship, gaining hands-on experience in Flutter development and Firebase integration.",
-    mark: "GUC",
-    markClass: "guc",
+    logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/German_University_in_Cairo_Logo.jpg?width=260",
+    logoAlt: "German University in Cairo",
   },
   {
     date: "Jun 2024\n– Aug 2024",
@@ -42,8 +42,8 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "App Development"],
     description: "Worked on a Flutter mobile application for environmental data management, focusing on real-world data integration and user-centric design.",
-    mark: "ESG",
-    markClass: "esg",
+    logo: "https://www.google.com/s2/favicons?domain=esgegypt.com&sz=128",
+    logoAlt: "ESG",
   },
   {
     date: "Mar 2025",
@@ -52,8 +52,8 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "Web Dashboard"],
     description: "Built a Flutter mobile app and a web dashboard using Firebase, contributing to a complete full-stack solution.",
-    mark: "EES",
-    markClass: "ees",
+    logo: "https://www.google.com/s2/favicons?domain=ees-elmasria.com&sz=128",
+    logoAlt: "Egyptian Electrical Solution",
   },
   {
     date: "2023",
@@ -62,8 +62,8 @@ const experiences: ExperienceItem[] = [
     place: "Stuttgart, Germany",
     tags: ["Competition", "Innovation", "Teamwork"],
     description: "Participated in the Microsoft Innovation in Education (MIE) competition, working on innovative technology solutions in a global environment.",
-    mark: "MIE",
-    markClass: "mie",
+    logo: "https://www.google.com/s2/favicons?domain=microsoft.com&sz=128",
+    logoAlt: "Microsoft Innovation in Education",
   },
 ];
 
@@ -83,8 +83,12 @@ const certificates = [
   { mark: "S", title: "SQL", provider: "SoloLearn", className: "sololearn" },
 ];
 
-function BrandMark({ text, className }: { text: string; className: string }) {
-  return <div className={`${styles.experienceBrandMark} ${styles[className as keyof typeof styles]}`}>{text}</div>;
+function BrandLogo({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className={styles.experienceBrandMark}>
+      <img src={src} alt={alt} loading="lazy" />
+    </div>
+  );
 }
 
 export default function Experience() {
@@ -139,7 +143,7 @@ export default function Experience() {
                   <div className={styles.experienceDate}>{item.date.split("\n").map((line, index) => <span key={index}>{line}</span>)}</div>
                   <div className={styles.experienceNode} />
                   <div className={styles.experienceCard}>
-                    <BrandMark text={item.mark} className={item.markClass} />
+                    <BrandLogo src={item.logo} alt={item.logoAlt} />
                     <div className={styles.experienceCardContent}>
                       <div className={styles.experienceCardTop}>
                         <div>
@@ -186,7 +190,7 @@ export default function Experience() {
           </div>
           <div className={styles.educationExactGrid}>
             <article className={styles.educationExactCard}>
-              <BrandMark text="GUC" className="guc" />
+              <BrandLogo src="https://commons.wikimedia.org/wiki/Special:Redirect/file/German_University_in_Cairo_Logo.jpg?width=260" alt="German University in Cairo" />
               <div>
                 <b>German University in Cairo (GUC)</b>
                 <h3>B.Sc. Computer Science and Engineering</h3>
