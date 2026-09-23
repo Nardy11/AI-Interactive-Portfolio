@@ -54,6 +54,20 @@ export default function Contact() {
         </section>
 
         <section className={styles.sectionBlock}>
+          <h2 className={styles.sectionTitle}>Find Me in <span className={styles.gradient}>Cairo</span></h2>
+          <p className={styles.sectionIntro}>Based in Cairo, Egypt and open to opportunities worldwide.</p>
+          <div style={{marginTop:24,overflow:"hidden",border:"1px solid #1c3b62",borderRadius:14,height:320,background:"#071629"}}>
+            <iframe
+              title="Cairo, Egypt map"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=31.15%2C29.95%2C31.45%2C30.15&layer=mapnik&marker=30.0444%2C31.2357"
+              style={{border:0,width:"100%",height:"100%"}}
+              loading="lazy"
+            />
+          </div>
+          <a href="https://www.openstreetmap.org/?mlat=30.0444&mlon=31.2357#map=12/30.0444/31.2357" target="_blank" rel="noreferrer" className={styles.buttonGhost} style={{marginTop:14,display:"inline-flex"}}>Open Map <ArrowRight size={14}/></a>
+        </section>
+
+        <section className={styles.sectionBlock}>
           <h2 className={styles.sectionTitle}>
             Let’s Create Something <span className={styles.gradient}>Meaningful</span>
           </h2>
