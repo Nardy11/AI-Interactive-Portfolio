@@ -1,0 +1,19 @@
+import Link from "next/link";
+import { ArrowRight, Code2, BrainCircuit, Smartphone, Eye, Server, Database } from "lucide-react";
+import { PageFrame } from "@/components/PortfolioPages";
+import styles from "@/components/PortfolioPages.module.css";
+
+const groups=[
+["Programming Languages",Code2,"Languages I use to build, solve and experiment.",["Python","JavaScript","TypeScript","Dart","SQL","C++"]],
+["Web Development",Code2,"Building modern and responsive web applications.",["React","Next.js","Node.js","Express","Tailwind CSS","HTML/CSS"]],
+["Mobile Development",Smartphone,"Cross-platform mobile app development.",["Flutter","Firebase","React Native","Expo"]],
+["Machine Learning & Data",BrainCircuit,"From classical ML to deep learning, with hands-on projects.",["Scikit-learn","TensorFlow","PyTorch","Pandas","NumPy","Matplotlib"]],
+["Computer Vision",Eye,"Building perception systems and working with real-world data.",["OpenCV","YOLOv8","ROS","Roboflow","NVIDIA"]],
+["DevOps & Tools",Server,"Tools I use to build, deploy and manage projects.",["Git","Docker","Linux","AWS","Terraform","VS Code"]]
+];
+export default function Skills(){return <PageFrame active="Skills"><main className={styles.container}>
+<section className={styles.projectPageHero}><div><div className={styles.kicker}>SKILLS & TECHNOLOGIES</div><h1 className={styles.sectionTitle} style={{fontSize:52}}>Tools for Ideas,<br/>Skills for <span className={styles.gradient}>Impact.</span></h1><p className={styles.sectionIntro}>A combination of software engineering, machine learning and problem-solving skills that I use to turn ideas into real-world applications.</p><div style={{display:"flex",gap:12,marginTop:24}}><Link href="/projects" className={styles.button}>View My Projects <ArrowRight size={14}/></Link><a href="/full_stack_cv_edited.pdf" target="_blank" className={styles.buttonGhost}>Download CV</a></div></div><div className={styles.card}><h3>“The more I learn, the more I realize how much more there is to explore.”</h3><p>— Nardy Attalla</p></div></section>
+<section className={styles.sectionBlock}><h2 className={styles.sectionTitle}>Technical Skills</h2><p className={styles.sectionIntro}>A practical toolkit built through university, projects and real-world experience.</p><div className={styles.skillsGrid}>{groups.map(([title,Icon,desc,items])=>{const I=Icon as React.ElementType;return <article className={styles.skillBox} key={String(title)}><I size={25} color="#7296ff"/><h3>{String(title)}</h3><p>{String(desc)}</p><div className={styles.skillItems}>{(items as string[]).map(x=><span key={x}>{x}</span>)}</div></article>})}</div></section>
+<section className={styles.sectionBlock}><h2 className={styles.sectionTitle}>My Machine Learning Journey</h2><p className={styles.sectionIntro}>A visual roadmap of what I’ve learned, what I’m learning, and what’s next.</p><div className={styles.roadmap}><div className={styles.roadmapLine}>{["Python","Math & Statistics","Data Analysis","Supervised Learning","Unsupervised Learning","NLP Basics","Computer Vision","Deep Learning","MLOps","RAG / LLMs"].map(x=><div key={x}><i/>{x}</div>)}</div><div style={{height:7,borderRadius:8,background:"linear-gradient(90deg,#4b8dff 0 65%,#162b4b 65%)"}}/></div></section>
+<section className={styles.sectionBlock}><h2 className={styles.sectionTitle}>Beyond Technical Skills</h2><div className={styles.cards3}><div className={styles.card}><h3>Problem Solving</h3><p>Breaking complex problems into simple, practical solutions.</p></div><div className={styles.card}><h3>Continuous Learning</h3><p>Always exploring new tools, concepts and technologies.</p></div><div className={styles.card}><h3>Communication</h3><p>Working effectively in teams and presenting ideas clearly.</p></div></div></section>
+</main></PageFrame>}
