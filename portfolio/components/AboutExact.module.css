@@ -29,3 +29,18 @@
 .aboutHeader .headerSearch{display:none}
 @media(max-width:900px){.aboutHero{height:auto;min-height:520px;grid-template-columns:1fr;padding-bottom:30px}.heroCopy{padding:40px 6% 0}.heroVisual{height:310px;margin-top:20px}.heroPortrait{right:20%;width:290px;height:290px}.storySection,.drivesSection,.beyondSection,.connectSection{height:auto}.storyGrid{grid-template-columns:1fr;gap:20px}.storyColumn,.personalColumn{border-right:0;padding:0}.polaroids{height:250px}.valueGrid{grid-template-columns:repeat(2,1fr)}.connectGrid{height:auto;grid-template-columns:1fr}.connectLinks{border-right:0;padding:0 0 60px}.messageCard{margin:20px 0}.connectArt{height:180px}}
 @media(max-width:600px){.heroCopy h1{font-size:36px}.heroCopy>p{font-size:11px}.heroActions{flex-wrap:wrap}.heroQuote{left:4%;top:35px}.heroAnnotation{display:none}.heroPortrait{right:8%;width:260px}.sectionHeading{height:auto;min-height:27px;align-items:flex-start}.sectionHeading em{display:none}.storyColumn>p{font-size:10px}.valueGrid{grid-template-columns:1fr}.valueCard{height:auto;min-height:145px}.hobbyCard{height:175px}.connectLinks>a:not(.opportunityButton){grid-template-columns:24px 65px 1fr}.messageCard{height:auto;padding-bottom:14px}.connectSection{padding-left:6%;padding-right:6%}}
+
+/* UNIFIED THEME */
+:global(html[data-theme="light"]) .aboutPage{background:linear-gradient(180deg,#f8fbff,#eef4f9);color:#172033}
+:global(html[data-theme="light"]) .aboutHero{border-bottom-color:#dce5ef}
+:global(html[data-theme="light"]) .heroCopy h1,:global(html[data-theme="light"]) .sectionHeading h2{color:#172033}
+:global(html[data-theme="light"]) .heroCopy>p,:global(html[data-theme="light"]) .storyColumn>p{color:#526277}
+:global(html[data-theme="light"]) .secondaryButton{color:#243247;border-color:#b8c5d5;background:#fff}
+:global(html[data-theme="light"]) .storySection,:global(html[data-theme="light"]) .drivesSection,:global(html[data-theme="light"]) .connectSection{border-bottom-color:#dce5ef}
+:global(html[data-theme="light"]) .storyColumn,:global(html[data-theme="light"]) .personalColumn{border-right-color:#d8e1eb}
+:global(html[data-theme="light"]) .personalCard,:global(html[data-theme="light"]) .storyQuote,:global(html[data-theme="light"]) .valueCard,:global(html[data-theme="light"]) .aboutContact,:global(html[data-theme="light"]) .messageCard{background:#fff;border-color:#d5dfeb;box-shadow:0 6px 18px rgba(30,50,80,.06)}
+:global(html[data-theme="light"]) .detailRow{color:#334155;border-bottom-color:#e5ebf2}
+:global(html[data-theme="light"]) .storyQuote p,:global(html[data-theme="light"]) .valueCard p{color:#526277}
+:global(html[data-theme="light"]) .valueCard h3{color:#172033}
+:global(html[data-theme="light"]) .connectLinks a{color:#526277}
+:global(html[data-theme="light"]) .connectLinks b{color:#3978d8}
