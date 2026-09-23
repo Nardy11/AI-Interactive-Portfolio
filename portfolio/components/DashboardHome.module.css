@@ -156,3 +156,11 @@
 :global(html[data-theme="light"]) .dashboardFooter{background:#f8fafc;border-top-color:#dce5ef}
 :global(html[data-theme="light"]) .dashboardFooterMiddle,:global(html[data-theme="light"]) .dashboardFooterLocation{color:#64748b}
 :global(html[data-theme="light"]) .dashboardFooterMiddle span{color:#94a3b8}
+
+/* CONSISTENT SITE GRID */
+.homeContainer{width:calc(100% - (2 * var(--site-gutter)));margin-left:var(--site-gutter);margin-right:var(--site-gutter);box-sizing:border-box}
+
+@media(max-width:680px){
+  .homeContainer{width:calc(100% - 48px);margin-left:24px;margin-right:24px}
+}
+
