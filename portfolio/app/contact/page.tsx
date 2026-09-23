@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Github, Linkedin, Mail, MapPin, ArrowRight } from "lucide-react";
 import { PageFrame } from "@/components/PortfolioPages";
 import styles from "@/components/PortfolioPages.module.css";
