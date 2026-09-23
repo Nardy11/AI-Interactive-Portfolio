@@ -16,8 +16,7 @@ type ExperienceItem = {
 
 const experiences: ExperienceItem[] = [
   {
-    date: "Dec 2025
-– Present",
+    date: "Dec 2025\n– Present",
     company: "Huawei (Via Premier Service & Recruitment)",
     role: "Linux & Database Administrator",
     place: "Cairo, Egypt (Onsite)",
@@ -27,8 +26,7 @@ const experiences: ExperienceItem[] = [
     markClass: "huawei",
   },
   {
-    date: "Aug 2024
-– Oct 2024",
+    date: "Aug 2024\n– Oct 2024",
     company: "German University in Cairo (GUC)",
     role: "Flutter Developer Intern",
     place: "Cairo, Egypt",
@@ -38,8 +36,7 @@ const experiences: ExperienceItem[] = [
     markClass: "guc",
   },
   {
-    date: "Jun 2024
-– Aug 2024",
+    date: "Jun 2024\n– Aug 2024",
     company: "ESG & Company",
     role: "Flutter Developer Intern",
     place: "Cairo, Egypt",
