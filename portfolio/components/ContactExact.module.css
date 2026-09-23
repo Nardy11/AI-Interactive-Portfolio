@@ -23,3 +23,8 @@
 :global(html[data-theme="light"]) .mapOverlay{background:rgba(255,255,255,.94);border-color:#d1dce8;color:#172033;box-shadow:0 10px 25px rgba(30,50,80,.14)}
 :global(html[data-theme="light"]) .mapOverlay>span,:global(html[data-theme="light"]) .mapLabel{color:#334155}
 :global(html[data-theme="light"]) .cta{background:linear-gradient(110deg,#e9f2ff,#f4efff);border-color:#b8c8e6}
+
+/* UNIFIED HERO ALIGNMENT */
+.contactHero{height:276px;min-height:276px}.heroCopy{width:49%;padding:42px 0 0 6.3%}.kicker{font-size:9px;letter-spacing:4px;margin-bottom:10px}.heroCopy h1{font-size:39px}.heroCopy>p{font-size:10.5px}.highlights{gap:24px;margin-top:19px}.heroQuote{left:49%;top:52px}
+@media(max-width:900px){.contactHero{height:auto;min-height:560px}.heroCopy{width:68%;padding-left:6%}}
+@media(max-width:650px){.contactHero{min-height:650px}.heroCopy{width:auto;padding:38px 6% 0}.heroCopy h1{font-size:38px}}

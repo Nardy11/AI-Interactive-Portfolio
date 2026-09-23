@@ -158,32 +158,27 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 .experienceBrandMark img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;filter:drop-shadow(0 2px 5px rgba(0,0,0,.25))}
 .educationExactCard .experienceBrandMark img{width:100%;height:100%;object-fit:contain}
 
-
-/* HOME DASHBOARD HEADER / FOOTER */
-.dashboardHeader{height:57px;box-sizing:border-box;padding:0 8.7%;grid-template-columns:260px 1fr auto;gap:20px;background:rgba(2,9,19,.92)}
-.dashboardHeader .brand{gap:13px}
-.dashboardHeader .brandMark{font-size:29px}
-.dashboardHeader .brand b{font-size:13px}
-.dashboardHeader .brandText small{display:none}
-.dashboardHeader .mainNav,.dashboardHeader nav{gap:37px}
-.dashboardHeader nav a{font-size:10px;padding-bottom:7px}
-.dashboardHeader .headerActions{gap:27px}
-.dashboardHeader .headerCv{height:36px;padding:0 17px;border-radius:10px;font-size:10px;border-color:#274466}
-.dashboardTheme{width:auto!important;height:26px!important;padding:0!important;border:0!important;background:transparent!important;display:flex!important;align-items:center;gap:7px;color:#7e94b6!important}
-.dashboardTheme span{width:31px;height:17px;border-radius:12px;border:1px solid #2b4769;background:#0b1a2e;display:flex;align-items:center;padding:2px;box-sizing:border-box}
-.dashboardTheme span i{display:block;width:13px;height:13px;border-radius:50%;background:#eaf0f8;box-shadow:0 0 6px rgba(255,255,255,.25)}
-.dashboardFooter{height:42px;box-sizing:border-box;width:100%;padding:0 7.2%;margin:0;display:grid;grid-template-columns:auto 1fr auto auto;gap:25px;align-items:center;background:#03101e;border-top:1px solid rgba(86,119,168,.14)}
-.dashboardFooter .footerBrand{gap:12px}
-.dashboardFooter .footerBrand .brandMark{font-size:21px}
-.dashboardFooter .footerBrand b{font-size:9px}
-.dashboardFooter .footerBrand small{display:none}
-.dashboardFooter .footerQuote{display:none}
-.dashboardFooterMiddle{font-size:8px;color:#7e90ac}
-.dashboardFooterMiddle span{padding:0 7px;color:#3f536f}
-.dashboardFooter .socials{gap:17px;justify-content:flex-end}
-.dashboardFooter .socials a{font-size:17px}
-.dashboardFooterLocation{font-size:7px;color:#7c8da8;white-space:nowrap}
-
-.aboutHeader .headerSearch{display:none}
-
-.contactHeader .headerSearch{display:none}
+/* UNIFIED NAV + HERO SYSTEM */
+.header{height:64px;box-sizing:border-box;padding:10px 3.5%;grid-template-columns:230px minmax(0,1fr) auto;gap:18px}
+.header nav{gap:24px}.headerActions{gap:10px}.headerCv{height:36px;box-sizing:border-box;padding:0 14px;font-size:9px}.brandMark{font-size:29px}.brand b{font-size:13px}.brand small{font-size:8px}.header nav a{font-size:10px}
+.themeButton{width:34px;height:34px;border:1px solid #263c60;border-radius:50%;background:#0b1528;color:#fff;display:grid;place-items:center;cursor:pointer}
+.headerSearch{width:126px;height:27px;box-sizing:border-box;display:flex;align-items:center;gap:6px;padding:0 9px;border:1px solid #1c355a;border-radius:15px;background:#071326;color:#6f85a8}
+.headerSearch input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#dbe4f4;font:inherit;font-size:8px}.headerSearch input::placeholder{color:#6e83a5}.headerSearch:focus-within{border-color:#4e6ca2}
+.projectsHero{min-height:276px;padding:25px 13px 17px}.projectsHeroCopy h1{font-size:39px}.projectsHeroCopy .kicker{font-size:9px}.projectsHeroCopy p{font-size:10.5px}
+.experienceHero{grid-template-columns:49% 27% 24%;min-height:276px;padding-top:25px}.experienceHeroCopy h1{font-size:39px}.experienceHeroCopy .kicker{font-size:9px}.experienceLead{font-size:11px}
+@media(max-width:1050px){.header{grid-template-columns:220px 1fr auto}.header nav{gap:16px}}
+@media(max-width:760px){.header{grid-template-columns:1fr auto;padding:10px 4%}.header nav{display:none}.headerSearch{display:none}.headerCv{height:34px;padding:0 12px}.projectsHeroCopy h1,.experienceHeroCopy h1{font-size:34px}}
+:global(html[data-theme="light"]) .page{background:linear-gradient(180deg,#f8fafc,#eef3f9);color:#172033}
+:global(html[data-theme="light"]) .header{background:rgba(248,250,253,.92);border-bottom-color:rgba(65,86,120,.14);box-shadow:0 4px 20px rgba(37,55,82,.06)}
+:global(html[data-theme="light"]) .brand b{color:#172033}:global(html[data-theme="light"]) .brand small{color:#68758a}:global(html[data-theme="light"]) .header nav a{color:#66738a}:global(html[data-theme="light"]) .header nav a.active,:global(html[data-theme="light"]) .header nav a:hover{color:#172033}
+:global(html[data-theme="light"]) .themeButton{background:#fff;border-color:#cbd5e1;color:#334155}:global(html[data-theme="light"]) .headerSearch{background:#fff;border-color:#cbd5e1;color:#64748b}:global(html[data-theme="light"]) .headerSearch input{color:#172033}:global(html[data-theme="light"]) .headerSearch input::placeholder{color:#94a3b8}:global(html[data-theme="light"]) .headerCv{background:#fff;border-color:#b9c5d5;color:#172033}
+:global(html[data-theme="light"]) .footer{border-top-color:rgba(65,86,120,.14)}:global(html[data-theme="light"]) .footerQuote{color:#64748b}:global(html[data-theme="light"]) .socials a{color:#172033}
+:global(html[data-theme="light"]) .projectsHeroCopy h1,:global(html[data-theme="light"]) .projectsCta h2{color:#172033}:global(html[data-theme="light"]) .projectsHeroCopy p,:global(html[data-theme="light"]) .projectsCta p{color:#64748b}
+:global(html[data-theme="light"]) .projectFilter,:global(html[data-theme="light"]) .projectFilterActive,:global(html[data-theme="light"]) .projectSort{background:#fff;color:#475569;border-color:#cbd5e1}
+:global(html[data-theme="light"]) .projectCardExact,:global(html[data-theme="light"]) .moreProjectsCard{background:linear-gradient(145deg,#fff,#f3f6fb);border-color:#d5deea;box-shadow:0 6px 18px rgba(30,50,80,.08)}
+:global(html[data-theme="light"]) .projectCardBody h2{color:#172033}:global(html[data-theme="light"]) .projectCardBody p{color:#64748b}:global(html[data-theme="light"]) .projectTagRow span{background:#e8f1ff;color:#3b67a0}:global(html[data-theme="light"]) .projectsCta{background:linear-gradient(110deg,#edf4ff,#f7f1ff);border-color:#b8c8e6}
+:global(html[data-theme="light"]) .experienceHeroCopy h1,:global(html[data-theme="light"]) .experienceSectionHeading h2,:global(html[data-theme="light"]) .certHeading h2{color:#172033}
+:global(html[data-theme="light"]) .experienceLead{color:#475569}:global(html[data-theme="light"]) .experienceDescription{color:#64748b}
+:global(html[data-theme="light"]) .experienceHeroFacts article,:global(html[data-theme="light"]) .experienceCard,:global(html[data-theme="light"]) .quickFactsExact,:global(html[data-theme="light"]) .experienceQuoteCard,:global(html[data-theme="light"]) .opportunityCard,:global(html[data-theme="light"]) .educationExactCard,:global(html[data-theme="light"]) .courseworkExact,:global(html[data-theme="light"]) .certExactCard{background:linear-gradient(145deg,#fff,#f4f7fb);border-color:#d4deea;box-shadow:0 6px 18px rgba(30,50,80,.06)}
+:global(html[data-theme="light"]) .experienceCardContent b,:global(html[data-theme="light"]) .experienceCardContent h3,:global(html[data-theme="light"]) .quickFactsExact strong,:global(html[data-theme="light"]) .educationExactCard b{color:#172033}
+:global(html[data-theme="light"]) .experienceCardContent p,:global(html[data-theme="light"]) .experienceCardContent span,:global(html[data-theme="light"]) .quickFactsExact span,:global(html[data-theme="light"]) .courseworkExact li{color:#64748b}

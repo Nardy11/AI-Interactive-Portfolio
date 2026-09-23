@@ -86,3 +86,9 @@
 :global(html[data-theme="light"]) .cta{background:linear-gradient(110deg,#e9f2ff,#f4efff);border-color:#b8c8e6}
 :global(html[data-theme="light"]) .ctaCopy h2{color:#172033}
 :global(html[data-theme="light"]) .ctaCopy p{color:#64748b}
+
+/* UNIFIED HERO ALIGNMENT */
+.skillsHero{height:276px;grid-template-columns:49% 51%;padding:0}
+.heroCopy{padding:42px 0 0 6.3%}.kicker{font-size:9px;letter-spacing:4px;margin-bottom:10px}.heroCopy h1{font-size:39px}.heroCopy p{font-size:10.5px}.heroVisual{min-height:276px}
+@media(max-width:900px){.skillsHero{height:auto;min-height:430px}.heroCopy{padding:38px 7% 20px}}
+@media(max-width:620px){.skillsHero{min-height:570px}.heroCopy h1{font-size:35px}}

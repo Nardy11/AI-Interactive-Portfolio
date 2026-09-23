@@ -44,3 +44,7 @@
 :global(html[data-theme="light"]) .valueCard h3{color:#172033}
 :global(html[data-theme="light"]) .connectLinks a{color:#526277}
 :global(html[data-theme="light"]) .connectLinks b{color:#3978d8}
+
+/* UNIFIED HERO ALIGNMENT */
+.aboutHero{height:276px;grid-template-columns:49% 51%}.heroCopy{padding:42px 0 0 6.3%}.kicker{font-size:9px;letter-spacing:4px;margin-bottom:10px}.heroCopy h1{font-size:39px}.heroCopy>p{font-size:10.5px}.heroVisual{min-height:276px}
+@media(max-width:700px){.aboutHero{height:auto;min-height:640px}.heroCopy{padding:38px 6% 0}.heroCopy h1{font-size:35px}}

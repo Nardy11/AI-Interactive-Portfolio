@@ -147,3 +147,8 @@
 :global(html[data-theme="light"]) .testimonial>p{color:#334155}
 :global(html[data-theme="light"]) .opportunityCopy b{color:#172033}
 :global(html[data-theme="light"]) .opportunityCopy p{color:#718096}
+
+/* UNIFIED HERO ALIGNMENT */
+.hero{height:276px}.heroGrid{height:276px;grid-template-columns:49% 51%}.heroCopy{padding-left:0}.heroCopy h1{font-size:39px;letter-spacing:-1.7px}.kicker{font-size:9px;letter-spacing:4px}
+@media(max-width:1050px){.hero{height:auto;min-height:540px}.heroGrid{height:auto;min-height:540px;grid-template-columns:1fr}.heroCopy{padding:60px 0 20px}}
+@media(max-width:680px){.hero{min-height:650px}.heroGrid{min-height:650px}.heroCopy h1{font-size:36px}.heroCopy{padding-top:42px}}
