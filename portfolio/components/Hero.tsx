@@ -15,7 +15,7 @@ const projects = [
   { title: 'WorkBoard — Full-Stack Work Management Platform', description: 'Production-oriented architecture with APIs, databases, automated testing and load testing.', image: '/Clinic Webs.png', tags: ['Next.js','NestJS','PostgreSQL'] },
   { title: 'AI-Integrated Portfolio Platform', description: 'Full-stack platform exposing AI functionality through REST APIs.', image: '/CV.webp', tags: ['Next.js','FastAPI','Docker'] },
 ];
-const navItems = [['Home','#home'],['Projects','#projects'],['Experience','#experience'],['Skills','#skills'],['About','#about'],['Contact','#contact']];
+const navItems = [['Home','/home'],['Projects','/projects'],['Experience','/experience'],['Skills','/skills'],['About','/about'],['Contact','/contact']];
 const stats = [['5+','Production web projects'],['4','Internships'],['ML + CV','AI focus'],['Open','To opportunities']];
 const skills = [
   [Code2,'Software Engineering','Web, mobile, backend and APIs'],
@@ -85,7 +85,7 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
     <HandTrackingMouse ref={handRef} onStreamChange={onStream} onHandStatusChange={onHand} onCursorMove={onCursorMove}/>
 
     <header className={styles.navbar}>
-      <a href="#home" className={styles.brand} onClick={()=>changeMode('normal')}><span className={styles.brandMark}>NA</span><span><strong>Nardy Attalla</strong><small>CS Engineer | Aspiring ML Engineer</small></span></a>
+      <a href="/home" className={styles.brand} onClick={()=>changeMode('normal')}><span className={styles.brandMark}>NA</span><span><strong>Nardy Attalla</strong><small>CS Engineer | Aspiring ML Engineer</small></span></a>
       <nav className={`${styles.navLinks} ${mobileOpen?styles.navOpen:''}`}>{navItems.map(([label,href])=><a key={label} href={href} onClick={()=>setMobileOpen(false)}>{label}</a>)}</nav>
       <div className={styles.navActions}>
         <button className={styles.iconButton} onClick={()=>setDark(v=>!v)} aria-label="Toggle theme">{dark?<Sun size={17}/>:<Moon size={17}/>}</button>
