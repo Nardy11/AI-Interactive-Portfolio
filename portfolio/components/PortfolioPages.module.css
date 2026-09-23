@@ -200,3 +200,12 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
   .footer{width:calc(100% - 48px);margin-left:24px;margin-right:24px}
 }
 
+
+
+/* CONSISTENT HERO SCALE */
+.projectsHero{min-height:276px}
+.projectsHeroCopy h1,.experienceHeroCopy h1{font-size:39px}
+
+@media(max-width:760px){
+  .projectsHeroCopy h1,.experienceHeroCopy h1{font-size:36px}
+}
