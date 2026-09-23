@@ -185,3 +185,5 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 .dashboardFooterLocation{font-size:7px;color:#7c8da8;white-space:nowrap}
 
 .aboutHeader .headerSearch{display:none}
+
+.contactHeader .headerSearch{display:none}
