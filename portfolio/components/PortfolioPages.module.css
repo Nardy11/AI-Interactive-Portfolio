@@ -185,7 +185,7 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 
 
 /* CONSISTENT SITE GRID */
-:global(:root){--site-gutter:clamp(24px,5.7vw,58px)}
+.page{--site-gutter:clamp(24px,5.7vw,58px)}
 .container{width:calc(100% - (2 * var(--site-gutter)));max-width:none}
 .projectsPage,.experiencePage{width:calc(100% - (2 * var(--site-gutter)));max-width:none}
 .projectsHero{padding-left:0;padding-right:0}
