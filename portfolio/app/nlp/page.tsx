@@ -1,0 +1,1 @@
+import Hero from "@/components/Hero"; export default function NLPMode(){return <Hero initialMode="nlp"/>;}
