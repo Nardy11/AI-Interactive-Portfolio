@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import HandTrackingMouse, { HandTrackingHandle } from './cv1';
 import AvatarOverlay from './avatar';
 import { ArrowRight, BrainCircuit, BriefcaseBusiness, CheckCircle2, ChevronRight, CircleDot, Code2, Cpu, Database, Download, Github, Hand, Layers3, Linkedin, Server, Smartphone, Sparkles, Sun, Moon, X } from 'lucide-react';
@@ -25,6 +26,7 @@ const skills = [
 ];
 
 export default function Hero({ initialMode='normal' }: HeroProps) {
+  const pathname=usePathname();
   const [mode,setMode]=useState<Mode>(initialMode);
   const [mobileOpen,setMobileOpen]=useState(false);
   const [dark,setDark]=useState(true);
@@ -86,7 +88,7 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
 
     <header className={styles.navbar}>
       <a href="/home" className={styles.brand} onClick={()=>changeMode('normal')}><span className={styles.brandMark}>NA</span><span><strong>Nardy Attalla</strong><small>CS Engineer | Aspiring ML Engineer</small></span></a>
-      <nav className={`${styles.navLinks} ${mobileOpen?styles.navOpen:''}`}>{navItems.map(([label,href])=><a key={label} href={href} onClick={()=>setMobileOpen(false)}>{label}</a>)}</nav>
+      <nav className={`${styles.navLinks} ${mobileOpen?styles.navOpen:''}`}>{navItems.map(([label,href])=><a key={label} className={pathname===href?styles.activeNav:''} href={href} onClick={()=>setMobileOpen(false)}>{label}</a>)}</nav>
       <div className={styles.navActions}>
         <button className={styles.iconButton} onClick={()=>setDark(v=>!v)} aria-label="Toggle theme">{dark?<Sun size={17}/>:<Moon size={17}/>}</button>
         <button className={styles.outlineButton} onClick={()=>changeMode('cv')}><Hand size={16}/> CV Mode</button>
@@ -122,9 +124,9 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
 
       <section className={styles.statsBar}>{stats.map(([value,label])=><div key={label}><span>{value}</span><small>{label}</small></div>)}</section>
 
-      <section id="projects" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>SELECTED WORK</span><h2>Featured Projects</h2></div><a href="#projects" onClick={(e)=>{e.preventDefault();document.getElementById('projects')?.scrollIntoView({behavior:'smooth',block:'start'});}}>View All Projects <ChevronRight size={17}/></a></div><div className={styles.projectGrid}>{projects.map(p=><article className={styles.projectCard} key={p.title}><div className={styles.projectImageWrap}><img src={p.image} alt="" className={styles.projectImage}/></div><div className={styles.projectBody}><h3>{p.title}</h3><p>{p.description}</p><div className={styles.tags}>{p.tags.map(t=><span key={t}>{t}</span>)}</div></div></article>)}</div></section>
+      <section id="projects" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>SELECTED WORK</span><h2>Featured Projects</h2></div><a href="/projects">View All Projects <ChevronRight size={17}/></a></div><div className={styles.projectGrid}>{projects.map(p=><article className={styles.projectCard} key={p.title}><div className={styles.projectImageWrap}><img src={p.image} alt="" className={styles.projectImage}/></div><div className={styles.projectBody}><h3>{p.title}</h3><p>{p.description}</p><div className={styles.tags}>{p.tags.map(t=><span key={t}>{t}</span>)}</div></div></article>)}</div></section>
 
-      <section id="experience" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>CAREER</span><h2>Experience</h2></div><a href="#contact">Open to opportunities <ChevronRight size={17}/></a></div><div className={styles.experienceGrid}><article className={styles.experienceCard}><BriefcaseBusiness size={20}/><div><h3>Full-Stack / Software Engineer</h3><p>Prime Softworks × Poseidon X · Jul 2026 – Present</p><span>React · React Native · TypeScript · NestJS · PostgreSQL/Supabase · Docker</span></div></article><article className={styles.experienceCard}><Server size={20}/><div><h3>Backend Systems Engineer</h3><p>Huawei Technologies · Dec 2025 – Jun 2026</p><span>Linux production environments · SQL · operational data · troubleshooting</span></div></article></div></section>
+      <section id="experience" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>CAREER</span><h2>Experience</h2></div><a href="/contact">Open to opportunities <ChevronRight size={17}/></a></div><div className={styles.experienceGrid}><article className={styles.experienceCard}><BriefcaseBusiness size={20}/><div><h3>Full-Stack / Software Engineer</h3><p>Prime Softworks × Poseidon X · Jul 2026 – Present</p><span>React · React Native · TypeScript · NestJS · PostgreSQL/Supabase · Docker</span></div></article><article className={styles.experienceCard}><Server size={20}/><div><h3>Backend Systems Engineer</h3><p>Huawei Technologies · Dec 2025 – Jun 2026</p><span>Linux production environments · SQL · operational data · troubleshooting</span></div></article></div></section>
 
       <section id="skills" className={styles.section}><div className={styles.sectionHeading}><div><span className={styles.sectionKicker}>CAPABILITIES</span><h2>What I Work On</h2></div></div><div className={styles.skillGrid}>{skills.map(([Icon,title,text])=>{const SkillIcon=Icon as React.ElementType;return <div className={styles.skillCard} key={String(title)}><SkillIcon size={21}/><h3>{String(title)}</h3><p>{String(text)}</p></div>})}</div><div className={styles.learningBlock}><div><span className={styles.sectionKicker}>CURRENT DIRECTION</span><h3>Growing deeper into ML</h3><p>Machine Learning fundamentals and Computer Vision are already part of my projects. Deep learning, MLOps and RAG are the next steps.</p></div><div className={styles.learningGrid}>{[[BrainCircuit,'Machine Learning'],[Cpu,'Computer Vision'],[Server,'MLOps'],[Sparkles,'RAG — Next']].map(([Icon,title])=>{const I=Icon as React.ElementType;return <div key={String(title)}><I size={18}/><span>{String(title)}</span></div>})}</div></div></section>
 
