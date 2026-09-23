@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ElementType } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -263,7 +263,7 @@ export default function DashboardHome() {
                     <span>⌁</span>
                   </div>
                   <div className={styles.learningItems}>
-                    {["Deep Learning", "MLOps", "RAG", "LLMs"].map((item, index) => (
+                    {["Deep Learning", "MLOps", "RAG", "LLMs"].map((item) => (
                       <span key={item}><Sparkles size={11} />{item}</span>
                     ))}
                   </div>
