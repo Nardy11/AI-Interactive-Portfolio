@@ -32,6 +32,9 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
   const [hand,setHand]=useState(false);
   const [tracking,setTracking]=useState(false);
   const [status,setStatus]=useState('Ready');
+  const [chatInput,setChatInput]=useState('');
+  const [chatMessages,setChatMessages]=useState<{role:'user'|'assistant';text:string}[]>([]);
+  const [chatLoading,setChatLoading]=useState(false);
   const [cursorPosition,setCursorPosition]=useState({x:50,y:50});
   const handRef=useRef<HandTrackingHandle>(null);
   const previewRef=useRef<HTMLVideoElement>(null);
@@ -45,6 +48,18 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
   };
   const onHand=(detected:boolean)=>{ setHand(detected); };
   const onCursorMove=(position:{x:number;y:number})=>setCursorPosition(position);
+  const sendChat=async()=>{
+    const question=chatInput.trim();
+    if(!question || chatLoading) return;
+    setChatMessages(m=>[...m,{role:'user',text:question}]); setChatInput(''); setChatLoading(true);
+    try{
+      const res=await fetch(API_URL+'/nlp/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question})});
+      const data=await res.json().catch(()=>({}));
+      const answer=data.answer||data.response||data.message||'I could not get a response from the NLP assistant.';
+      setChatMessages(m=>[...m,{role:'assistant',text:answer}]);
+    }catch{setChatMessages(m=>[...m,{role:'assistant',text:'The NLP backend is currently unavailable.'}]);}
+    finally{setChatLoading(false);}
+  };
 
   useEffect(()=>{
     if(mode==='cv'){ setStatus('Camera initializing...'); requestAnimationFrame(()=>handRef.current?.startCamera()); }
@@ -59,7 +74,14 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
   },[mode,API_URL]);
 
   return <div className={`${styles.page} ${dark?styles.dark:styles.light}`}>
-    {mode==='nlp' && <AvatarOverlay />}
+    {mode==='nlp' && <>
+      <AvatarOverlay />
+      <aside className={styles.nlpPanel}>
+        <div className={styles.nlpHeader}><div><h3><BrainCircuit size={18}/> NLP Portfolio Assistant</h3><p>Ask me about Nardy's projects, skills and experience.</p></div><button className={styles.panelIcon} onClick={()=>changeMode('normal')} aria-label="Close"><X size={17}/></button></div>
+        <div className={styles.chatMessages}>{chatMessages.length===0 && <div className={styles.chatWelcome}>Hi. Ask me anything about my projects, experience, skills, education, or technologies.</div>}{chatMessages.map((m,i)=><div key={i} className={`${styles.chatBubble} ${m.role==='user'?styles.chatUser:styles.chatAssistant}`}>{m.text}</div>)}{chatLoading&&<div className={`${styles.chatBubble} ${styles.chatAssistant}`}>Thinking…</div>}</div>
+        <div className={styles.chatInputRow}><input value={chatInput} onChange={e=>setChatInput(e.target.value)} onKeyDown={e=>{if(e.key==='Enter')sendChat();}} placeholder="Ask about my portfolio…"/><button onClick={sendChat} disabled={chatLoading}><ArrowRight size={16}/></button></div>
+      </aside>
+    </>}
     <HandTrackingMouse ref={handRef} onStreamChange={onStream} onHandStatusChange={onHand} onCursorMove={onCursorMove}/>
 
     <header className={styles.navbar}>
