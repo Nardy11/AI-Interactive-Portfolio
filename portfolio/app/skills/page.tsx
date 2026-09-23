@@ -221,12 +221,14 @@ function SectionHeading({
   right,
   farRight,
   stacked=false,
+  showIcon=false,
 }: {
   icon: ElementType;
   title: string;
   right?: string;
   farRight?: string;
   stacked?: boolean;
+  showIcon?: boolean;
 }) {
   return (
     <div className={`${styles.sectionHeading} ${stacked ? styles.stackedHeading : ""}`}>
