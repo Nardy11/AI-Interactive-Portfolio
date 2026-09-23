@@ -16,7 +16,7 @@ const projects = [
   { title: 'AI-Integrated Portfolio Platform', description: 'Full-stack platform exposing AI functionality through REST APIs.', image: '/CV.webp', tags: ['Next.js','FastAPI','Docker'] },
 ];
 const navItems = [['Home','#home'],['Projects','#projects'],['Experience','#experience'],['Skills','#skills'],['About','#about'],['Contact','#contact']];
-const stats = [['5+','Production web projects'],['3+','Internships'],['ML + CV','AI focus'],['Open','To opportunities']];
+const stats = [['5+','Production web projects'],['4','Internships'],['ML + CV','AI focus'],['Open','To opportunities']];
 const skills = [
   [Code2,'Software Engineering','Web, mobile, backend and APIs'],
   [BrainCircuit,'Machine Learning','Applying ML to solve real problems'],
