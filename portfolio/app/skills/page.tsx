@@ -1,7 +1,7 @@
 import type { ElementType } from "react";
 import Link from "next/link";
 import { ArrowRight, Code2, BrainCircuit, Smartphone, Eye, Server } from "lucide-react";
-import { SiPython, SiJavascript, SiTypescript, SiDart, SiMysql, SiCplusplus, SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiTailwindcss, SiHtml5, SiCss3, SiFlutter, SiFirebase, SiExpo, SiScikitlearn, SiTensorflow, SiPytorch, SiPandas, SiNumpy, SiOpencv, SiRos, SiRoboflow, SiNvidia, SiGit, SiDocker, SiLinux, SiAmazon, SiTerraform, SiVisualstudiocode } from "react-icons/si";
+import { SiPython, SiJavascript, SiTypescript, SiDart, SiMysql, SiCplusplus, SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiTailwindcss, SiHtml5, SiCss3, SiFlutter, SiFirebase, SiExpo, SiScikitlearn, SiTensorflow, SiPytorch, SiPandas, SiNumpy, SiOpencv, SiRos, SiRoboflow, SiNvidia, SiGit, SiDocker, SiLinux, SiAmazon, SiTerraform } from "react-icons/si";
 import { PageFrame } from "@/components/PortfolioPages";
 import styles from "@/components/PortfolioPages.module.css";
 
@@ -11,7 +11,7 @@ const groups=[
 ["Mobile Development",Smartphone,"Cross-platform mobile app development.",[[SiFlutter,"Flutter"],[SiFirebase,"Firebase"],[SiReact,"React Native"],[SiExpo,"Expo"]]],
 ["Machine Learning & Data",BrainCircuit,"From classical ML to deep learning, with hands-on projects.",[[SiScikitlearn,"Scikit-learn"],[SiTensorflow,"TensorFlow"],[SiPytorch,"PyTorch"],[SiPandas,"Pandas"],[SiNumpy,"NumPy"]]],
 ["Computer Vision",Eye,"Building perception systems and working with real-world data.",[[SiOpencv,"OpenCV"],[SiRoboflow,"YOLOv8 / Roboflow"],[SiRos,"ROS"],[SiRoboflow,"Roboflow"],[SiNvidia,"NVIDIA"]]],
-["DevOps & Tools",Server,"Tools I use to build, deploy and manage projects.",[[SiGit,"Git"],[SiDocker,"Docker"],[SiLinux,"Linux"],[SiAmazon,"AWS"],[SiTerraform,"Terraform"],[SiVisualstudiocode,"VS Code"]]]
+["DevOps & Tools",Server,"Tools I use to build, deploy and manage projects.",[[SiGit,"Git"],[SiDocker,"Docker"],[SiLinux,"Linux"],[SiAmazon,"AWS"],[SiTerraform,"Terraform"]]]
 ];
 export default function Skills(){return <PageFrame active="Skills"><main className={styles.container}>
 <section className={styles.projectPageHero}><div><div className={styles.kicker}>SKILLS & TECHNOLOGIES</div><h1 className={styles.sectionTitle} style={{fontSize:52}}>Tools for Ideas,<br/>Skills for <span className={styles.gradient}>Impact.</span></h1><p className={styles.sectionIntro}>A combination of software engineering, machine learning and problem-solving skills that I use to turn ideas into real-world applications.</p><div style={{display:"flex",gap:12,marginTop:24}}><Link href="/projects" className={styles.button}>View My Projects <ArrowRight size={14}/></Link><a href="/full_stack_cv_edited.pdf" target="_blank" className={styles.buttonGhost}>Download CV</a></div></div><div className={styles.card}><h3>“The more I learn, the more I realize how much more there is to explore.”</h3><p>— Nardy Attalla</p></div></section>
