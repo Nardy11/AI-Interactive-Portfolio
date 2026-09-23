@@ -1,15 +1,9 @@
-import Welcome from "@/components/Welcome";
-import Image from "next/image";
+import Hero from "@/components/Hero";
 
-// page / component
 export default function Home() {
   return (
-    <main className="relative bg-black-100 flex items-center justify-center flex-col overflow-hidden w-full mx-auto px-0 sm:px-10">
-      <Welcome />
+    <main className="w-full min-h-screen overflow-x-hidden">
+      <Hero initialMode="normal" />
     </main>
   );
 }
-
-
-
-
