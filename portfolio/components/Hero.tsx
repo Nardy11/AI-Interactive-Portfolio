@@ -104,7 +104,7 @@ export default function Hero({ initialMode='normal' }: HeroProps) {
           <h1>Hi, I’m <span>Nardy Attalla</span></h1>
           <h2>Computer Science Engineer</h2>
           <p>I build modern web and mobile applications, explore Machine Learning, and turn ideas into practical software.</p>
-          <div className={styles.heroButtons}><a className={styles.primaryButton} href="#projects">View My Projects <ArrowRight size={17}/></a><a className={styles.outlineButton} href="/full_stack_cv_edited.pdf" target="_blank"><Download size={16}/> Download CV</a></div>
+          <div className={styles.heroButtons}><a className={styles.primaryButton} href="/projects">View My Projects <ArrowRight size={17}/></a><a className={styles.outlineButton} href="/full_stack_cv_edited.pdf" target="_blank"><Download size={16}/> Download CV</a></div>
         </div>
         <div className={styles.heroVisual}><div className={styles.visualGlow}/><div className={styles.cityLine}/><div className={styles.visualQuote}>Same<br/>Engineer.<br/>Bigger<br/>Possibilities.</div></div>
         {mode==='cv' && hand && <div className={styles.cursorDemo} style={{left:cursorPosition.x,top:cursorPosition.y}}><CircleDot size={26}/><span>Controlled by Hand</span></div>}
