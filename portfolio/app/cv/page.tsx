@@ -1,0 +1,1 @@
+import Hero from "@/components/Hero"; export default function CVMode(){return <Hero initialMode="cv"/>;}
