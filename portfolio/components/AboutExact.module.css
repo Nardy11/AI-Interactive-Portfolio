@@ -76,3 +76,5 @@
 :global(html[data-theme="light"]) .heroQuote{color:#253a55}:global(html[data-theme="light"]) .heroQuote small{color:#5e7188}:global(html[data-theme="light"]) .heroAnnotation{color:#7356c7}
 .earthImage{width:420px;height:315px;right:-145px;bottom:-118px;object-fit:contain;object-position:center;mask-image:radial-gradient(ellipse at 50% 50%,#000 0 68%,transparent 72%);-webkit-mask-image:radial-gradient(ellipse at 50% 50%,#000 0 68%,transparent 72%);filter:saturate(1.05) contrast(1.05)}
 :global(html[data-theme="light"]) .earthImage{opacity:.98;filter:saturate(.98) contrast(1.04) brightness(1.02)}
+
+.messageButton{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none}

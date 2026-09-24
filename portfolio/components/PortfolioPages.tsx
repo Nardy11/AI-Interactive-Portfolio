@@ -94,7 +94,7 @@ export function Footer({ variant = "default" }: { variant?: "default" | "dashboa
         <a href="https://github.com/Nardy11" target="_blank" rel="noreferrer"><Github size={18} /></a>
         <a href="https://www.linkedin.com/in/nardy-attallah" target="_blank" rel="noreferrer"><Linkedin size={18} /></a>
         <a href="mailto:nardy.attalla@gmail.com"><Mail size={18} /></a>
-        {variant === "dashboard" && <a href="#" aria-label="Instagram"><Instagram size={17} /></a>}
+        
       </div>
       {variant === "dashboard" && <span className={styles.dashboardFooterLocation}>Cairo, Egypt&nbsp; | &nbsp;Open to opportunities worldwide</span>}
     </footer>
