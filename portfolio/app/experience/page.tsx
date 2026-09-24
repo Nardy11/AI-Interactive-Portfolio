@@ -131,7 +131,7 @@ export default function Experience() {
     <PageFrame active="Experience">
       <main className={styles.experiencePage}>
         <section className={`${styles.experienceHero} portfolioHero`}>
-          <div className={styles.experienceHeroCopy}>
+          <div className={`${styles.experienceHeroCopy} portfolioHeroCopy`} >
             <div className={styles.kicker}>EXPERIENCE &amp; EDUCATION</div>
             <h1>My Journey <span>So Far</span></h1>
             <p className={styles.experienceLead}>A journey of learning, building and continuously improving.</p>
@@ -150,7 +150,7 @@ export default function Experience() {
             </div>
           </div>
 
-          <div className={styles.experienceHeroImage}>
+          <div className={`${styles.experienceHeroImage} portfolioHeroVisual`} >
             <div className={styles.experienceMountain} />
             <div className={styles.experienceHeroQuote}>
               <span>“The best way to predict your future<br />is to create it.”</span>
