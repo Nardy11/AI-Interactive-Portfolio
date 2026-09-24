@@ -61,7 +61,7 @@ export default function Projects() {
               Each project represents a step in my learning journey and my passion<br />
               for building impactful solutions.
             </p>
-            <div className={styles.projectsHeroActions}>
+            <div className={`${styles.projectsHeroActions} portfolioHeroActions`}>
               <GitHubLink href="https://github.com/Nardy11" className={styles.projectsPrimaryButton}><Github size={14} /> View GitHub</GitHubLink>
               <Link href="/contact" className={styles.projectsSecondaryButton}>Let&apos;s Collaborate <ArrowRight size={14} /></Link>
             </div>
