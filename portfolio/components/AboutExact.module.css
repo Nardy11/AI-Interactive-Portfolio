@@ -150,3 +150,7 @@
 @media(max-width:900px){
   .earthImage{width:300px;height:300px;right:50%;transform:translateX(50%);bottom:-105px}
 }
+
+/* Final connect treatment: real high-resolution daylight Earth photo. */
+.earthImage{width:350px;height:350px;right:-72px;bottom:-120px;object-fit:cover;object-position:center;border-radius:50%;mask-image:none;-webkit-mask-image:none;opacity:.94;border:1px solid rgba(111,181,255,.28);box-shadow:-14px -10px 42px rgba(64,132,225,.18),inset 14px 9px 32px rgba(255,255,255,.06),inset -18px -20px 42px rgba(0,0,0,.34)}
+:global(html[data-theme="light"]) .earthImage{opacity:.88;filter:saturate(.92) brightness(1.04) contrast(.98);border-color:rgba(76,126,190,.22);box-shadow:-10px -8px 32px rgba(70,105,150,.11),inset 12px 8px 25px rgba(255,255,255,.12),inset -14px -16px 32px rgba(40,70,105,.1)}
