@@ -88,3 +88,52 @@
 html[data-theme="dark"] { color-scheme: dark; }
 html[data-theme="light"] { color-scheme: light; }
 html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
+
+
+/* Shared primary-page hero template. Page-specific artwork/layout remains variable. */
+.portfolioHero{
+  height:300px!important;
+  min-height:300px!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+.portfolioHero h1{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:42px!important;
+  line-height:1.02!important;
+  letter-spacing:-1.9px!important;
+  font-weight:800!important;
+}
+.portfolioHero .kicker{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:9px!important;
+  line-height:1!important;
+  letter-spacing:4px!important;
+}
+.portfolioHero p{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:11.5px!important;
+  line-height:1.5!important;
+}
+.portfolioHero a,
+.portfolioHero button{
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+@media(max-width:900px){
+  .portfolioHero{
+    height:360px!important;
+    min-height:360px!important;
+  }
+}
+@media(max-width:650px){
+  .portfolioHero{
+    height:390px!important;
+    min-height:390px!important;
+  }
+  .portfolioHero h1{
+    font-size:34px!important;
+    letter-spacing:-1.4px!important;
+  }
+  .portfolioHero p{font-size:10.5px!important}
+}
