@@ -275,31 +275,5 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 
 .projectDetails,.projectIconLinks a,.projectsPrimaryButton,.moreProjectsButton{transition-duration:.65s!important}
 
-/* CV / NLP controls are part of the shared site header, not standalone navigation pages. */
-.modeButton{
-  height:34px;
-  box-sizing:border-box;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:0 10px;
-  border:1px solid #293f63;
-  border-radius:9px;
-  background:#0a172b;
-  color:#e8effb;
-  font:inherit;
-  font-size:9px;
-  font-weight:700;
-  white-space:nowrap;
-  cursor:pointer;
-  transition:background .28s ease,border-color .28s ease,color .28s ease,transform .28s ease,box-shadow .28s ease;
-}
-.modeButton:hover{transform:translateY(-1px);border-color:#5e7fd0;box-shadow:0 7px 18px rgba(33,67,125,.16)}
-.modeButtonActive{border-color:#7168e9!important;background:linear-gradient(100deg,rgba(67,103,255,.2),rgba(118,83,255,.18))!important;box-shadow:0 0 0 1px rgba(113,104,233,.18)}
-:global(html[data-theme="light"]) .modeButton{background:#fff;border-color:#bdcde0;color:#24364d}
-:global(html[data-theme="light"]) .modeButtonActive{border-color:#7168d9!important;background:#eef0ff!important;color:#394578!important}
-@media(max-width:1050px){.headerActions .modeButton{padding:0 8px;font-size:8px}}
-@media(max-width:760px){.headerActions .modeButton{padding:0 7px;font-size:7.5px}}
-
 /* Shared navbar mode controls — match the original interactive button language. */
 .modeButton{min-height:36px;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid rgba(116,98,255,.58);color:var(--text,#f5f7ff);background:rgba(12,18,39,.42);border-radius:10px;padding:0 12px;text-decoration:none;font-size:10px;font-weight:700;white-space:nowrap;cursor:pointer}.modeButton:hover{transform:translateY(-1px)}.modeButtonActive{border-color:#7771e8;box-shadow:0 0 0 2px rgba(119,113,232,.12)}:global(html[data-theme="light"]) .modeButton{background:#fff;color:#243247;border-color:#b9cbe1}:global(html[data-theme="light"]) .modeButtonActive{background:#f0efff;color:#3e4274;border-color:#7771e8}@media(max-width:1050px){.modeButton{padding:0 8px;font-size:9px}}@media(max-width:760px){.modeButton{padding:0 7px;font-size:8px}.headerActions .modeButton{display:none}}
