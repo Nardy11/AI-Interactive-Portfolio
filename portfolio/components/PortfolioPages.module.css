@@ -300,3 +300,6 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 :global(html[data-theme="light"]) .modeButtonActive{border-color:#7168d9!important;background:#eef0ff!important;color:#394578!important}
 @media(max-width:1050px){.headerActions .modeButton{padding:0 8px;font-size:8px}}
 @media(max-width:760px){.headerActions .modeButton{padding:0 7px;font-size:7.5px}}
+
+/* Shared navbar mode controls — match the original interactive button language. */
+.modeButton{min-height:36px;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid rgba(116,98,255,.58);color:var(--text,#f5f7ff);background:rgba(12,18,39,.42);border-radius:10px;padding:0 12px;text-decoration:none;font-size:10px;font-weight:700;white-space:nowrap;cursor:pointer}.modeButton:hover{transform:translateY(-1px)}.modeButtonActive{border-color:#7771e8;box-shadow:0 0 0 2px rgba(119,113,232,.12)}:global(html[data-theme="light"]) .modeButton{background:#fff;color:#243247;border-color:#b9cbe1}:global(html[data-theme="light"]) .modeButtonActive{background:#f0efff;color:#3e4274;border-color:#7771e8}@media(max-width:1050px){.modeButton{padding:0 8px;font-size:9px}}@media(max-width:760px){.modeButton{padding:0 7px;font-size:8px}.headerActions .modeButton{display:none}}
