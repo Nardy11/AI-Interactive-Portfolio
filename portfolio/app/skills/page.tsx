@@ -40,6 +40,12 @@ const technicalGroups: SkillGroup[] = [
     items: [[SiReact,"React"],[SiNextdotjs,"Next.js"],[SiNodedotjs,"Node.js"],[SiExpress,"Express"],[SiTailwindcss,"Tailwind CSS"],[SiHtml5,"HTML/CSS"]],
   },
   {
+    title: "Backend & APIs",
+    description: "Building APIs, services and database-backed applications.",
+    icon: ServerCog,
+    items: [[SiNodedotjs,"Node.js"],[SiTypescript,"NestJS"],[Code2,"FastAPI"],[SiMysql,"PostgreSQL"],[Code2,"Supabase"],[Code2,"MongoDB"],[Code2,"REST APIs"]],
+  },
+  {
     title: "Mobile Development",
     description: "Cross-platform mobile app development.",
     icon: Smartphone,
