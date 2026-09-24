@@ -131,7 +131,7 @@ export default function Experience() {
     <PageFrame active="Experience">
       <main className={styles.experiencePage}>
         <section className={`${styles.experienceHero} portfolioHero`}>
-          <div className={styles.experienceHeroCopy}>
+          <div className={`${styles.experienceHeroCopy} portfolioHeroCopy`} >
             <div className={styles.kicker}>EXPERIENCE &amp; EDUCATION</div>
             <h1>My Journey <span>So Far</span></h1>
             <p className={styles.experienceLead}>A journey of learning, building and continuously improving.</p>
@@ -140,7 +140,7 @@ export default function Experience() {
               into Machine Learning and AI — every step has shaped who I am today
               and where I want to go next.
             </p>
-            <div className={styles.experienceHeroButtons}>
+            <div className={`${styles.experienceHeroButtons} portfolioHeroActions`}>
               <a href="/full_stack_cv_edited.pdf" target="_blank" rel="noreferrer" className={styles.button}>
                 ↓&nbsp; Download CV
               </a>
@@ -150,7 +150,7 @@ export default function Experience() {
             </div>
           </div>
 
-          <div className={styles.experienceHeroImage}>
+          <div className={`${styles.experienceHeroImage} portfolioHeroVisual`} >
             <div className={styles.experienceMountain} />
             <div className={styles.experienceHeroQuote}>
               <span>“The best way to predict your future<br />is to create it.”</span>
@@ -158,7 +158,7 @@ export default function Experience() {
             </div>
           </div>
 
-          <div className={styles.experienceHeroFacts}>
+          <div className={`${styles.experienceHeroFacts} portfolioHeroFacts`}>
             <article><GraduationCap /><div><b>B.Sc. Computer Science<br />and Engineering</b><span>German University in Cairo</span><small>2021 – 2025</small></div></article>
             <article><MapPin /><div><b>Based in</b><span>Cairo, Egypt</span></div></article>
             <article><Target /><div><b>Goal</b><span>Build impactful solutions<br />with ML &amp; Software Engineering</span></div></article>

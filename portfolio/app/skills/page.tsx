@@ -111,17 +111,17 @@ export default function SkillsPage() {
     <PageFrame active="Skills">
       <main className={styles.skillsPage}>
         <section className={`${styles.skillsHero} portfolioHero`}>
-          <div className={styles.heroCopy}>
+          <div className={`${styles.heroCopy} portfolioHeroCopy`} >
             <div className={styles.kicker}>SKILLS &amp; TECHNOLOGIES</div>
             <h1>Tools for Ideas,<br />Skills for <span>Impact.</span></h1>
             <p>A combination of software engineering, machine learning and problem-solving<br className={styles.desktopBreak} /> skills that I use to turn ideas into real-world applications.</p>
-            <div className={styles.heroActions}>
+            <div className={`${styles.heroActions} portfolioHeroActions`}>
               <Link href="/projects" className={styles.primaryButton}>View My Projects <ArrowRight size={14}/></Link>
               <a href="/full_stack_cv_edited.pdf" target="_blank" rel="noreferrer" className={styles.secondaryButton}><Download size={14}/> Download CV</a>
             </div>
           </div>
 
-          <div className={styles.heroVisual}>
+          <div className={`${styles.heroVisual} portfolioHeroVisual`} >
             <div className={styles.heroPhoto} />
             <div className={styles.heroPhotoShade} />
             <div className={styles.heroQuote}>
