@@ -10,19 +10,19 @@
 @media(max-width:650px){.contactHero{min-height:650px;background-position:64% center}.heroCopy{width:auto;padding:38px 6% 0}.heroCopy h1{font-size:38px}.heroQuote{left:6%;top:auto;bottom:70px}.heroAnnotation{display:none}.highlights{gap:16px;flex-wrap:wrap}.messageSection{padding:20px 6%}.formGrid{grid-template-columns:1fr}.locationHeader{display:block}.locationNote{display:none}.mapCard{height:250px}.mapOverlay{right:8px;top:8px}.cta{height:auto;min-height:145px;padding:22px;align-items:flex-start;flex-direction:column;gap:18px}.cta a{align-self:stretch;justify-content:center}.footer{width:88%}}
 
 /* UNIFIED THEME */
-:global(html[data-theme="light"]) .contactPage{background:linear-gradient(180deg,#f8fbff,#eef4f9);color:#172033}
-:global(html[data-theme="light"]) .messageSection,:global(html[data-theme="light"]) .locationSection{border-bottom-color:#dce5ef}
-:global(html[data-theme="light"]) .sectionHeading h2,:global(html[data-theme="light"]) .messageForm h2,:global(html[data-theme="light"]) .cta h2{color:#172033}
-:global(html[data-theme="light"]) .sectionIntro,:global(html[data-theme="light"]) .messageForm>p,:global(html[data-theme="light"]) .locationHeader p,:global(html[data-theme="light"]) .cta p{color:#64748b}
-:global(html[data-theme="light"]) .contactCard,:global(html[data-theme="light"]) .messageForm,:global(html[data-theme="light"]) .mapCard{background:#fff;border-color:#d5dfeb;box-shadow:0 6px 18px rgba(30,50,80,.06)}
-:global(html[data-theme="light"]) .contactCard{color:#172033}
-:global(html[data-theme="light"]) .contactCardBody strong{color:#172033}
-:global(html[data-theme="light"]) .contactCardBody small,:global(html[data-theme="light"]) .safeNote{color:#718096}
-:global(html[data-theme="light"]) .messageForm input,:global(html[data-theme="light"]) .messageForm textarea{background:#f4f7fb;border-color:#cbd7e5;color:#172033}
-:global(html[data-theme="light"]) .messageForm input::placeholder,:global(html[data-theme="light"]) .messageForm textarea::placeholder{color:#94a3b8}
-:global(html[data-theme="light"]) .mapOverlay{background:rgba(255,255,255,.94);border-color:#d1dce8;color:#172033;box-shadow:0 10px 25px rgba(30,50,80,.14)}
-:global(html[data-theme="light"]) .mapOverlay>span,:global(html[data-theme="light"]) .mapLabel{color:#334155}
-:global(html[data-theme="light"]) .cta{background:linear-gradient(110deg,#e9f2ff,#f4efff);border-color:#b8c8e6}
+html[data-theme="light"] .contactPage{background:linear-gradient(180deg,#f8fbff,#eef4f9);color:#172033}
+html[data-theme="light"] .messageSection,html[data-theme="light"] .locationSection{border-bottom-color:#dce5ef}
+html[data-theme="light"] .sectionHeading h2,html[data-theme="light"] .messageForm h2,html[data-theme="light"] .cta h2{color:#172033}
+html[data-theme="light"] .sectionIntro,html[data-theme="light"] .messageForm>p,html[data-theme="light"] .locationHeader p,html[data-theme="light"] .cta p{color:#64748b}
+html[data-theme="light"] .contactCard,html[data-theme="light"] .messageForm,html[data-theme="light"] .mapCard{background:#fff;border-color:#d5dfeb;box-shadow:0 6px 18px rgba(30,50,80,.06)}
+html[data-theme="light"] .contactCard{color:#172033}
+html[data-theme="light"] .contactCardBody strong{color:#172033}
+html[data-theme="light"] .contactCardBody small,html[data-theme="light"] .safeNote{color:#718096}
+html[data-theme="light"] .messageForm input,html[data-theme="light"] .messageForm textarea{background:#f4f7fb;border-color:#cbd7e5;color:#172033}
+html[data-theme="light"] .messageForm input::placeholder,html[data-theme="light"] .messageForm textarea::placeholder{color:#94a3b8}
+html[data-theme="light"] .mapOverlay{background:rgba(255,255,255,.94);border-color:#d1dce8;color:#172033;box-shadow:0 10px 25px rgba(30,50,80,.14)}
+html[data-theme="light"] .mapOverlay>span,html[data-theme="light"] .mapLabel{color:#334155}
+html[data-theme="light"] .cta{background:linear-gradient(110deg,#e9f2ff,#f4efff);border-color:#b8c8e6}
 
 /* UNIFIED HERO ALIGNMENT */
 .contactHero{height:276px;min-height:276px}.heroCopy{width:49%;padding:42px 0 0 6.3%}.kicker{font-size:9px;letter-spacing:4px;margin-bottom:10px}.heroCopy h1{font-size:39px}.heroCopy>p{font-size:10.5px}.highlights{gap:24px;margin-top:19px}.heroQuote{left:49%;top:52px}
@@ -41,50 +41,50 @@
 
 /* POLISH PASS — contact light mode */
 .contactHero{background-image:linear-gradient(90deg,rgba(2,10,23,.86) 0%,rgba(2,10,23,.62) 42%,rgba(2,10,23,.25) 70%,rgba(2,10,23,.12)),linear-gradient(180deg,rgba(4,12,27,.06),rgba(2,8,18,.5)),url("https://images.prismic.io/tnfev2/abd0d162-01bd-4ccf-9305-fa2d68f3de4a_trading-banner-two.png?auto=compress%2Cformat")}
-:global(html[data-theme="light"]) .contactHero{background-image:linear-gradient(90deg,rgba(246,250,255,.96) 0%,rgba(246,250,255,.82) 45%,rgba(246,250,255,.34) 72%,rgba(246,250,255,.12)),linear-gradient(180deg,rgba(255,255,255,.06),rgba(236,243,250,.3)),url("https://images.prismic.io/tnfev2/abd0d162-01bd-4ccf-9305-fa2d68f3de4a_trading-banner-two.png?auto=compress%2Cformat")}
-:global(html[data-theme="light"]) .heroCopy h1{color:#172033}
-:global(html[data-theme="light"]) .heroCopy>p{color:#3f536d}
-:global(html[data-theme="light"]) .heroQuote{color:#263b55;border-left-color:#6f63d9}
-:global(html[data-theme="light"]) .heroQuote small{color:#60728a}
-:global(html[data-theme="light"]) .heroAnnotation{color:#7356c7}
-:global(html[data-theme="light"]) .heroAnnotation i{border-color:#8a6ad9}
-:global(html[data-theme="light"]) .highlights div{color:#344b66}
-:global(html[data-theme="light"]) .highlights svg{color:#297fe8}
-:global(html[data-theme="light"]) .contactCardIcon{background:#edf4ff;color:#397fe8}
-:global(html[data-theme="light"]) .contactCardBody span{color:#256ed1}
-:global(html[data-theme="light"]) .contactCardBody small{color:#687a91}
-:global(html[data-theme="light"]) .cardArrow{border-color:#b8c8da;color:#397fe8;background:#fff}
-:global(html[data-theme="light"]) .contactCard{color:#172033}
-:global(html[data-theme="light"]) .messageForm input,:global(html[data-theme="light"]) .messageForm textarea{background:#f8fbff;border-color:#bdccdd;color:#172033}
-:global(html[data-theme="light"]) .messageForm input::placeholder,:global(html[data-theme="light"]) .messageForm textarea::placeholder{color:#71839a}
-:global(html[data-theme="light"]) .messageForm label svg{color:#397fe8}
-:global(html[data-theme="light"]) .messageForm .fieldIcon{color:#397fe8}
-:global(html[data-theme="light"]) .messageForm .fullField>svg{color:#60738c}
-:global(html[data-theme="light"]) .safeNote{color:#667892}
-:global(html[data-theme="light"]) .safeNote svg{color:#397fe8}
-:global(html[data-theme="light"]) .locationHeader p{color:#53657b}
-:global(html[data-theme="light"]) .mapCard iframe{filter:none}
-:global(html[data-theme="light"]) .mapOverlay{background:rgba(255,255,255,.97);color:#172033;border-color:#c9d6e5}
-:global(html[data-theme="light"]) .mapOverlay>div{border-bottom-color:#dce5ef}
-:global(html[data-theme="light"]) .mapOverlay>div svg{color:#7356d8}
-:global(html[data-theme="light"]) .mapOverlay>span{color:#52667e}
-:global(html[data-theme="light"]) .mapOverlay>span svg{color:#397fe8}
-:global(html[data-theme="light"]) .mapLabel{background:rgba(255,255,255,.96);color:#172033;border:1px solid #cbd8e7}
-:global(html[data-theme="light"]) .mapLabel small{color:#64778f}
-:global(html[data-theme="light"]) .locationNote{color:#7356c7}
-:global(html[data-theme="light"]) .cta h2{color:#172033}
-:global(html[data-theme="light"]) .cta p{color:#53657b}
+html[data-theme="light"] .contactHero{background-image:linear-gradient(90deg,rgba(246,250,255,.96) 0%,rgba(246,250,255,.82) 45%,rgba(246,250,255,.34) 72%,rgba(246,250,255,.12)),linear-gradient(180deg,rgba(255,255,255,.06),rgba(236,243,250,.3)),url("https://images.prismic.io/tnfev2/abd0d162-01bd-4ccf-9305-fa2d68f3de4a_trading-banner-two.png?auto=compress%2Cformat")}
+html[data-theme="light"] .heroCopy h1{color:#172033}
+html[data-theme="light"] .heroCopy>p{color:#3f536d}
+html[data-theme="light"] .heroQuote{color:#263b55;border-left-color:#6f63d9}
+html[data-theme="light"] .heroQuote small{color:#60728a}
+html[data-theme="light"] .heroAnnotation{color:#7356c7}
+html[data-theme="light"] .heroAnnotation i{border-color:#8a6ad9}
+html[data-theme="light"] .highlights div{color:#344b66}
+html[data-theme="light"] .highlights svg{color:#297fe8}
+html[data-theme="light"] .contactCardIcon{background:#edf4ff;color:#397fe8}
+html[data-theme="light"] .contactCardBody span{color:#256ed1}
+html[data-theme="light"] .contactCardBody small{color:#687a91}
+html[data-theme="light"] .cardArrow{border-color:#b8c8da;color:#397fe8;background:#fff}
+html[data-theme="light"] .contactCard{color:#172033}
+html[data-theme="light"] .messageForm input,html[data-theme="light"] .messageForm textarea{background:#f8fbff;border-color:#bdccdd;color:#172033}
+html[data-theme="light"] .messageForm input::placeholder,html[data-theme="light"] .messageForm textarea::placeholder{color:#71839a}
+html[data-theme="light"] .messageForm label svg{color:#397fe8}
+html[data-theme="light"] .messageForm .fieldIcon{color:#397fe8}
+html[data-theme="light"] .messageForm .fullField>svg{color:#60738c}
+html[data-theme="light"] .safeNote{color:#667892}
+html[data-theme="light"] .safeNote svg{color:#397fe8}
+html[data-theme="light"] .locationHeader p{color:#53657b}
+html[data-theme="light"] .mapCard iframe{filter:none}
+html[data-theme="light"] .mapOverlay{background:rgba(255,255,255,.97);color:#172033;border-color:#c9d6e5}
+html[data-theme="light"] .mapOverlay>div{border-bottom-color:#dce5ef}
+html[data-theme="light"] .mapOverlay>div svg{color:#7356d8}
+html[data-theme="light"] .mapOverlay>span{color:#52667e}
+html[data-theme="light"] .mapOverlay>span svg{color:#397fe8}
+html[data-theme="light"] .mapLabel{background:rgba(255,255,255,.96);color:#172033;border:1px solid #cbd8e7}
+html[data-theme="light"] .mapLabel small{color:#64778f}
+html[data-theme="light"] .locationNote{color:#7356c7}
+html[data-theme="light"] .cta h2{color:#172033}
+html[data-theme="light"] .cta p{color:#53657b}
 
 .contactHero{background-image:linear-gradient(90deg,rgba(2,10,23,.9),rgba(2,10,23,.68) 45%,rgba(2,10,23,.28) 78%,rgba(2,10,23,.12)),url("https://static.wixstatic.com/media/d7f5d6_7b3266544f284577b984e0a3c2941f42~mv2.png/v1/fill/w_1600,h_900,al_c,q_90/usm_0.66_1.00_0.01,enc_auto/d7f5d6_7b3266544f284577b984e0a3c2941f42~mv2.png");background-position:center 58%}
-:global(html[data-theme="light"]) .contactHero{background-image:linear-gradient(90deg,rgba(7,22,40,.84),rgba(9,28,49,.66) 45%,rgba(12,34,56,.38) 78%,rgba(14,35,55,.2)),url("https://static.wixstatic.com/media/d7f5d6_7b3266544f284577b984e0a3c2941f42~mv2.png/v1/fill/w_1600,h_900,al_c,q_90/usm_0.66_1.00_0.01,enc_auto/d7f5d6_7b3266544f284577b984e0a3c2941f42~mv2.png");background-position:center 58%}
-:global(html[data-theme="light"]) .contactHero .heroCopy h1,:global(html[data-theme="light"]) .contactHero .heroCopy>p,:global(html[data-theme="light"]) .contactHero .highlights div,:global(html[data-theme="light"]) .contactHero .heroQuote,:global(html[data-theme="light"]) .contactHero .heroQuote small{color:#f3f7ff}
-:global(html[data-theme="light"]) .contactHero .heroQuote{border-left-color:#8d78ff}
+html[data-theme="light"] .contactHero{background-image:linear-gradient(90deg,rgba(7,22,40,.84),rgba(9,28,49,.66) 45%,rgba(12,34,56,.38) 78%,rgba(14,35,55,.2)),url("https://static.wixstatic.com/media/d7f5d6_7b3266544f284577b984e0a3c2941f42~mv2.png/v1/fill/w_1600,h_900,al_c,q_90/usm_0.66_1.00_0.01,enc_auto/d7f5d6_7b3266544f284577b984e0a3c2941f42~mv2.png");background-position:center 58%}
+html[data-theme="light"] .contactHero .heroCopy h1,html[data-theme="light"] .contactHero .heroCopy>p,html[data-theme="light"] .contactHero .highlights div,html[data-theme="light"] .contactHero .heroQuote,html[data-theme="light"] .contactHero .heroQuote small{color:#f3f7ff}
+html[data-theme="light"] .contactHero .heroQuote{border-left-color:#8d78ff}
 
 .mapCard iframe{pointer-events:none}
 .mapCard{isolation:isolate}
 
 /* FINAL VISUAL POLISH — light mode hero must read as the same white site */
-:global(html[data-theme="light"]) .contactHero{
+html[data-theme="light"] .contactHero{
   background-color:#f8fbff;
   background-image:
     linear-gradient(90deg,rgba(248,251,255,.985) 0%,rgba(248,251,255,.94) 46%,rgba(248,251,255,.78) 76%,rgba(248,251,255,.66) 100%),
@@ -114,11 +114,11 @@
 [data-theme="light"] .messageForm button{border-color:#6680d6;box-shadow:0 8px 18px rgba(60,92,255,.13)}
 
 /* Light mode uses the same daylight visual language as the rest of the portfolio. */
-:global(html[data-theme="light"]) .contactPage{
+html[data-theme="light"] .contactPage{
   color:#172033;
   background:linear-gradient(180deg,#f8fbff,#eef4f9);
 }
-:global(html[data-theme="light"]) .contactHero{
+html[data-theme="light"] .contactHero{
   background-image:
     linear-gradient(90deg,rgba(248,251,255,.94) 0%,rgba(248,251,255,.72) 44%,rgba(248,251,255,.18) 76%),
     linear-gradient(180deg,rgba(255,255,255,.08),rgba(232,241,249,.28)),
@@ -127,7 +127,7 @@
   background-position:center 55%;
   border-bottom-color:#d7e2ec;
 }
-:global(html[data-theme="light"]) .heroOverlay{
+html[data-theme="light"] .heroOverlay{
   background:linear-gradient(90deg,rgba(248,251,255,.48),rgba(248,251,255,.08) 60%,transparent);
 }
 
