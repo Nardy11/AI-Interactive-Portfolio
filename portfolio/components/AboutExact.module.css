@@ -78,3 +78,32 @@
 :global(html[data-theme="light"]) .earthImage{opacity:.98;filter:saturate(.98) contrast(1.04) brightness(1.02)}
 
 .messageButton{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none}
+
+/* FINAL VISUAL POLISH — daylight Giza hero + adaptive connect globe */
+.heroSky{
+  background:
+    linear-gradient(90deg,rgba(2,9,20,.92) 0%,rgba(2,9,20,.42) 43%,rgba(2,9,20,.12) 100%),
+    linear-gradient(180deg,rgba(3,9,20,.08),rgba(2,8,18,.58)),
+    url("https://commons.wikimedia.org/wiki/Special:Redirect/file/The%20Pyramids%20of%20Giza%20in%20Egypt.jpg?width=1600") center 55%/cover no-repeat;
+}
+.heroCity,.heroPyramids{display:none}
+:global(html[data-theme="light"]) .heroSky{
+  background:
+    linear-gradient(90deg,rgba(248,251,255,.94) 0%,rgba(248,251,255,.54) 43%,rgba(248,251,255,.12) 100%),
+    linear-gradient(180deg,rgba(255,255,255,.08),rgba(232,241,249,.34)),
+    url("https://commons.wikimedia.org/wiki/Special:Redirect/file/The%20Pyramids%20of%20Giza%20in%20Egypt.jpg?width=1600") center 55%/cover no-repeat;
+}
+.earthImage{
+  width:330px;height:330px;right:-52px;bottom:-112px;
+  object-fit:cover;object-position:center;
+  border-radius:50%;mask-image:none;-webkit-mask-image:none;
+  opacity:.9;
+  border:1px solid rgba(111,181,255,.24);
+  box-shadow:-12px -10px 42px rgba(70,130,220,.18),inset 16px 10px 35px rgba(255,255,255,.06),inset -18px -20px 42px rgba(0,0,0,.38);
+}
+:global(html[data-theme="light"]) .connectArt{background:linear-gradient(90deg,transparent,#edf4fb)}
+:global(html[data-theme="light"]) .earthImage{
+  opacity:.8;filter:saturate(.7) brightness(1.18) contrast(.86);
+  border-color:rgba(76,126,190,.24);
+  box-shadow:-8px -8px 32px rgba(70,105,150,.12),inset 14px 8px 28px rgba(255,255,255,.18),inset -16px -18px 35px rgba(40,70,105,.14);
+}
