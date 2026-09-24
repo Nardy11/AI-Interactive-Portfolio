@@ -25,7 +25,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt (Onsite)",
     tags: ["Linux", "Databases", "Monitoring", "Telecom"],
     description: "Working as a Linux and Database Administrator in a UAE telecom client environment (du). Involved in system monitoring, incident and change management, log analysis and reporting.",
-    logo: "/experience-huawei.png",
+    logo: "/experience-huawei.svg",
     logoAlt: "Huawei",
   },
   {
@@ -35,7 +35,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "Dart", "Mobile"],
     description: "Developed a mobile application as part of an internship, gaining hands-on experience in Flutter development and Firebase integration.",
-    logo: "/experience-guc.png",
+    logo: "/experience-guc.svg",
     logoAlt: "German University in Cairo",
   },
   {
@@ -55,7 +55,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "Web Dashboard"],
     description: "Built a Flutter mobile app and a web dashboard using Firebase, contributing to a complete full-stack solution.",
-    logo: "/experience-ees.png",
+    logo: "/experience-ees.svg",
     logoAlt: "Egyptian Electrical Solution",
   },
   {
@@ -65,7 +65,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Competition", "Innovation", "Teamwork"],
     description: "Participated in the Microsoft Innovation in Education (MIE) competition, working on innovative technology solutions in a global environment.",
-    logo: "/experience-mie.png",
+    logo: "/experience-mie.svg",
     logoAlt: "Microsoft Innovation in Education",
   },
 ];
@@ -195,7 +195,7 @@ export default function Experience() {
           </div>
           <div className={styles.educationExactGrid}>
             <article className={styles.educationExactCard}>
-              <BrandLogo src="https://commons.wikimedia.org/wiki/Special:Redirect/file/German_University_in_Cairo_Logo.jpg?width=260" alt="German University in Cairo" />
+              <BrandLogo src="/experience-guc.svg" alt="German University in Cairo" />
               <div>
                 <b>German University in Cairo (GUC)</b>
                 <h3>B.Sc. Computer Science and Engineering</h3>
