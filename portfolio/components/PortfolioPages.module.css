@@ -243,3 +243,11 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 :global(html[data-theme="light"]) .projectDetails{color:#456fbd}
 :global(html[data-theme="light"]) .projectsPrimaryButton,.page .projectsPrimaryButton{transition:all .32s ease}
 @media(prefers-reduced-motion:reduce){.page a,.page button,.page input,.page select,.page textarea,.page article,.page .projectTag,.page .filterPill{transition:none!important}}
+
+/* Final logo and carousel motion */
+.experienceBrandMark{background:transparent!important;box-shadow:none!important}
+.experienceBrandMark img{mix-blend-mode:normal!important;filter:drop-shadow(0 1px 2px rgba(0,0,0,.16))}
+:global(html[data-theme="dark"]) .experienceBrandMark img{filter:drop-shadow(0 0 1.5px rgba(255,255,255,.72)) drop-shadow(0 2px 4px rgba(0,0,0,.28))}
+.certExactGrid{animation:certCarouselIn .38s cubic-bezier(.22,.61,.36,1)}
+@keyframes certCarouselIn{from{opacity:.45;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.certExactGrid{animation:none!important}}

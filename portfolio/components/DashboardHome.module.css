@@ -188,3 +188,7 @@
 :global(html[data-theme="light"]) .opportunityIcon{background:#e7f1ff;border-color:#a9c5e7;color:#477fd1}
 :global(html[data-theme="light"]) .opportunity>a{box-shadow:0 6px 14px rgba(57,89,140,.12)}
 @media(prefers-reduced-motion:reduce){.home a,.home button,.home input,.home select,.home textarea,.home article,.testimonial{transition:none!important}}
+
+.testimonialGrid{animation:testimonialCarouselIn .38s cubic-bezier(.22,.61,.36,1)}
+@keyframes testimonialCarouselIn{from{opacity:.45;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.testimonialGrid{animation:none!important}}

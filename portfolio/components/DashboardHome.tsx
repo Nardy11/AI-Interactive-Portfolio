@@ -278,7 +278,7 @@ export default function DashboardHome() {
                   <div className={styles.testimonialArrows}><button type="button" aria-label="Previous testimonial" onClick={() => setTestimonialIndex(i => (i - 1 + testimonials.length) % testimonials.length)}><ChevronLeft size={13} /></button><button type="button" aria-label="Next testimonial" onClick={() => setTestimonialIndex(i => (i + 1) % testimonials.length)}><ChevronRight size={13} /></button></div>
                 </div>
 
-                <div className={styles.testimonialGrid}>
+                <div key={testimonialIndex} className={styles.testimonialGrid}>
                   {visibleTestimonials.map((item) => (
                     <article className={styles.testimonial} key={item.name}>
                       <p>“{item.quote}”</p>

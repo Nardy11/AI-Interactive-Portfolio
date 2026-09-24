@@ -216,7 +216,7 @@ export default function Experience() {
             <h2><Award /> Certifications &amp; Learning</h2>
             <em>Always learning. Always improving.</em>
           </div>
-          <div className={styles.certExactGrid}>
+          <div key={certOffset} className={styles.certExactGrid}>
             {visibleCertificates.map(cert => (
               <article className={styles.certExactCard} key={cert.title}>
                 <div className={`${styles.certLogo} ${styles[cert.className as keyof typeof styles]}`}>{cert.mark}</div>
