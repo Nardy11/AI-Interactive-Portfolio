@@ -29,3 +29,17 @@
 @media(max-width:1050px){.modeNavbar{grid-template-columns:210px 1fr auto}.modeNavbar nav{gap:13px}.modeButton{padding:0 7px}.modeMain{grid-template-columns:1fr}.cvWorkspace{min-height:560px}.modeIntro{max-width:none}.modeMainNlp{grid-template-columns:1fr}.nlpWorkspace,.nlpWorkspaceClosed{min-height:520px}.nlpModelStage{min-height:620px}}
 @media(max-width:760px){.modeNavbar{grid-template-columns:1fr auto;padding:9px 4%}.modeNavbar nav{display:none}.modeBrand small{display:none}.modeActions .modeButton:nth-of-type(3){display:none}.modeMain,.modeMainNlp{width:92%;padding-top:30px}.modeIntro h1{font-size:43px}.modeStats{grid-template-columns:1fr 1fr}.cvWorkspace{grid-template-columns:1fr;min-height:auto}.cvVisual{min-height:380px}.cvPanelModern{min-height:430px}.nlpModelStage{min-height:600px}.modelCopy{left:20px;top:24px;right:20px}.modelCopy h1{font-size:38px}.modelStageFooter small{display:none}.nlpWorkspace{min-height:500px}.nlpWorkspaceClosed{height:auto}.modeActions .modeTheme{margin-right:2px}}
 @media(prefers-reduced-motion:reduce){.modePage,.modeNavbar,.modeButton,.modeTheme,.modeLinks a,.modeLinks button,.cvWorkspace,.cvCursor,.nlpWorkspace,.nlpInputModern,.nlpWelcome button,.nlpUserModern,.nlpAssistantModern{transition:none!important;animation:none!important}}
+
+/* NLP ready status: centered, compact and visually independent from the full stage width. */
+.modelStageFooter{
+  left:50%;
+  right:auto;
+  width:min(320px,72%);
+  transform:translateX(-50%);
+  justify-content:center;
+  flex-direction:column;
+  gap:5px;
+  text-align:center;
+}
+.modelStageFooter span,.modelStageFooter small{justify-content:center;text-align:center}
+@media(max-width:760px){.modelStageFooter{width:min(320px,78%)}}
