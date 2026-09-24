@@ -79,7 +79,7 @@ const experiences = [
   ["2025", "Present", "Linux & Database Administrator", "Huawei (UAE Telecom Environment)", "Full-time"],
   ["2024", "", "Flutter Developer Intern", "GUC", "Internship"],
   ["2024", "", "Mobile App Developer Intern", "ESG & Company", "Internship"],
-  ["2023", "", "Student Competition", "MIE Competition – Stuttgart", "Competition"],
+  ["2023", "", "Student Competition", "MIE Competition – Egypt", "Competition"],
   ["2021–2025", "", "B.Sc. Computer Science and Engineering", "German University in Cairo (GUC)", "Graduated"],
 ];
 
@@ -88,19 +88,21 @@ const testimonials = [
     quote: "Nardy showcased exceptional creativity and technical skills in VR/AR projects, as well as thorough research on XR for therapeutic applications. A proactive learner with a problem-solving mindset.",
     name: "Yomna M.I. Hassan",
     role: "Assistant Professor, GUC",
-    image: "/picprofile.png",
+    image: "https://i1.rgstatic.net/ii/profile.image/11431281319539270-1742714583711_Q128/Yomna-Hassan-8.jpg",
   },
   {
     quote: "Nardy exhibited exceptional dedication and analytical thinking in ML, successfully applying concepts in innovative ways. His communication, collaborative spirit, and research potential are outstanding.",
     name: "Assoc. Prof. Dr. Mohamed Hamed",
     role: "Professor of Bioinformatics & Computational Biology, GUC",
-    image: "/picprofile.png",
+    image: "https://profile-images.xing.com/images/c8b61fc1c26d681a04db17d84591663a-1/mohamed-hamed.256x256.jpg",
   },
 ];
 
 export default function DashboardHome() {
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [skillMode, setSkillMode] = useState<"Technical Skills" | "Tools & DevOps" | "Soft Skills">("Technical Skills");
   const skills = skillMode === "Technical Skills" ? technicalSkills : skillMode === "Tools & DevOps" ? devOpsSkills : softSkills;
+  const visibleTestimonials = testimonials.map((_, index) => testimonials[(index + testimonialIndex) % testimonials.length]);
 
   return (
     <PageFrame active="Home" variant="dashboard">
@@ -273,15 +275,15 @@ export default function DashboardHome() {
               <div className={styles.lowerColumn}>
                 <div className={styles.sectionHeadingCompact}>
                   <div><i /><h2>What People Say</h2><p>Feedback from professors, mentors and collaborators.</p></div>
-                  <div className={styles.testimonialArrows}><button aria-label="Previous"><ChevronLeft size={13} /></button><button aria-label="Next"><ChevronRight size={13} /></button></div>
+                  <div className={styles.testimonialArrows}><button type="button" aria-label="Previous testimonial" onClick={() => setTestimonialIndex(i => (i - 1 + testimonials.length) % testimonials.length)}><ChevronLeft size={13} /></button><button type="button" aria-label="Next testimonial" onClick={() => setTestimonialIndex(i => (i + 1) % testimonials.length)}><ChevronRight size={13} /></button></div>
                 </div>
 
-                <div className={styles.testimonialGrid}>
-                  {testimonials.map((item) => (
+                <div key={testimonialIndex} className={styles.testimonialGrid}>
+                  {visibleTestimonials.map((item) => (
                     <article className={styles.testimonial} key={item.name}>
                       <p>“{item.quote}”</p>
                       <div>
-                        <Image src={item.image} alt="" width={38} height={38} />
+                        <img src={item.image} alt={`${item.name} profile`} width={38} height={38} />
                         <span><b>{item.name}</b><small>{item.role}</small></span>
                       </div>
                     </article>

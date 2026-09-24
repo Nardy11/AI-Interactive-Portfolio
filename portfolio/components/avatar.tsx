@@ -17,6 +17,7 @@ import {
 import { Mic, Square, Send } from "lucide-react";
 
 interface AvatarOverlayProps {
+  embedded?: boolean;
   isTalking: boolean;
   onTalkingEnd?: () => void;
 }
@@ -110,7 +111,7 @@ function AvatarModel({ isTalking }: AvatarOverlayProps) {
   if (!scene) return null;
   return <primitive object={scene} rotation={[0.2, 0, 0]} position={[0, -1, 0]} scale={1} />;
 }
-export default function AvatarOverlay() {
+export default function AvatarOverlay({ embedded = false }: AvatarOverlayProps) {
   const [isTalking, setIsTalking] = useState(false);
   const [recognizing, setRecognizing] = useState(false);
   const [statusText, setStatusText] = useState("💬 Ready");
@@ -219,7 +220,7 @@ export default function AvatarOverlay() {
   }, []);
 
   return (
-    <div className="fixed bottom-0 right-0 h-screen w-[400px] z-50 pointer-events-none">
+    <div className={embedded ? "absolute inset-0 h-full w-full z-20 pointer-events-none" : "fixed bottom-0 right-0 h-screen w-[400px] z-50 pointer-events-none"}>
       <Canvas camera={{ position: [0.5, 0.5, 3], fov: 40 }}>
         <ambientLight intensity={1.2} />
         <directionalLight position={[2, 2, 2]} intensity={0.6} />

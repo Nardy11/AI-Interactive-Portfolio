@@ -25,7 +25,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt (Onsite)",
     tags: ["Linux", "Databases", "Monitoring", "Telecom"],
     description: "Working as a Linux and Database Administrator in a UAE telecom client environment (du). Involved in system monitoring, incident and change management, log analysis and reporting.",
-    logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Huawei_wordmark.svg?width=260",
+    logo: "/experience-huawei.svg",
     logoAlt: "Huawei",
   },
   {
@@ -35,7 +35,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "Dart", "Mobile"],
     description: "Developed a mobile application as part of an internship, gaining hands-on experience in Flutter development and Firebase integration.",
-    logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/German_University_in_Cairo_Logo.jpg?width=260",
+    logo: "/experience-guc.svg",
     logoAlt: "German University in Cairo",
   },
   {
@@ -45,7 +45,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "App Development"],
     description: "Worked on a Flutter mobile application for environmental data management, focusing on real-world data integration and user-centric design.",
-    logo: "https://www.google.com/s2/favicons?domain=esgegypt.com&sz=128",
+    logo: "/experience-esg-fallback.svg",
     logoAlt: "ESG",
   },
   {
@@ -55,17 +55,17 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "Web Dashboard"],
     description: "Built a Flutter mobile app and a web dashboard using Firebase, contributing to a complete full-stack solution.",
-    logo: "https://www.google.com/s2/favicons?domain=ees-elmasria.com&sz=128",
+    logo: "/experience-ees.svg",
     logoAlt: "Egyptian Electrical Solution",
   },
   {
     date: "2023",
-    company: "MIE Competition – Stuttgart",
+    company: "MIE Competition – Egypt",
     role: "Participant",
-    place: "Stuttgart, Germany",
+    place: "Cairo, Egypt",
     tags: ["Competition", "Innovation", "Teamwork"],
     description: "Participated in the Microsoft Innovation in Education (MIE) competition, working on innovative technology solutions in a global environment.",
-    logo: "https://www.google.com/s2/favicons?domain=microsoft.com&sz=128",
+    logo: "/experience-mie.png",
     logoAlt: "Microsoft Innovation in Education",
   },
 ];
@@ -195,7 +195,7 @@ export default function Experience() {
           </div>
           <div className={styles.educationExactGrid}>
             <article className={styles.educationExactCard}>
-              <BrandLogo src="https://commons.wikimedia.org/wiki/Special:Redirect/file/German_University_in_Cairo_Logo.jpg?width=260" alt="German University in Cairo" />
+              <BrandLogo src="/experience-guc.svg" alt="German University in Cairo" />
               <div>
                 <b>German University in Cairo (GUC)</b>
                 <h3>B.Sc. Computer Science and Engineering</h3>
@@ -216,7 +216,7 @@ export default function Experience() {
             <h2><Award /> Certifications &amp; Learning</h2>
             <em>Always learning. Always improving.</em>
           </div>
-          <div className={styles.certExactGrid}>
+          <div key={certOffset} className={styles.certExactGrid}>
             {visibleCertificates.map(cert => (
               <article className={styles.certExactCard} key={cert.title}>
                 <div className={`${styles.certLogo} ${styles[cert.className as keyof typeof styles]}`}>{cert.mark}</div>

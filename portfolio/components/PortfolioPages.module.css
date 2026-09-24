@@ -229,3 +229,48 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 :global(html[data-theme="light"]) .opportunityCard a{color:#25415f;background:rgba(255,255,255,.76);border-color:#a9c1de}
 :global(html[data-theme="light"]) .certArrows button{background:#fff;border:1px solid #bfd0e4;color:#315b8f}
 .experienceBrandMark img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}.experienceBrandMark.huawei img{width:100%;height:auto}.experienceBrandMark.guc img{width:88%;height:88%}.experienceBrandMark.esg img,.experienceBrandMark.ees img,.experienceBrandMark.mie img{width:72%;height:72%}
+
+/* FINAL SITE-WIDE SOFT MOTION + PROJECTS LIGHT THEME */
+.page a,.page button,.page input,.page select,.page textarea,.page article,.page .projectTag,.page .filterPill{transition:color .28s ease,background-color .28s ease,border-color .28s ease,box-shadow .32s ease,transform .32s cubic-bezier(.22,.61,.36,1),opacity .32s ease}
+.page button:active,.page a:active{transform:scale(.98)}
+:global(html[data-theme="light"]) .moreProjectsCard{background:radial-gradient(circle at 72% 18%,rgba(88,108,220,.18),transparent 32%),linear-gradient(145deg,#eef4fc,#e9e4f7 80%,#ddd4ef);border-color:#b8c7df;box-shadow:inset 0 0 45px rgba(55,56,160,.07)}
+:global(html[data-theme="light"]) .moreProjectsPlus{border-color:#8d78d8;color:#4f4b72;background:rgba(255,255,255,.45)}
+:global(html[data-theme="light"]) .moreProjectsCard h2{color:#172033}
+:global(html[data-theme="light"]) .moreProjectsCard p{color:#52667e}
+:global(html[data-theme="light"]) .moreProjectsButton{color:#314d70;background:rgba(255,255,255,.72);border-color:#9a7ce0}
+:global(html[data-theme="light"]) .projectIconLinks a{color:#486b97}
+:global(html[data-theme="light"]) .projectIconLinks a:hover{color:#355ee8}
+:global(html[data-theme="light"]) .projectDetails{color:#456fbd}
+:global(html[data-theme="light"]) .projectsPrimaryButton,.page .projectsPrimaryButton{transition:all .32s ease}
+@media(prefers-reduced-motion:reduce){.page a,.page button,.page input,.page select,.page textarea,.page article,.page .projectTag,.page .filterPill{transition:none!important}}
+
+/* Final logo and carousel motion */
+.experienceBrandMark{background:transparent!important;box-shadow:none!important}
+.experienceBrandMark img{mix-blend-mode:normal!important;filter:drop-shadow(0 1px 2px rgba(0,0,0,.16))}
+:global(html[data-theme="dark"]) .experienceBrandMark img{filter:drop-shadow(0 0 1.5px rgba(255,255,255,.72)) drop-shadow(0 2px 4px rgba(0,0,0,.28))}
+.certExactGrid{animation:certCarouselIn .38s cubic-bezier(.22,.61,.36,1)}
+@keyframes certCarouselIn{from{opacity:.45;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.certExactGrid{animation:none!important}}
+
+:global(html[data-theme="light"]) .quickFactsExact{background:linear-gradient(145deg,#fff,#edf4fb);border-color:#c5d6e8;box-shadow:0 10px 24px rgba(45,75,120,.08)}
+:global(html[data-theme="light"]) .quickFactsExact h3{color:#17243a}
+:global(html[data-theme="light"]) .quickFactsExact strong{color:#1b2b43}
+:global(html[data-theme="light"]) .quickFactsExact span{color:#60728a}
+:global(html[data-theme="light"]) .quickFactsExact>div{border-top-color:#dce6f0}
+:global(html[data-theme="light"]) .experienceHeroFacts article{background:linear-gradient(145deg,#fff,#edf4fb);border-color:#c7d7e9;box-shadow:0 8px 20px rgba(45,75,120,.07)}
+:global(html[data-theme="light"]) .experienceHeroFacts b{color:#17243a}
+:global(html[data-theme="light"]) .experienceHeroFacts span{color:#5f7189}
+:global(html[data-theme="light"]) .experienceHeroFacts small{color:#74869b}
+:global(html[data-theme="light"]) .experienceSectionHeading h2,:global(html[data-theme="light"]) .certHeading h2{color:#17243a}
+:global(html[data-theme="light"]) .experienceCard,:global(html[data-theme="light"]) .educationExactCard,:global(html[data-theme="light"]) .courseworkExact,:global(html[data-theme="light"]) .certExactCard{background:linear-gradient(145deg,#fff,#f0f5fb);border-color:#c9d8e8}
+:global(html[data-theme="light"]) .experienceCardTop b,:global(html[data-theme="light"]) .educationExactCard>b,:global(html[data-theme="light"]) .educationExactCard div>b{color:#496079}
+:global(html[data-theme="light"]) .experienceCardTop h3,:global(html[data-theme="light"]) .educationExactCard h3{color:#17243a}
+:global(html[data-theme="light"]) .experienceCardTop>span,:global(html[data-theme="light"]) .educationPlace{color:#62758d}
+:global(html[data-theme="light"]) .experienceCardContent p,:global(html[data-theme="light"]) .educationExactCard p{color:#5e7189}
+.experienceBrandMark{background:transparent!important;border-color:transparent!important;box-shadow:none!important;padding:0!important}
+.experienceBrandMark img{width:100%;height:100%;object-fit:contain;display:block;filter:none!important}
+:global(html[data-theme="light"]) .experienceQuoteCard p,:global(html[data-theme="light"]) .opportunityCard h3,:global(html[data-theme="light"]) .opportunityCard p{color:#263850}
+:global(html[data-theme="light"]) .opportunityCard{background:linear-gradient(145deg,#edf5ff,#f3efff);border-color:#bdcee2}
+.page a,.page button,.page input,.page select,.page textarea,.page article,.page .projectTag,.page .filterPill{transition-duration:.62s!important}
+
+.projectDetails,.projectIconLinks a,.projectsPrimaryButton,.moreProjectsButton{transition-duration:.65s!important}
