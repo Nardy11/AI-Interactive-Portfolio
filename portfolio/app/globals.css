@@ -101,9 +101,9 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   display:block!important;
   font-family:Arial,Helvetica,sans-serif!important;
 }
-.portfolioHero.portfolioHero .heroCopy,
-.portfolioHero.portfolioHero .projectsHeroCopy,
-.portfolioHero.portfolioHero .experienceHeroCopy{
+.portfolioHero.portfolioHero .portfolioHeroCopy,
+.portfolioHero.portfolioHero .portfolioHeroCopy,
+.portfolioHero.portfolioHero .portfolioHeroCopy{
   position:relative!important;
   z-index:5!important;
   width:52%!important;
@@ -113,9 +113,9 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   margin:0!important;
   align-self:auto!important;
 }
-.portfolioHero.portfolioHero .heroVisual,
-.portfolioHero.portfolioHero .projectsHeroArt,
-.portfolioHero.portfolioHero .experienceHeroImage{
+.portfolioHero.portfolioHero .portfolioHeroVisual,
+.portfolioHero.portfolioHero .portfolioHeroVisual,
+.portfolioHero.portfolioHero .portfolioHeroVisual{
   position:absolute!important;
   z-index:1!important;
   inset:0 0 0 52%!important;
@@ -128,8 +128,8 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   border-radius:0!important;
 }
 .portfolioHero.portfolioHero .kicker,
-.portfolioHero.portfolioHero .projectsHeroCopy .kicker,
-.portfolioHero.portfolioHero .experienceHeroCopy .kicker{
+.portfolioHero.portfolioHero .portfolioHeroCopy .kicker,
+.portfolioHero.portfolioHero .portfolioHeroCopy .kicker{
   font-family:Arial,Helvetica,sans-serif!important;
   font-size:9px!important;
   line-height:1!important;
@@ -138,8 +138,8 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   margin:0 0 13px!important;
 }
 .portfolioHero.portfolioHero h1,
-.portfolioHero.portfolioHero .projectsHeroCopy h1,
-.portfolioHero.portfolioHero .experienceHeroCopy h1{
+.portfolioHero.portfolioHero .portfolioHeroCopy h1,
+.portfolioHero.portfolioHero .portfolioHeroCopy h1{
   font-family:Arial,Helvetica,sans-serif!important;
   font-size:43px!important;
   line-height:1.02!important;
@@ -152,8 +152,8 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   font-size:11px!important;
   line-height:1.5!important;
 }
-.portfolioHero.portfolioHero .heroCopy>p,
-.portfolioHero.portfolioHero .projectsHeroCopy>p{
+.portfolioHero.portfolioHero .portfolioHeroCopy>p,
+.portfolioHero.portfolioHero .portfolioHeroCopy>p{
   max-width:455px!important;
   margin:0!important;
 }
@@ -227,15 +227,15 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
     height:560px!important;
     min-height:560px!important;
   }
-  .portfolioHero.portfolioHero .heroCopy,
-  .portfolioHero.portfolioHero .projectsHeroCopy,
-  .portfolioHero.portfolioHero .experienceHeroCopy{
+  .portfolioHero.portfolioHero .portfolioHeroCopy,
+  .portfolioHero.portfolioHero .portfolioHeroCopy,
+  .portfolioHero.portfolioHero .portfolioHeroCopy{
     width:100%!important;
     padding:38px 7% 0!important;
   }
-  .portfolioHero.portfolioHero .heroVisual,
-  .portfolioHero.portfolioHero .projectsHeroArt,
-  .portfolioHero.portfolioHero .experienceHeroImage{
+  .portfolioHero.portfolioHero .portfolioHeroVisual,
+  .portfolioHero.portfolioHero .portfolioHeroVisual,
+  .portfolioHero.portfolioHero .portfolioHeroVisual{
     inset:auto 0 0 0!important;
     width:100%!important;
     height:270px!important;
@@ -254,14 +254,14 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
     height:650px!important;
     min-height:650px!important;
   }
-  .portfolioHero.portfolioHero .heroCopy,
-  .portfolioHero.portfolioHero .projectsHeroCopy,
-  .portfolioHero.portfolioHero .experienceHeroCopy{
+  .portfolioHero.portfolioHero .portfolioHeroCopy,
+  .portfolioHero.portfolioHero .portfolioHeroCopy,
+  .portfolioHero.portfolioHero .portfolioHeroCopy{
     padding:38px 6% 0!important;
   }
   .portfolioHero.portfolioHero h1,
-  .portfolioHero.portfolioHero .projectsHeroCopy h1,
-  .portfolioHero.portfolioHero .experienceHeroCopy h1{
+  .portfolioHero.portfolioHero .portfolioHeroCopy h1,
+  .portfolioHero.portfolioHero .portfolioHeroCopy h1{
     font-size:38px!important;
   }
   .portfolioHero.portfolioHero p{font-size:11px!important}
@@ -270,9 +270,9 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   .portfolioHero.portfolioHero .experienceHeroButtons{
     flex-wrap:wrap!important;
   }
-  .portfolioHero.portfolioHero .heroVisual,
-  .portfolioHero.portfolioHero .projectsHeroArt,
-  .portfolioHero.portfolioHero .experienceHeroImage{
+  .portfolioHero.portfolioHero .portfolioHeroVisual,
+  .portfolioHero.portfolioHero .portfolioHeroVisual,
+  .portfolioHero.portfolioHero .portfolioHeroVisual{
     height:270px!important;
   }
   .portfolioHero.portfolioHero .experienceHeroFacts{
@@ -285,7 +285,7 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   inset:0!important;
   z-index:2!important;
 }
-.contactHero.portfolioHero.portfolioHero .heroCopy{
+.contactHero.portfolioHero.portfolioHero .portfolioHeroCopy{
   position:relative!important;
   z-index:5!important;
   width:52%!important;
