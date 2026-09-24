@@ -176,7 +176,7 @@ export default function SkillsPage() {
           <div className={styles.dailyTools}>
             <SectionHeading icon={Wrench} title="Tools I Use Daily" right="Some of the tools and platforms in my workflow." stacked />
             <div className={styles.dailyGrid}>
-              {dailyTools.map(([Icon,name]) => <div className={styles.dailyTool} key={name}><span><Icon /></span><small>{name}</small></div>)}
+              {dailyTools.map(([Icon,name]) => <div className={styles.dailyTool} data-tool={name} key={name}><span><Icon /></span><small>{name}</small></div>)}
             </div>
           </div>
           <div className={styles.currentLearning}>

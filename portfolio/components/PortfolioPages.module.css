@@ -209,3 +209,6 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 @media(max-width:760px){
   .projectsHeroCopy h1,.experienceHeroCopy h1{font-size:36px}
 }
+
+/* POLISH PASS — shared light quote treatment */
+:global(html[data-theme="light"]) .footerQuote{color:#526277}

@@ -38,3 +38,39 @@
   .heroCopy{padding-left:24px;padding-right:24px}
 }
 
+
+/* POLISH PASS — contact light mode */
+.contactHero{background-image:linear-gradient(90deg,rgba(2,10,23,.86) 0%,rgba(2,10,23,.62) 42%,rgba(2,10,23,.25) 70%,rgba(2,10,23,.12)),linear-gradient(180deg,rgba(4,12,27,.06),rgba(2,8,18,.5)),url("https://images.prismic.io/tnfev2/abd0d162-01bd-4ccf-9305-fa2d68f3de4a_trading-banner-two.png?auto=compress%2Cformat")}
+:global(html[data-theme="light"]) .contactHero{background-image:linear-gradient(90deg,rgba(246,250,255,.96) 0%,rgba(246,250,255,.82) 45%,rgba(246,250,255,.34) 72%,rgba(246,250,255,.12)),linear-gradient(180deg,rgba(255,255,255,.06),rgba(236,243,250,.3)),url("https://images.prismic.io/tnfev2/abd0d162-01bd-4ccf-9305-fa2d68f3de4a_trading-banner-two.png?auto=compress%2Cformat")}
+:global(html[data-theme="light"]) .heroCopy h1{color:#172033}
+:global(html[data-theme="light"]) .heroCopy>p{color:#3f536d}
+:global(html[data-theme="light"]) .heroQuote{color:#263b55;border-left-color:#6f63d9}
+:global(html[data-theme="light"]) .heroQuote small{color:#60728a}
+:global(html[data-theme="light"]) .heroAnnotation{color:#7356c7}
+:global(html[data-theme="light"]) .heroAnnotation i{border-color:#8a6ad9}
+:global(html[data-theme="light"]) .highlights div{color:#344b66}
+:global(html[data-theme="light"]) .highlights svg{color:#297fe8}
+:global(html[data-theme="light"]) .contactCardIcon{background:#edf4ff;color:#397fe8}
+:global(html[data-theme="light"]) .contactCardBody span{color:#256ed1}
+:global(html[data-theme="light"]) .contactCardBody small{color:#687a91}
+:global(html[data-theme="light"]) .cardArrow{border-color:#b8c8da;color:#397fe8;background:#fff}
+:global(html[data-theme="light"]) .contactCard{color:#172033}
+:global(html[data-theme="light"]) .messageForm input,:global(html[data-theme="light"]) .messageForm textarea{background:#f8fbff;border-color:#bdccdd;color:#172033}
+:global(html[data-theme="light"]) .messageForm input::placeholder,:global(html[data-theme="light"]) .messageForm textarea::placeholder{color:#71839a}
+:global(html[data-theme="light"]) .messageForm label svg{color:#397fe8}
+:global(html[data-theme="light"]) .messageForm .fieldIcon{color:#397fe8}
+:global(html[data-theme="light"]) .messageForm .fullField>svg{color:#60738c}
+:global(html[data-theme="light"]) .safeNote{color:#667892}
+:global(html[data-theme="light"]) .safeNote svg{color:#397fe8}
+:global(html[data-theme="light"]) .locationHeader p{color:#53657b}
+:global(html[data-theme="light"]) .mapCard iframe{filter:none}
+:global(html[data-theme="light"]) .mapOverlay{background:rgba(255,255,255,.97);color:#172033;border-color:#c9d6e5}
+:global(html[data-theme="light"]) .mapOverlay>div{border-bottom-color:#dce5ef}
+:global(html[data-theme="light"]) .mapOverlay>div svg{color:#7356d8}
+:global(html[data-theme="light"]) .mapOverlay>span{color:#52667e}
+:global(html[data-theme="light"]) .mapOverlay>span svg{color:#397fe8}
+:global(html[data-theme="light"]) .mapLabel{background:rgba(255,255,255,.96);color:#172033;border:1px solid #cbd8e7}
+:global(html[data-theme="light"]) .mapLabel small{color:#64778f}
+:global(html[data-theme="light"]) .locationNote{color:#7356c7}
+:global(html[data-theme="light"]) .cta h2{color:#172033}
+:global(html[data-theme="light"]) .cta p{color:#53657b}

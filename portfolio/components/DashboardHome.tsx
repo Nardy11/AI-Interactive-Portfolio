@@ -162,8 +162,8 @@ export default function DashboardHome() {
                 </div>
 
                 <div className={styles.heroQuote}>
-                  <p>“Technology is a tool,<br />curiosity is the driver.”</p>
-                  <span>— Nardy Attalla</span>
+                  <p>“Stay hungry.<br />Stay foolish.”</p>
+                  <span>— Steve Jobs</span>
                 </div>
 
                 <div className={styles.heroStats}>

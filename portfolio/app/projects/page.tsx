@@ -68,8 +68,8 @@ export default function Projects() {
 
           <div className={styles.projectsHeroArt} aria-hidden="true">
             <div className={styles.heroQuote}>
-              <span>&ldquo;Every project<br />is a lesson, and<br />every lesson brings<br />me closer to the future<br />I want to build.&rdquo;</span>
-              <small>— Nardy Attalla</small>
+              <span>&ldquo;Stay hungry.<br />Stay foolish.&rdquo;</span>
+              <small>— Steve Jobs</small>
             </div>
             <div className={styles.heroLaptop}>
               <div className={styles.heroLaptopScreen}>

@@ -164,3 +164,7 @@
   .homeContainer{width:calc(100% - 48px);margin-left:24px;margin-right:24px}
 }
 
+
+/* POLISH PASS — light theme hero quote */
+:global(html[data-theme="light"]) .heroQuote{color:#263b55}
+:global(html[data-theme="light"]) .heroQuote span{color:#60728a}
