@@ -65,7 +65,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Competition", "Innovation", "Teamwork"],
     description: "Participated in the Microsoft Innovation in Education (MIE) competition, working on innovative technology solutions in a global environment.",
-    logo: "/experience-mie.svg",
+    logo: "/experience-mie.png",
     logoAlt: "Microsoft Innovation in Education",
   },
 ];
