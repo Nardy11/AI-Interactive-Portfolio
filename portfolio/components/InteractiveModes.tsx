@@ -28,7 +28,7 @@ export default function InteractiveModes({
   const previewRef = useRef<HTMLVideoElement>(null);
   const [camera, setCamera] = useState(false);
   const [hand, setHand] = useState(false);
-  const [tracking, setTracking] = useState(false);
+  const [tracking, setTracking] = useState(false);\n  const [cursor, setCursor] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (mode === "cv") {
@@ -71,7 +71,7 @@ export default function InteractiveModes({
             onHandStatusChange={setHand}
           />
 
-          <aside className={styles.cvPanel} aria-label="Computer Vision Mode">
+          <span className={styles.virtualCursor} style={{ left: cursor.x, top: cursor.y }} aria-hidden="true" />\n\n          <aside className={styles.cvPanel} aria-label="Computer Vision Mode">
             <div className={styles.panelHeader}>
               <div>
                 <h3><Hand size={18} /> Computer Vision Mode</h3>
