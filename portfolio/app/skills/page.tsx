@@ -115,7 +115,7 @@ export default function SkillsPage() {
             <div className={styles.kicker}>SKILLS &amp; TECHNOLOGIES</div>
             <h1>Tools for Ideas,<br />Skills for <span>Impact.</span></h1>
             <p>A combination of software engineering, machine learning and problem-solving<br className={styles.desktopBreak} /> skills that I use to turn ideas into real-world applications.</p>
-            <div className={styles.heroActions}>
+            <div className={`${styles.heroActions} portfolioHeroActions`}>
               <Link href="/projects" className={styles.primaryButton}>View My Projects <ArrowRight size={14}/></Link>
               <a href="/full_stack_cv_edited.pdf" target="_blank" rel="noreferrer" className={styles.secondaryButton}><Download size={14}/> Download CV</a>
             </div>
