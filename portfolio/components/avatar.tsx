@@ -16,7 +16,8 @@ import {
 } from "three";
 import { Mic, Square, Send } from "lucide-react";
 
-interface AvatarOverlayProps {\n  embedded?: boolean;
+interface AvatarOverlayProps {
+  embedded?: boolean;
   isTalking: boolean;
   onTalkingEnd?: () => void;
 }
