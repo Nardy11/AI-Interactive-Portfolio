@@ -12,7 +12,6 @@ import {
   Code2,
   Download,
   Github,
-  Infinity,
   Linkedin,
   Mail,
   Smartphone,
@@ -78,11 +77,12 @@ const softSkills = [
 const experiences = [
   ["2026", "Present", "Full-Stack / Software Engineer", "Poseidon X · Prime Softworks", "Full-time"],
   ["2025–2026", "", "Backend Systems Engineer", "Huawei Technologies", "Full-time"],
-  ["2025–2026", "", "Machine Learning Program", "ReDI School of Digital Integration", "Program"],
+  ["Freelance", "", "FlutterFlow Developer", "Freelance", "Freelance"],
   ["2025", "", "Flutter Developer", "Egyptian Electrical Solution", "Internship"],
   ["2024", "", "Flutter Developer", "GUC", "Internship"],
   ["2024", "", "Flutter Developer", "ESG & Company", "Internship"],
   ["2024–2025", "", "Bachelor Project Mentorship", "Valeo · CPAC for Connected Vehicles", "Mentorship"],
+  ["2021–2025", "", "B.Sc. Computer Science & Engineering", "German University in Cairo (GUC)", "Education"],
 ];
 
 const testimonials = [
@@ -183,9 +183,9 @@ export default function DashboardHome() {
                 </div>
 
                 <div className={styles.heroStats}>
-                  <div><UsersRound size={20} /><span><b>3+</b>Years of Experience</span></div>
-                  <div><BriefcaseBusiness size={19} /><span><b>10+</b>Projects Completed</span></div>
-                  <div><Infinity size={22} /><span><b>∞</b>Endless Curiosity</span></div>
+                  <div><UsersRound size={20} /><span><b>2+</b>Years of Experience</span></div>
+                  <div><BriefcaseBusiness size={19} /><span><b>4+</b>Projects Completed</span></div>
+                  <div><Code2 size={20} /><span><b>3 + 1</b>Internships · Freelance</span></div>
                 </div>
               </div>
             </div>
@@ -250,7 +250,7 @@ export default function DashboardHome() {
                         <b>{title}</b>
                         <small>{company}</small>
                       </div>
-                      <em className={badge === "Competition" || badge === "Graduated" ? styles.greenBadge : ""}>{badge}</em>
+                      <em className={badge === "Competition" || badge === "Graduated" || badge === "Education" || badge === "Freelance" ? styles.greenBadge : ""}>{badge}</em>
                     </div>
                   ))}
                 </div>

@@ -231,3 +231,85 @@
 .testimonialGrid{min-height:168px}
 @media(max-width:900px){.testimonial{height:auto;min-height:154px}}
 @media(max-width:650px){.testimonial{min-height:145px;padding:10px}.testimonial>p{font-size:7.6px}}
+
+/* Home light mode: translate the dark dashboard treatment into a clean daylight version. */
+:global(html[data-theme="light"]) .hero:after{
+  background:linear-gradient(90deg,rgba(248,251,255,.08),transparent 50%,rgba(239,245,252,.35));
+}
+:global(html[data-theme="light"]) .earthImage{
+  background-image:url("https://commons.wikimedia.org/wiki/Special:Redirect/file/The%20Blue%20Marble%20%28remastered%29.jpg?width=900");
+  filter:saturate(.92) contrast(1.02) brightness(1);
+  box-shadow:inset 28px 0 50px rgba(255,255,255,.22),0 0 40px rgba(65,111,194,.16);
+}
+:global(html[data-theme="light"]) .portraitCard{
+  background:#fff;
+  border-color:#b9cbe0;
+  box-shadow:0 16px 30px rgba(42,68,101,.14),0 0 25px rgba(53,103,224,.08);
+}
+:global(html[data-theme="light"]) .portraitCard:after{
+  border-color:rgba(93,126,168,.22);
+}
+:global(html[data-theme="light"]) .learningNote{
+  color:#536a8a;
+}
+:global(html[data-theme="light"]) .learningNote i{
+  border-color:#7a6be4;
+}
+:global(html[data-theme="light"]) .heroQuote{
+  color:#263b55;
+}
+:global(html[data-theme="light"]) .heroQuote span{
+  color:#60728a;
+}
+:global(html[data-theme="light"]) .heroStats{
+  background:rgba(255,255,255,.9);
+  border-color:#c6d5e6;
+  box-shadow:0 10px 24px rgba(43,68,102,.1);
+}
+:global(html[data-theme="light"]) .heroStats div{
+  border-bottom-color:#dce5ef;
+}
+:global(html[data-theme="light"]) .heroStats svg{
+  color:#367ed1;
+}
+:global(html[data-theme="light"]) .heroStats span{
+  color:#52677f;
+}
+:global(html[data-theme="light"]) .heroStats b{
+  color:#276dcc;
+}
+:global(html[data-theme="light"]) .heroSocials a{
+  color:#263b55;
+}
+:global(html[data-theme="light"]) .heroSocials a:hover{
+  color:#3978d8;
+}
+:global(html[data-theme="light"]) .timelineRow em.greenBadge{
+  background:#edf8f3;
+  border-color:#b8decf;
+}
+:global(html[data-theme="light"]) .timelineRow em{
+  color:#3e73b0;
+  background:#edf5ff;
+  border-color:#c7d9ee;
+}
+:global(html[data-theme="light"]) .timelineLine span{
+  background:#fff;
+  border-color:#9bb3ce;
+}
+:global(html[data-theme="light"]) .timelineLine span.activeDot{
+  background:#6486ff;
+  border-color:#5e7cff;
+  box-shadow:0 0 0 2px #e3ebf5;
+}
+
+/* Eight compact journey entries now fit the Home card without clipping. */
+.timelineRow{
+  min-height:36px;
+}
+.timelineLine{
+  height:36px;
+}
+.miniTimeline:before{
+  bottom:3px;
+}
