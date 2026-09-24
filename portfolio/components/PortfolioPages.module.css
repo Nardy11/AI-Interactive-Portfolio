@@ -356,3 +356,18 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
   object-fit:contain;
   object-position:center;
 }
+
+
+/* Keep the supplied logos inside the original framed logo boxes. */
+.experienceBrandMark{
+  background:#0a1a31!important;
+  border:1px solid #213c61!important;
+  border-radius:5px;
+  box-shadow:none!important;
+  padding:6px!important;
+  box-sizing:border-box;
+}
+:global(html[data-theme="light"]) .experienceBrandMark{
+  background:#f8fbff!important;
+  border-color:#cbd8e7!important;
+}

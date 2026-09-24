@@ -22,7 +22,7 @@ interface AvatarOverlayProps {
   onTalkingEnd?: () => void;
 }
 
-function AvatarModel({ isTalking }: AvatarOverlayProps) {
+function AvatarModel({ isTalking, scale = 1, positionY = -1 }: AvatarOverlayProps & { scale?: number; positionY?: number }) {
   const { scene } = useGLTF("/assistant.glb");
   const mixerRef = useRef<AnimationMixer | null>(null);
   const clock = useRef(new Clock());
