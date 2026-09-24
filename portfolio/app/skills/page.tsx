@@ -110,7 +110,7 @@ export default function SkillsPage() {
   return (
     <PageFrame active="Skills">
       <main className={styles.skillsPage}>
-        <section className={styles.skillsHero} portfolioHero>
+        <section className={`${styles.skillsHero} portfolioHero`}>
           <div className={styles.heroCopy}>
             <div className={styles.kicker}>SKILLS &amp; TECHNOLOGIES</div>
             <h1>Tools for Ideas,<br />Skills for <span>Impact.</span></h1>

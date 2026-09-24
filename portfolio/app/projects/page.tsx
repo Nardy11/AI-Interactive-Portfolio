@@ -51,7 +51,7 @@ export default function Projects() {
   return (
     <PageFrame active="Projects">
       <main className={styles.projectsPage}>
-        <section className={styles.projectsHero} portfolioHero>
+        <section className={`${styles.projectsHero} portfolioHero`}>
           <div className={styles.projectsHeroCopy}>
             <div className={styles.kicker}>PROJECTS</div>
             <h1>Ideas to Real-World<br /><span>Applications</span></h1>
