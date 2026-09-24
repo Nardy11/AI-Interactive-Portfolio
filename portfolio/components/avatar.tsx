@@ -15,14 +15,17 @@ import {
   LoopRepeat,
 } from "three";
 import { Mic, Square, Send } from "lucide-react";
+import { API_URL as SHARED_API_URL } from "@/lib/assistant";
 
 interface AvatarOverlayProps {
   embedded?: boolean;
-  isTalking: boolean;
   onTalkingEnd?: () => void;
 }
 
-function AvatarModel({ isTalking, scale = 1, positionY = -1 }: AvatarOverlayProps & { scale?: number; positionY?: number }) {
+/** AvatarOverlay owns the talking state; the model only receives it. */
+type AvatarModelProps = { isTalking: boolean; scale?: number; positionY?: number };
+
+function AvatarModel({ isTalking, scale = 1, positionY = -1 }: AvatarModelProps) {
   const { scene } = useGLTF("/assistant.glb");
   const mixerRef = useRef<AnimationMixer | null>(null);
   const clock = useRef(new Clock());
@@ -34,7 +37,7 @@ function AvatarModel({ isTalking, scale = 1, positionY = -1 }: AvatarOverlayProp
   useEffect(() => {
     if (!scene) return;
 
-    const mixer = new AnimationMixer(scene);
+    const mixer: AnimationMixer = new AnimationMixer(scene);
     mixerRef.current = mixer;
     const loader = new FBXLoader();
     let loadedCount = 0;
@@ -65,7 +68,9 @@ function AvatarModel({ isTalking, scale = 1, positionY = -1 }: AvatarOverlayProp
       if (loadedCount === 2) setIsLoaded(true);
     });
 
-    return () => mixer.stopAllAction();
+    return () => {
+      mixer.stopAllAction();
+    };
   }, [scene]);
 
   useEffect(() => {
@@ -118,7 +123,8 @@ export default function AvatarOverlay({ embedded = false }: AvatarOverlayProps) 
 
   const recognitionRef = useRef<any>(null);
 
-  const API_URL = "https://ai-interactive-portfolio-back-end.vercel.app";
+  // Shared with the chat panels so one env var configures every caller.
+  const API_URL = SHARED_API_URL;
 
   const getSpeechRecognition = () => {
     if (typeof window === "undefined") return null;

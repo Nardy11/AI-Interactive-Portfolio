@@ -6,10 +6,14 @@ import { TypewriterEffect } from "./ui/TypewriterEffectSmooth";
 import { BackgroundGradient } from "./ui/background-gradient";
 import { CardBody, CardContainer, CardItem } from "./ui/3d-card";
 import Hero from "./Hero";
+import type { Mode } from "./Hero";
+
+/** Welcome offers a third choice, "normal", which leaves Hero and goes to the dashboard. */
+type WelcomeMode = Mode | "normal";
 
 const Welcome = () => {
   const [showHero, setShowHero] = useState(false);
-  const [selectedMode, setSelectedMode] = useState("normal");
+  const [selectedMode, setSelectedMode] = useState<WelcomeMode>("normal");
 
   const words = [
     { text: "Welcome" }, { text: "to" }, { text: "my" }, { text: "portfolio." },
@@ -85,8 +89,8 @@ const Welcome = () => {
                     as="button"
                     className="px-5 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-sm font-bold"
                     onClick={() => {
-                      setSelectedMode(card.mode); // Set the mode
-                      setShowHero(true); // Show Hero page
+                      setSelectedMode(card.mode as WelcomeMode);
+                      setShowHero(true);
                     }}
                   >
                     Start
@@ -107,7 +111,7 @@ const Welcome = () => {
           className="w-full min-h-screen"
         >
           <motion.div layoutId="avatar">
-            <Hero initialMode={selectedMode} />
+            <Hero initialMode={selectedMode === "normal" ? "cv" : selectedMode} />
           </motion.div>
         </motion.div>
       )}

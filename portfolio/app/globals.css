@@ -85,100 +85,136 @@
 }
 
 
+/* The site switches themes with data-theme, but the shadcn/Tailwind tokens are
+   keyed to a .dark class that next-themes never sets here. Anything inheriting
+   its colour (the header brand, for one) came out near-black in dark mode.
+   Bind the dark token set to data-theme as well, and drive body from our own
+   tokens so the two systems agree. */
+html[data-theme="dark"]{
+  --background:240 10% 3.9%;
+  --foreground:0 0% 98%;
+  --card:240 10% 3.9%;
+  --card-foreground:0 0% 98%;
+  --popover:240 10% 3.9%;
+  --popover-foreground:0 0% 98%;
+  --primary:0 0% 98%;
+  --primary-foreground:240 5.9% 10%;
+  --secondary:240 3.7% 15.9%;
+  --secondary-foreground:0 0% 98%;
+  --muted-fg:240 5% 64.9%;
+  --accent:240 3.7% 15.9%;
+  --accent-foreground:0 0% 98%;
+  --border:240 3.7% 15.9%;
+  --input:240 3.7% 15.9%;
+  --ring:240 4.9% 83.9%;
+}
+
+
+
+
+
+/* ============================================================
+   DESIGN TOKENS — one source of truth for every page
+   ============================================================ */
+:root{
+  /* surface */
+  --ink:#030914;
+  --ink-2:#061326;
+  --panel:#0a1a30;
+  --panel-2:#071527;
+  --line:#17325a;
+  --line-soft:rgba(83,120,176,.16);
+
+  /* type colour */
+  --text:#eef3ff;
+  --muted:#9db0cd;
+  --dim:#9bacca;
+
+  /* accent */
+  --blue:#4f8dff;
+  --violet:#a278ff;
+  --accent-grad:linear-gradient(95deg,#5f9cff,#a278ff);
+
+  /* detection frame — the shared hero signature */
+  --frame:rgba(96,152,255,.45);
+  --frame-strong:#5f9cff;
+
+  /* rhythm */
+  --site-gutter:5.8%;
+  --radius:10px;
+
+  /* type */
+  --font-display:var(--font-archivo),"Archivo",system-ui,sans-serif;
+  --font-body:var(--font-inter),"Inter",system-ui,sans-serif;
+  --font-mono:var(--font-plex-mono),"IBM Plex Mono",ui-monospace,monospace;
+}
+
+html[data-theme="light"]{
+  --ink:#f6f9fd;
+  --ink-2:#eef4fb;
+  --panel:#ffffff;
+  --panel-2:#f3f7fc;
+  --line:#d3dfec;
+  --line-soft:#e2eaf3;
+  --text:#101a2b;
+  --muted:#4f6079;
+  --dim:#55667f;
+  --blue:#2f6fe0;
+  --violet:#7b4fe0;
+  --accent-grad:linear-gradient(95deg,#2f6fe0,#7b4fe0);
+  --frame:rgba(47,111,224,.35);
+  --frame-strong:#2f6fe0;
+}
+
+/* The site switches themes with data-theme, but the shadcn/Tailwind tokens are
+   keyed to a .dark class that next-themes never sets here. Anything inheriting
+   its colour (the header brand, for one) came out near-black in dark mode.
+   Bind the dark token set to data-theme as well, and drive body from our own
+   tokens so the two systems agree. */
+html[data-theme="dark"]{
+  --background:240 10% 3.9%;
+  --foreground:0 0% 98%;
+  --card:240 10% 3.9%;
+  --card-foreground:0 0% 98%;
+  --popover:240 10% 3.9%;
+  --popover-foreground:0 0% 98%;
+  --primary:0 0% 98%;
+  --primary-foreground:240 5.9% 10%;
+  --secondary:240 3.7% 15.9%;
+  --secondary-foreground:0 0% 98%;
+  --muted-fg:240 5% 64.9%;
+  --accent:240 3.7% 15.9%;
+  --accent-foreground:0 0% 98%;
+  --border:240 3.7% 15.9%;
+  --input:240 3.7% 15.9%;
+  --ring:240 4.9% 83.9%;
+}
+
+body{ color:var(--text); }
+
 html[data-theme="dark"] { color-scheme: dark; }
 html[data-theme="light"] { color-scheme: light; }
-html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
+html[data-theme="light"] body { background:#f6f9fd; }
 
+body{ font-family:var(--font-body); }
 
-/* Primary page heroes: exact shared Contact template geometry. */
-.portfolioHero.portfolioHero{
-  height:376px!important; min-height:376px!important; width:100%!important;
-  box-sizing:border-box!important; position:relative!important; overflow:hidden!important;
-  display:block!important; font-family:Arial,Helvetica,sans-serif!important;
+/* Quality floor: visible focus + honoured reduced-motion */
+:where(a,button,input,textarea,select,[tabindex]):focus-visible{
+  outline:2px solid var(--frame-strong);
+  outline-offset:3px;
+  border-radius:4px;
 }
-.portfolioHero.portfolioHero .portfolioHeroCopy{
-  position:relative!important; z-index:5!important; width:52%!important;
-  height:auto!important; box-sizing:border-box!important;
-  padding:46px 0 0 3.6vw!important; margin:0!important;
-}
-.portfolioHero.portfolioHero .portfolioHeroVisual{
-  position:absolute!important; z-index:1!important; inset:0 0 0 52%!important;
-  width:48%!important; height:100%!important; min-height:0!important;
-  margin:0!important; padding:0!important; box-sizing:border-box!important;
-  border-radius:0!important;
-}
-.portfolioHero.portfolioHero .portfolioHeroCopy > div:first-child{
-  font-family:Arial,Helvetica,sans-serif!important; font-size:9px!important;
-  line-height:1!important; letter-spacing:4px!important; font-weight:800!important;
-  margin:0 0 13px!important;
-}
-.portfolioHero.portfolioHero .portfolioHeroCopy h1{
-  font-family:Arial,Helvetica,sans-serif!important; font-size:43px!important;
-  line-height:1.02!important; letter-spacing:-1.8px!important;
-  font-weight:850!important; margin:0 0 11px!important;
-}
-.portfolioHero.portfolioHero .portfolioHeroCopy > p{
-  font-family:Arial,Helvetica,sans-serif!important; font-size:11px!important;
-  line-height:1.5!important; max-width:455px!important; margin:0!important;
-}
-.portfolioHero.portfolioHero .portfolioHeroCopy a,
-.portfolioHero.portfolioHero .portfolioHeroCopy button{
-  font-family:Arial,Helvetica,sans-serif!important;
-}
-.portfolioHero.portfolioHero .portfolioHeroActions{
-  display:flex!important; align-items:center!important; gap:14px!important;
-  margin-top:25px!important;
-}
-.portfolioHero.portfolioHero .portfolioHeroActions a{
-  height:36px!important; min-height:36px!important; box-sizing:border-box!important;
-  border-radius:20px!important; font-size:9px!important; padding:0 17px!important;
-}
-.portfolioHero.portfolioHero .heroQuote{
-  position:absolute!important; z-index:6!important; left:49.5%!important;
-  top:65px!important; color:#dce2ed!important; font-size:11px!important;
-  line-height:1.65!important; font-style:italic!important;
-}
-.portfolioHero.portfolioHero .heroQuote small{
-  display:block!important; margin-top:7px!important; font-size:8px!important;
-}
-.portfolioHero.portfolioHero .heroNote,
-.portfolioHero.portfolioHero .heroAnnotation{
-  position:absolute!important; z-index:7!important; right:3.2%!important;
-  top:31px!important; font-size:10px!important; line-height:1.45!important;
-}
-.portfolioHero.portfolioHero .portfolioHeroFacts{
-  position:absolute!important; z-index:8!important; right:2%!important;
-  top:42px!important; width:20%!important; padding:0!important;
-  display:grid!important; gap:8px!important;
-}
-.portfolioHero.portfolioHero .portfolioHeroFacts article{min-height:67px!important}
-.contactHero.portfolioHero.portfolioHero .heroOverlay{
-  position:absolute!important; inset:0!important; z-index:2!important;
-}
-.contactHero.portfolioHero.portfolioHero .portfolioHeroCopy{
-  position:relative!important; z-index:5!important; width:52%!important;
-  padding:46px 0 0 3.6vw!important;
-}
-.contactHero.portfolioHero.portfolioHero .heroQuote{left:49.5%!important}
-.contactHero.portfolioHero.portfolioHero .heroAnnotation{right:3.2%!important}
-
-@media(max-width:900px){
-  .portfolioHero.portfolioHero{height:560px!important; min-height:560px!important}
-  .portfolioHero.portfolioHero .portfolioHeroCopy{width:100%!important; padding:38px 7% 0!important}
-  .portfolioHero.portfolioHero .portfolioHeroVisual{
-    inset:auto 0 0 0!important; width:100%!important; height:270px!important;
-  }
-  .portfolioHero.portfolioHero .portfolioHeroFacts{
-    right:5%!important; left:5%!important; top:auto!important; bottom:18px!important;
-    width:auto!important; grid-template-columns:repeat(3,1fr)!important;
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
   }
 }
-@media(max-width:650px){
-  .portfolioHero.portfolioHero{height:650px!important; min-height:650px!important}
-  .portfolioHero.portfolioHero .portfolioHeroCopy{padding:38px 6% 0!important}
-  .portfolioHero.portfolioHero .portfolioHeroCopy h1{font-size:38px!important}
-  .portfolioHero.portfolioHero .portfolioHeroCopy > p{font-size:11px!important}
-  .portfolioHero.portfolioHero .portfolioHeroActions{flex-wrap:wrap!important}
-  .portfolioHero.portfolioHero .portfolioHeroVisual{height:270px!important}
-  .portfolioHero.portfolioHero .portfolioHeroFacts{grid-template-columns:1fr!important}
-}
+
+/* Headings share the display face so no section drifts from the hero. */
+h1,h2,h3,h4{ font-family:var(--font-display); letter-spacing:-.02em; }
+
+/* Small print has a floor — nothing on the site should be under 11px. */
+small{ font-size:max(11px, .8em); }

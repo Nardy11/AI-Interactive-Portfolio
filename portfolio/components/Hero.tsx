@@ -5,8 +5,9 @@ import HandTrackingMouse, { HandTrackingHandle } from "./cv1";
 import AvatarOverlay from "./avatar";
 import { ArrowRight, BrainCircuit, CheckCircle2, CircleDot, Cpu, Download, Github, Hand, Layers3, Linkedin, Mail, Moon, Server, Sparkles, Sun, X } from "lucide-react";
 import styles from "./Hero.module.css";
+import { askAssistant } from "@/lib/assistant";
 
-type Mode = "cv" | "nlp";
+export type Mode = "cv" | "nlp";
 
 function useTheme() {
   const [dark, setDark] = useState(true);
@@ -94,16 +95,15 @@ function NLPPage({ dark, setDark }: { dark: boolean; setDark: React.Dispatch<Rea
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<{role:"user"|"assistant";text:string}[]>([]);
   const [loading, setLoading] = useState(false);
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://ai-interactive-portfolio-back-end.vercel.app";
   const send = async () => {
-    const q=input.trim(); if(!q || loading) return;
-    setMessages(m=>[...m,{role:"user",text:q}]); setInput(""); setLoading(true);
-    try {
-      const res=await fetch(API_URL+"/nlp/ask",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:q})});
-      const data=await res.json().catch(()=>({}));
-      setMessages(m=>[...m,{role:"assistant",text:data.answer||data.response||data.message||"I couldn't get a response from the assistant."}]);
-    } catch { setMessages(m=>[...m,{role:"assistant",text:"The NLP backend is currently unavailable."}]); }
-    finally { setLoading(false); }
+    const q = input.trim();
+    if (!q || loading) return;
+    setMessages(m => [...m, { role: "user", text: q }]);
+    setInput("");
+    setLoading(true);
+    const reply = await askAssistant(q);
+    setMessages(m => [...m, { role: "assistant", text: reply.text }]);
+    setLoading(false);
   };
   return <div className={styles.modePage}>
     <ModeNavbar mode="nlp" dark={dark} setDark={setDark}/>

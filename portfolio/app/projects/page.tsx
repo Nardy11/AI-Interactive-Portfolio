@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, ExternalLink, Github, Star } from "lucide-react";
 import { PageFrame } from "@/components/PortfolioPages";
+import PageHero, { HeroGhost, HeroPrimary } from "@/components/PageHero";
 import styles from "@/components/PortfolioPages.module.css";
 
 type Project = {
@@ -51,37 +52,24 @@ export default function Projects() {
   return (
     <PageFrame active="Projects">
       <main className={styles.projectsPage}>
-        <section className={`${styles.projectsHero} portfolioHero`}>
-          <div className={`${styles.projectsHeroCopy} portfolioHeroCopy`} >
-            <div className={styles.kicker}>PROJECTS</div>
-            <h1>Ideas to Real-World<br /><span>Applications</span></h1>
-            <p>
-              A collection of projects that showcase my skills in full-stack development,<br />
-              mobile development, machine learning, computer vision and more.<br />
-              Each project represents a step in my learning journey and my passion<br />
-              for building impactful solutions.
-            </p>
-            <div className={`${styles.projectsHeroActions} portfolioHeroActions`}>
-              <GitHubLink href="https://github.com/Nardy11" className={styles.projectsPrimaryButton}><Github size={14} /> View GitHub</GitHubLink>
-              <Link href="/contact" className={styles.projectsSecondaryButton}>Let&apos;s Collaborate <ArrowRight size={14} /></Link>
-            </div>
-          </div>
-
-          <div className={`${styles.projectsHeroArt} portfolioHeroVisual`}  aria-hidden="true">
-            <div className={styles.heroQuote}>
-              <span>&ldquo;Stay hungry.<br />Stay foolish.&rdquo;</span>
-              <small>— Steve Jobs</small>
-            </div>
-            <div className={styles.heroLaptop}>
-              <div className={styles.heroLaptopScreen}>
-                <div className={styles.codeBar} />
-                <i /><i /><i /><i /><i /><i /><i />
-              </div>
-              <div className={styles.heroLaptopBase} />
-            </div>
-            <div className={styles.heroScript}>Code<br />Learn<br />Build<br />Improve<br />Repeat<b>↙</b></div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Projects"
+          title={<>Ideas to Real-World<br /><em>Applications</em></>}
+          lead="Full-stack apps, mobile builds, machine learning and computer vision. Each one is a step in the learning journey — and every repository is open."
+          actions={<>
+            <HeroPrimary href="https://github.com/Nardy11" external><Github size={15} /> View GitHub</HeroPrimary>
+            <HeroGhost href="/contact">Let&apos;s collaborate <ArrowRight size={15} /></HeroGhost>
+          </>}
+          stats={[
+            { value: String(projects.length), label: "Shipped projects" },
+            { value: String(filters.length - 1), label: "Disciplines" },
+            { value: "2024–26", label: "Active years" },
+          ]}
+          scene="terminal"
+          readout={`projects · ${projects.length} detected`}
+          note={<>Code. Learn.<br />Build. Repeat.</>}
+          quote={{ text: "Stay hungry. Stay foolish.", author: "Steve Jobs" }}
+        />
 
         <section className={styles.projectsBrowser} aria-label="Project collection">
           <div className={styles.projectToolbarExact}>

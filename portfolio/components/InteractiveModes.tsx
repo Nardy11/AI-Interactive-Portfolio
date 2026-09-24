@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import HandTrackingMouse, { HandTrackingHandle } from "./cv1";
 import styles from "./InteractiveModes.module.css";
+import { askAssistant } from "@/lib/assistant";
 
 export type InteractiveMode = "none" | "cv" | "nlp";
 
@@ -188,10 +189,6 @@ function NlpAssistant({ onClose }: { onClose: () => void }) {
   const [messages, setMessages] = useState<{ role: "user" | "assistant"; text: string }[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const API_URL =
-    process.env.NEXT_PUBLIC_API_URL ||
-    "https://ai-interactive-portfolio-back-end.vercel.app";
-
   const send = async (value = input) => {
     const question = value.trim();
     if (!question || loading) return;
@@ -200,34 +197,9 @@ function NlpAssistant({ onClose }: { onClose: () => void }) {
     setInput("");
     setLoading(true);
 
-    try {
-      const response = await fetch(API_URL + "/nlp/ask", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
-      });
-
-      const data = await response.json().catch(() => ({}));
-
-      setMessages((current) => [
-        ...current,
-        {
-          role: "assistant",
-          text:
-            data.answer ||
-            data.response ||
-            data.message ||
-            "I couldn't get a response from the assistant.",
-        },
-      ]);
-    } catch {
-      setMessages((current) => [
-        ...current,
-        { role: "assistant", text: "The NLP backend is currently unavailable." },
-      ]);
-    } finally {
-      setLoading(false);
-    }
+    const reply = await askAssistant(question);
+    setMessages((current) => [...current, { role: "assistant", text: reply.text }]);
+    setLoading(false);
   };
 
   return (

@@ -1,6 +1,9 @@
 "use client";
 
-import type { ElementType } from "react";
+import type { ComponentType } from "react";
+
+/** lucide and react-icons both accept these; IconComponent alone resolves to `never` props. */
+type IconComponent = ComponentType<{ size?: number | string; className?: string }>;
 import Link from "next/link";
 import {
   ArrowRight, BrainCircuit, Code2, Eye, Monitor,
@@ -16,13 +19,14 @@ import {
   SiPostman, SiFigma, SiUbuntu, SiGooglecolab
 } from "react-icons/si";
 import { PageFrame } from "@/components/PortfolioPages";
+import PageHero, { HeroGhost, HeroPrimary } from "@/components/PageHero";
 import styles from "@/components/SkillsExact.module.css";
 
-type SkillItem = [ElementType, string];
+type SkillItem = [IconComponent, string];
 type SkillGroup = {
   title: string;
   description: string;
-  icon: ElementType;
+  icon: IconComponent;
   items: SkillItem[];
 };
 
@@ -86,7 +90,7 @@ const roadmap = [
 
 const roadmapNodes=roadmap.flatMap(group=>group.items.map(([,state])=>state));
 const journeyProgress=Math.round(roadmapNodes.reduce((sum,state)=>sum+(state==="done"?1:state==="progress"?.5:0),0)/roadmapNodes.length*100);
-const dailyTools: [ElementType,string][] = [
+const dailyTools: [IconComponent,string][] = [
   [Code2,"VS Code"],[SiGithub,"GitHub"],[SiNotion,"Notion"],[SiPostman,"Postman"],
   [SiFigma,"Figma"],[SiUbuntu,"Ubuntu"],[SiDocker,"Docker"],[SiGooglecolab,"Google Colab"],
 ];
@@ -110,30 +114,19 @@ export default function SkillsPage() {
   return (
     <PageFrame active="Skills">
       <main className={styles.skillsPage}>
-        <section className={`${styles.skillsHero} portfolioHero`}>
-          <div className={`${styles.heroCopy} portfolioHeroCopy`} >
-            <div className={styles.kicker}>SKILLS &amp; TECHNOLOGIES</div>
-            <h1>Tools for Ideas,<br />Skills for <span>Impact.</span></h1>
-            <p>A combination of software engineering, machine learning and problem-solving<br className={styles.desktopBreak} /> skills that I use to turn ideas into real-world applications.</p>
-            <div className={`${styles.heroActions} portfolioHeroActions`}>
-              <Link href="/projects" className={styles.primaryButton}>View My Projects <ArrowRight size={14}/></Link>
-              <a href="/full_stack_cv_edited.pdf" target="_blank" rel="noreferrer" className={styles.secondaryButton}><Download size={14}/> Download CV</a>
-            </div>
-          </div>
-
-          <div className={`${styles.heroVisual} portfolioHeroVisual`} >
-            <div className={styles.heroPhoto} />
-            <div className={styles.heroPhotoShade} />
-            <div className={styles.heroQuote}>
-              <span>“Nothing in life is to be feared,<br />it is only to be understood.”</span>
-              <small>— Marie Curie</small>
-            </div>
-            <div className={styles.heroNote}>
-              <span>Same<br />Engineer.<br />Bigger<br />Possibilities</span>
-              <i />
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Skills & technologies"
+          title={<>Tools for Ideas,<br />Skills for <em>Impact</em></>}
+          lead="Software engineering, machine learning and problem-solving — the toolkit I use to turn an idea into something people can actually run."
+          actions={<>
+            <HeroPrimary href="/projects">See them in use <ArrowRight size={15} /></HeroPrimary>
+            <HeroGhost href="/full_stack_cv_edited.pdf" external><Download size={15} /> Download CV</HeroGhost>
+          </>}
+          scene="constellation"
+          readout="skills · 6 domains"
+          note={<>Same engineer.<br />Bigger possibilities.</>}
+          quote={{ text: "Nothing in life is to be feared, it is only to be understood.", author: "Marie Curie" }}
+        />
 
         <section className={styles.technicalSection}>
           <SectionHeading
@@ -244,7 +237,7 @@ function SectionHeading({
   stacked=false,
   showIcon=false,
 }: {
-  icon: ElementType;
+  icon: IconComponent;
   title: string;
   right?: string;
   farRight?: string;
@@ -260,6 +253,6 @@ function SectionHeading({
   );
 }
 
-function SkillLogo({Icon,name}:{Icon:ElementType;name:string}) {
+function SkillLogo({Icon,name}:{Icon:IconComponent;name:string}) {
   return <div className={styles.skillLogo}><span><Icon/></span><small>{name}</small></div>;
 }

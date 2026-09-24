@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Award, BookOpen, BriefcaseBusiness, CalendarDays, GraduationCap, MapPin, Plane, Target } from "lucide-react";
+import { ArrowRight, Award, BookOpen, BriefcaseBusiness, CalendarDays, Download, GraduationCap, MapPin, Plane, Target } from "lucide-react";
 import { PageFrame } from "@/components/PortfolioPages";
+import PageHero, { HeroGhost, HeroPrimary } from "@/components/PageHero";
 import styles from "@/components/PortfolioPages.module.css";
 
 type ExperienceItem = {
@@ -130,40 +131,24 @@ export default function Experience() {
   return (
     <PageFrame active="Experience">
       <main className={styles.experiencePage}>
-        <section className={`${styles.experienceHero} portfolioHero`}>
-          <div className={`${styles.experienceHeroCopy} portfolioHeroCopy`} >
-            <div className={styles.kicker}>EXPERIENCE &amp; EDUCATION</div>
-            <h1>My Journey <span>So Far</span></h1>
-            <p className={styles.experienceLead}>A journey of learning, building and continuously improving.</p>
-            <p className={styles.experienceDescription}>
-              From working in industry, to building real-world projects, to diving deeper
-              into Machine Learning and AI — every step has shaped who I am today
-              and where I want to go next.
-            </p>
-            <div className={`${styles.experienceHeroButtons} portfolioHeroActions`}>
-              <a href="/full_stack_cv_edited.pdf" target="_blank" rel="noreferrer" className={styles.button}>
-                ↓&nbsp; Download CV
-              </a>
-              <a href="https://www.linkedin.com/in/nardy-attallah" target="_blank" rel="noreferrer" className={styles.buttonGhost}>
-                View LinkedIn <ArrowRight size={14} />
-              </a>
-            </div>
-          </div>
-
-          <div className={`${styles.experienceHeroImage} portfolioHeroVisual`} >
-            <div className={styles.experienceMountain} />
-            <div className={styles.experienceHeroQuote}>
-              <span>“The best way to predict your future<br />is to create it.”</span>
-              <small>— Peter Drucker</small>
-            </div>
-          </div>
-
-          <div className={`${styles.experienceHeroFacts} portfolioHeroFacts`}>
-            <article><GraduationCap /><div><b>B.Sc. Computer Science<br />and Engineering</b><span>German University in Cairo</span><small>2021 – 2025</small></div></article>
-            <article><MapPin /><div><b>Based in</b><span>Cairo, Egypt</span></div></article>
-            <article><Target /><div><b>Goal</b><span>Build impactful solutions<br />with ML &amp; Software Engineering</span></div></article>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Experience & education"
+          title={<>My Journey <em>So Far</em></>}
+          lead="From industry work, to real-world projects, to going deeper into machine learning and AI — every step has shaped where I want to go next."
+          actions={<>
+            <HeroPrimary href="/full_stack_cv_edited.pdf" download><Download size={15} /> Download CV</HeroPrimary>
+            <HeroGhost href="https://www.linkedin.com/in/nardy-attallah" external>View LinkedIn <ArrowRight size={15} /></HeroGhost>
+          </>}
+          facts={[
+            { icon: GraduationCap, title: "B.Sc. Computer Science and Engineering", lines: <>German University in Cairo · 2021–2025</> },
+            { icon: MapPin, title: "Based in", lines: <>Cairo, Egypt — open to roles worldwide</> },
+            { icon: Target, title: "Goal", lines: <>Build impactful solutions with ML and software engineering</> },
+          ]}
+          scene="ridge"
+          readout={`experience · ${experiences.length} roles`}
+          note={<>Every step<br />counts.</>}
+          quote={{ text: "The best way to predict your future is to create it.", author: "Peter Drucker" }}
+        />
 
         <section className={styles.experienceSection}>
           <div className={styles.experienceMainColumn}>

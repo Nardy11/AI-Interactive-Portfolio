@@ -1,49 +1,37 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import { PageFrame } from "@/components/PortfolioPages";
+import PageHero, { HeroGhost, HeroPrimary } from "@/components/PageHero";
 import styles from "@/components/PortfolioPages.module.css";
 
 export default function Landing() {
   return (
     <PageFrame active="">
       <main>
+        <PageHero
+          eyebrow="Interactive portfolio"
+          title={<>Same Engineer.<br /><em>More Possibilities.</em></>}
+          lead={<>I&apos;m Nardy Attalla, a Computer Science Engineer based in Egypt. I build full-stack applications while developing practical skills in <strong>machine learning, computer vision and AI</strong>.</>}
+          actions={<>
+            <HeroPrimary href="/home">Start exploring <ArrowRight size={15} /></HeroPrimary>
+            <HeroGhost href="/full_stack_cv_edited.pdf" external><Download size={15} /> Download CV</HeroGhost>
+          </>}
+          stats={[
+            { value: "3+", label: "Years of experience" },
+            { value: "10+", label: "Projects" },
+            { value: "∞", label: "Curiosity to learn" },
+          ]}
+          scene="portrait"
+          portrait={{ src: "/picprofile.png", alt: "Nardy Attalla", priority: true }}
+          readout="home · 3 ways in"
+          note={<>Build. Learn.<br />Improve. Repeat.</>}
+          quote={{ text: "Turning knowledge into real-world impact.", author: "Nardy Attalla" }}
+        />
+
         <section className={styles.heroHome}>
           <div className={styles.container}>
-            <div className={styles.homeHeroGrid}>
-              <div className={styles.homeCopy}>
-                <div className={styles.kicker}>INTERACTIVE PORTFOLIO</div>
-                <h1>
-                  Same Engineer.<br />
-                  <span className={styles.gradient}>More Possibilities.</span>
-                </h1>
-                <p>
-                  I’m Nardy Attalla, a Computer Science Engineer based in Egypt. I build full-stack applications while developing practical skills in{" "}
-                  <span className={styles.gradient}>Machine Learning, Computer Vision and AI.</span>
-                </p>
-                <div className={styles.statsMini}>
-                  <div><strong>3+</strong><small>Years of Experience</small></div>
-                  <div><strong>10+</strong><small>Projects</small></div>
-                  <div><strong>∞</strong><small>Curiosity to Learn</small></div>
-                </div>
-              </div>
-
-              <div className={styles.heroPortrait}>
-                <Image src="/picprofile.png" alt="Nardy Attalla" width={500} height={500} />
-                <div className={styles.quote}>
-                  “Turning knowledge into real-world impact.”
-                  <b>— Nardy Attalla</b>
-                </div>
-                <div className={styles.steps}>
-                  <span>Build</span>
-                  <span>Learn</span>
-                  <span>Improve</span>
-                  <span>Repeat</span>
-                </div>
-              </div>
-            </div>
-
             <div className={styles.modeCards}>
               <article className={styles.modeCard}>
                 <span className={styles.modeNum}>01</span>

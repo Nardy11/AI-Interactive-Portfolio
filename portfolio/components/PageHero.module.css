@@ -1,0 +1,506 @@
+/* ============================================================
+   PAGE HERO — the shared template for every page.
+
+   Signature: the visual sits inside a "detection frame" — corner brackets
+   and a mono readout, borrowed from the bounding boxes of the computer-vision
+   navigation mode this portfolio is built around. Everything else stays quiet.
+   ============================================================ */
+
+.hero{
+  position:relative;
+  border-bottom:1px solid var(--line-soft);
+  background:
+    radial-gradient(120% 100% at 82% 0%, rgba(96,110,220,.16), transparent 58%),
+    linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%);
+  overflow:hidden;
+}
+
+/* Faint measurement grid — the frame's world, not decoration for its own sake. */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px),
+    linear-gradient(180deg, var(--line-soft) 1px, transparent 1px);
+  background-size:96px 96px;
+  opacity:.5;
+  pointer-events:none;
+}
+
+.inner{
+  position:relative;
+  z-index:1;
+  max-width:1440px;
+  margin:0 auto;
+  padding:74px var(--site-gutter) 68px;
+  display:grid;
+  grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);
+  align-items:center;
+  column-gap:56px;
+  row-gap:34px;
+}
+
+/* ---------- copy ---------- */
+
+.copy{ min-width:0; }
+
+.eyebrow{
+  margin:0 0 20px;
+  font-family:var(--font-mono);
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--violet);
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.eyebrow::after{
+  content:"";
+  height:1px;
+  width:54px;
+  background:linear-gradient(90deg, var(--violet), transparent);
+}
+
+.title{
+  margin:0 0 18px;
+  font-family:var(--font-display);
+  font-size:clamp(2.35rem, 4.4vw, 3.5rem);
+  line-height:1.03;
+  letter-spacing:-.035em;
+  font-weight:700;
+  color:var(--text);
+  text-wrap:balance;
+}
+.title em{
+  font-style:normal;
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.lead{
+  margin:0;
+  max-width:52ch;
+  font-size:15px;
+  line-height:1.65;
+  color:var(--muted);
+}
+.lead strong{ color:var(--text); font-weight:600; }
+
+/* ---------- actions ---------- */
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:14px;
+  margin-top:30px;
+}
+
+.primary,.ghost{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  height:44px;
+  padding:0 24px;
+  border-radius:24px;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:-.005em;
+  text-decoration:none;
+  white-space:nowrap;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.primary{
+  color:#fff;
+  background:linear-gradient(100deg,#4b7fff,#7a5cff);
+  box-shadow:0 10px 30px rgba(70,105,255,.3);
+}
+.ghost{
+  color:var(--text);
+  border:1px solid var(--line);
+  background:color-mix(in srgb, var(--panel) 70%, transparent);
+}
+.primary:hover,.ghost:hover{ transform:translateY(-2px); }
+.primary:hover{ box-shadow:0 14px 36px rgba(70,105,255,.42); }
+.ghost:hover{ border-color:var(--frame-strong); }
+
+/* ---------- stats / marks ---------- */
+
+.stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:38px;
+  margin:32px 0 0;
+}
+.stats div{ display:flex; flex-direction:column; gap:5px; }
+.stats dt{
+  font-family:var(--font-display);
+  font-size:30px;
+  font-weight:700;
+  letter-spacing:-.03em;
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.stats dd{
+  margin:0;
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--dim);
+}
+
+.marks{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px 32px;
+  margin:30px 0 0;
+  padding:0;
+  list-style:none;
+}
+.marks li{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-size:13px;
+  line-height:1.4;
+  color:var(--muted);
+}
+.marks svg{ width:22px; height:22px; color:var(--blue); stroke-width:1.6; }
+
+/* ---------- the detection frame ---------- */
+
+.frame{
+  position:relative;
+  min-height:352px;
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--panel-2);
+  isolation:isolate;
+}
+/* corner brackets */
+.frame::before,.frame::after{
+  content:"";
+  position:absolute;
+  z-index:7;
+  width:34px;
+  height:34px;
+  border:1.5px solid var(--frame);
+  pointer-events:none;
+}
+.frame::before{ top:14px; left:14px; border-right:0; border-bottom:0; }
+.frame::after{ bottom:14px; right:14px; border-left:0; border-top:0; }
+
+.readout{
+  position:absolute;
+  z-index:5;
+  top:18px;
+  right:18px;
+  padding:5px 10px;
+  border:1px solid var(--frame);
+  border-radius:4px;
+  background:color-mix(in srgb, var(--ink) 72%, transparent);
+  backdrop-filter:blur(6px);
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--frame-strong);
+}
+
+.portrait{
+  position:absolute;
+  z-index:3;
+  right:10%;
+  bottom:0;
+  width:auto;
+  height:92%;
+  max-width:66%;
+  object-fit:contain;
+  object-position:center bottom;
+  filter:drop-shadow(0 18px 28px rgba(0,0,0,.5));
+  /* picprofile.png is not a clean cut-out; soften its edges into the scene */
+  mask-image:linear-gradient(180deg,#000 0 82%,transparent 99%),
+             linear-gradient(90deg,transparent 0,#000 7% 93%,transparent 100%);
+  -webkit-mask-image:linear-gradient(180deg,#000 0 82%,transparent 99%),
+                     linear-gradient(90deg,transparent 0,#000 7% 93%,transparent 100%);
+  mask-composite:intersect;
+  -webkit-mask-composite:source-in;
+}
+
+.note{
+  position:absolute;
+  z-index:5;
+  left:20px;
+  top:66px;
+  margin:0;
+  max-width:132px;
+  font-family:var(--font-mono);
+  font-size:11px;
+  line-height:1.55;
+  color:var(--violet);
+}
+.note::before{
+  content:"";
+  display:block;
+  width:26px;
+  height:1px;
+  margin-bottom:9px;
+  background:var(--violet);
+}
+
+.quote{
+  position:absolute;
+  z-index:5;
+  left:20px;
+  right:auto;
+  max-width:min(76%, 330px);
+  bottom:20px;
+  margin:0;
+  padding:13px 16px;
+  border-left:2px solid var(--frame-strong);
+  border-radius:0 6px 6px 0;
+  background:color-mix(in srgb, var(--ink) 74%, transparent);
+  backdrop-filter:blur(8px);
+}
+.quote blockquote{
+  margin:0;
+  font-size:13px;
+  line-height:1.55;
+  font-style:italic;
+  color:var(--text);
+}
+.quote figcaption{
+  margin-top:7px;
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--dim);
+}
+
+/* ---------- facts row (experience) ---------- */
+
+.facts{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin:6px 0 0;
+  padding:0;
+  list-style:none;
+}
+.facts li{
+  display:grid;
+  grid-template-columns:22px 1fr;
+  gap:13px;
+  padding:16px 18px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--panel);
+}
+.facts svg{ width:20px; height:20px; color:var(--blue); stroke-width:1.7; }
+.facts b{ display:block; font-size:13px; font-weight:600; color:var(--text); margin-bottom:5px; }
+.facts span{ display:block; font-size:12px; line-height:1.55; color:var(--muted); }
+
+/* ============================================================
+   SCENES — all CSS, so no hero waits on a remote image.
+   ============================================================ */
+
+.scene{ position:absolute; inset:0; z-index:1; }
+
+.portrait_scene{
+  background:
+    radial-gradient(90% 70% at 50% 100%, rgba(79,141,255,.22), transparent 70%),
+    linear-gradient(170deg,#08192f,#040e1d);
+}
+
+/* skyline — Cairo at night: towers, then pyramids on the right */
+.skyline{ background:linear-gradient(180deg,#071a33 0%,#0a2344 44%,#050f1f 100%); }
+.skyline::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:46%;
+  background:
+    linear-gradient(180deg,transparent,#040c18 82%),
+    repeating-linear-gradient(90deg, rgba(125,155,195,.22) 0 3px, transparent 3px 21px);
+}
+.skyline::after{
+  content:"";
+  position:absolute;
+  right:4%; bottom:0;
+  width:52%; height:54%;
+  background:
+    linear-gradient(139deg,transparent 0 29%,#16233c 30% 54%,transparent 55%),
+    linear-gradient(47deg,transparent 0 34%,#0e1b30 35% 66%,transparent 67%),
+    linear-gradient(180deg,transparent 0 45%,#050c17 46%);
+}
+
+/* ridge — a mountain range: the journey scene */
+.ridge{
+  background:
+    radial-gradient(60% 46% at 74% 16%, rgba(139,178,255,.2), transparent 70%),
+    linear-gradient(180deg,#071a33 0%,#0b2748 46%,#050f1f 100%);
+}
+.ridge::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:58%;
+  background:linear-gradient(180deg,#14305a,#0c1e39);
+  clip-path:polygon(0% 100%, 0% 54%, 13% 30%, 27% 58%, 41% 18%, 58% 52%, 72% 26%, 87% 56%, 100% 38%, 100% 100%);
+}
+.ridge::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:40%;
+  background:linear-gradient(180deg,#0a1a31,#050d1a);
+  clip-path:polygon(0% 100%, 0% 46%, 18% 10%, 34% 52%, 52% 20%, 68% 58%, 84% 28%, 100% 62%, 100% 100%);
+}
+
+/* terminal — a code window: the projects scene */
+.terminal{ background:linear-gradient(180deg,#061527 0%,#03101f 100%); }
+.terminal::before{
+  content:"";
+  position:absolute;
+  left:12%; right:12%; top:19%; bottom:19%;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:linear-gradient(180deg,#0b1e38 0 30px,#071528 30px);
+  box-shadow:0 22px 50px rgba(0,0,0,.45);
+}
+.terminal::after{
+  content:"";
+  position:absolute;
+  left:17%; top:calc(19% + 54px);
+  width:44%; height:132px;
+  background:
+    linear-gradient(90deg,var(--blue) 0 34%,transparent 34%) 0 0/100% 8px no-repeat,
+    linear-gradient(90deg,#3d5f96 0 62%,transparent 62%) 0 22px/100% 8px no-repeat,
+    linear-gradient(90deg,var(--violet) 0 45%,transparent 45%) 0 44px/100% 8px no-repeat,
+    linear-gradient(90deg,#3d5f96 0 74%,transparent 74%) 0 66px/100% 8px no-repeat,
+    linear-gradient(90deg,#2c4a78 0 40%,transparent 40%) 0 88px/100% 8px no-repeat;
+  opacity:.85;
+  border-radius:3px;
+}
+
+/* constellation — connected nodes: the skills scene */
+.constellation{
+  background:
+    radial-gradient(70% 60% at 50% 45%, rgba(79,141,255,.14), transparent 72%),
+    linear-gradient(160deg,#06172c,#040e1c);
+}
+/* the edges */
+.constellation::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(-24deg, transparent calc(50% - .6px), rgba(96,152,255,.42) 50%, transparent calc(50% + .6px)),
+    linear-gradient(31deg,  transparent calc(50% - .6px), rgba(162,120,255,.34) 50%, transparent calc(50% + .6px)),
+    linear-gradient(74deg,  transparent calc(50% - .6px), rgba(96,152,255,.26) 50%, transparent calc(50% + .6px)),
+    linear-gradient(-68deg, transparent calc(50% - .6px), rgba(162,120,255,.22) 50%, transparent calc(50% + .6px));
+  mask-image:radial-gradient(ellipse at 52% 48%, #000 0 58%, transparent 84%);
+  -webkit-mask-image:radial-gradient(ellipse at 52% 48%, #000 0 58%, transparent 84%);
+}
+/* the nodes, with a halo each so they read as detections */
+.constellation::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 24% 28%, #7fb0ff 0 3.5px, rgba(127,176,255,.18) 4px 11px, transparent 12px),
+    radial-gradient(circle at 57% 17%, #b18dff 0 4.5px, rgba(177,141,255,.18) 5px 13px, transparent 14px),
+    radial-gradient(circle at 80% 42%, #7fb0ff 0 3.5px, rgba(127,176,255,.18) 4px 11px, transparent 12px),
+    radial-gradient(circle at 38% 56%, #b18dff 0 5.5px, rgba(177,141,255,.2) 6px 15px, transparent 16px),
+    radial-gradient(circle at 68% 74%, #7fb0ff 0 3.5px, rgba(127,176,255,.18) 4px 11px, transparent 12px),
+    radial-gradient(circle at 19% 74%, #b18dff 0 3px, rgba(177,141,255,.16) 3.5px 10px, transparent 11px),
+    radial-gradient(circle at 88% 70%, #7fb0ff 0 2.5px, rgba(127,176,255,.14) 3px 9px, transparent 10px);
+}
+
+/* globe — meridians: the contact scene */
+.globe{ background:linear-gradient(170deg,#05162b,#030d1b); }
+.globe::before{
+  content:"";
+  position:absolute;
+  left:50%; top:50%;
+  width:264px; height:264px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 36% 28%, rgba(120,180,255,.3), transparent 48%),
+    linear-gradient(155deg,#17406c 0%,#0b2544 48%,#041322 82%);
+  box-shadow:inset 18px 12px 46px rgba(96,160,255,.2), inset -22px -20px 52px rgba(0,0,0,.6), 0 0 64px rgba(79,141,255,.18);
+}
+.globe::after{
+  content:"";
+  position:absolute;
+  left:50%; top:50%;
+  width:264px; height:264px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 32px, rgba(150,195,255,.22) 32px 33px),
+    repeating-linear-gradient(90deg, transparent 0 32px, rgba(150,195,255,.14) 32px 33px);
+  mask-image:radial-gradient(circle, #000 0 49%, transparent 50%);
+  -webkit-mask-image:radial-gradient(circle, #000 0 49%, transparent 50%);
+}
+
+/* ============================================================
+   LIGHT THEME
+   ============================================================ */
+
+:global(html[data-theme="light"]) .hero{
+  background:
+    radial-gradient(120% 100% at 82% 0%, rgba(120,140,240,.1), transparent 58%),
+    linear-gradient(180deg,#f9fbfe 0%,#eef4fb 100%);
+}
+:global(html[data-theme="light"]) .ghost{ background:#fff; }
+:global(html[data-theme="light"]) .frame{ box-shadow:0 14px 40px rgba(25,45,80,.1); }
+:global(html[data-theme="light"]) .readout,
+:global(html[data-theme="light"]) .quote{ background:rgba(255,255,255,.86); }
+:global(html[data-theme="light"]) .quote blockquote{ color:#0f1c30; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width:1080px){
+  .inner{ column-gap:38px; padding:62px var(--site-gutter) 58px; }
+  .facts{ grid-template-columns:1fr; }
+}
+
+@media (max-width:900px){
+  .inner{
+    grid-template-columns:1fr;
+    padding:54px 24px 48px;
+    row-gap:30px;
+  }
+  .frame{ min-height:300px; }
+  .lead{ max-width:none; }
+  .facts{ grid-template-columns:repeat(3,1fr); }
+}
+
+@media (max-width:640px){
+  .inner{ padding:44px 20px 40px; }
+  .title{ font-size:clamp(2rem, 9vw, 2.6rem); }
+  .lead{ font-size:14px; }
+  .stats{ gap:24px; }
+  .stats dt{ font-size:25px; }
+  .frame{ min-height:250px; }
+  .note{ display:none; }
+  .quote{ left:14px; right:14px; bottom:14px; padding:11px 13px; }
+  .quote blockquote{ font-size:12px; }
+  .actions .primary, .actions .ghost{ flex:1 1 auto; }
+  .facts{ grid-template-columns:1fr; }
+}
