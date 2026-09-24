@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, BrainCircuit, Camera, Hand, Pause, X, CircleDot, CheckCircle2, MessageCircle, Send } from "lucide-react";
+import { BrainCircuit, Camera, Hand, Pause, X, CircleDot, CheckCircle2, Send } from "lucide-react";
 import HandTrackingMouse, { HandTrackingHandle } from "./cv1";
 import styles from "./InteractiveModes.module.css";
 
