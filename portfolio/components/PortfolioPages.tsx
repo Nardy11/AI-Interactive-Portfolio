@@ -1,6 +1,6 @@
 "use client";
 import type { ReactNode } from "react";
-import { Download, Github, Linkedin, Mail, Moon, Search, Sun } from "lucide-react";
+import { BrainCircuit, Download, Github, Hand, Linkedin, Mail, Moon, Search, Sun } from "lucide-react";
 import InteractiveModes, { InteractiveMode } from "./InteractiveModes";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -74,8 +74,8 @@ export default function SiteHeader({
 
         {interactive && onModeChange && (
           <>
-            <button type="button" className={`${styles.modeButton} ${mode === "cv" ? styles.modeButtonActive : ""}`} onClick={() => onModeChange(mode === "cv" ? "none" : "cv")}>✋ CV Mode</button>
-            <button type="button" className={`${styles.modeButton} ${mode === "nlp" ? styles.modeButtonActive : ""}`} onClick={() => onModeChange(mode === "nlp" ? "none" : "nlp")}>✣ NLP Assistant</button>
+            <button type="button" className={`${styles.modeButton} ${mode === "cv" ? styles.modeButtonActive : ""}`} onClick={() => onModeChange(mode === "cv" ? "none" : "cv")}><Hand size={15} /> CV Mode</button>
+            <button type="button" className={`${styles.modeButton} ${mode === "nlp" ? styles.modeButtonActive : ""}`} onClick={() => onModeChange(mode === "nlp" ? "none" : "nlp")}><BrainCircuit size={15} /> NLP Assistant</button>
           </>
         )}
 
