@@ -220,15 +220,15 @@ export default function AvatarOverlay({ embedded = false }: AvatarOverlayProps) 
   }, []);
 
   return (
-    <div className={embedded ? "absolute inset-0 h-full w-full z-20 pointer-events-none" : "fixed bottom-0 right-0 h-screen w-[400px] z-50 pointer-events-none"}>
+    <div className={embedded ? "absolute inset-0 h-full w-full z-20 pointer-events-none embeddedAvatar" : "fixed bottom-0 right-0 h-screen w-[400px] z-50 pointer-events-none"}>
       <Canvas camera={{ position: [0.5, 0.5, 3], fov: 40 }}>
         <ambientLight intensity={1.2} />
         <directionalLight position={[2, 2, 2]} intensity={0.6} />
         <pointLight position={[-2, 2, 2]} intensity={0.4} />
         <AvatarModel
           isTalking={isTalking}
-          scale={embedded ? 0.66 : 1}
-          positionY={embedded ? -0.18 : -1}
+          scale={embedded ? 0.60 : 1}
+          positionY={embedded ? -0.48 : -1}
         />
       </Canvas>
 
