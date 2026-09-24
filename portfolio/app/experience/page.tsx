@@ -45,7 +45,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "App Development"],
     description: "Worked on a Flutter mobile application for environmental data management, focusing on real-world data integration and user-centric design.",
-    logo: "/experience-esg-fallback.svg",
+    logo: "/ESG&.png",
     logoAlt: "ESG",
   },
   {
