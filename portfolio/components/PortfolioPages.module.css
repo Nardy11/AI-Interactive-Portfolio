@@ -401,7 +401,7 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 }
 
 /* Shared hero template: every primary page uses the same frame; only the copy/art variables differ. */
-:global(.portfolioHero){
+.portfolioHero{
   height:300px!important;
   min-height:300px!important;
   box-sizing:border-box!important;
@@ -411,7 +411,7 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
   grid-template-columns:52% 48%!important;
   font-family:Arial,Helvetica,sans-serif!important;
 }
-:global(.portfolioHero) h1{
+.portfolioHero h1{
   font-family:Arial,Helvetica,sans-serif!important;
   font-size:42px!important;
   line-height:1.02!important;
@@ -419,7 +419,7 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
   font-weight:800!important;
   margin:0 0 12px!important;
 }
-:global(.portfolioHero) .kicker{
+.portfolioHero .kicker{
   font-family:Arial,Helvetica,sans-serif!important;
   font-size:9px!important;
   line-height:1!important;
@@ -427,39 +427,35 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
   font-weight:800!important;
   margin-bottom:12px!important;
 }
-:global(.portfolioHero) p{
+.portfolioHero p{
   font-family:Arial,Helvetica,sans-serif!important;
   font-size:11.5px!important;
   line-height:1.5!important;
 }
-:global(.portfolioHero) a,
-:global(.portfolioHero) button{
-  font-family:Arial,Helvetica,sans-serif!important;
-}
-:global(.portfolioHero) .heroCopy,
-:global(.portfolioHero) .projectsHeroCopy,
-:global(.portfolioHero) .experienceHeroCopy{
+.portfolioHero a,
+.portfolioHero button{font-family:Arial,Helvetica,sans-serif!important}
+.portfolioHero .heroCopy,
+.portfolioHero .projectsHeroCopy,
+.portfolioHero .experienceHeroCopy{
   box-sizing:border-box;
   align-self:center;
   padding-top:0;
 }
-:global(.portfolioHero) .heroVisual,
-:global(.portfolioHero) .projectsHeroArt,
-:global(.portfolioHero) .experienceHeroImage{
+.portfolioHero .heroVisual,
+.portfolioHero .projectsHeroArt,
+.portfolioHero .experienceHeroImage{
   height:100%!important;
   min-height:300px!important;
 }
-:global(.portfolioHero) .heroActions,
-:global(.portfolioHero) .projectsHeroActions,
-:global(.portfolioHero) .experienceHeroButtons{
-  margin-top:18px!important;
-}
-:global(.portfolioHero) .primaryButton,
-:global(.portfolioHero) .secondaryButton,
-:global(.portfolioHero) .projectsPrimaryButton,
-:global(.portfolioHero) .projectsSecondaryButton,
-:global(.portfolioHero) .button,
-:global(.portfolioHero) .buttonGhost{
+.portfolioHero .heroActions,
+.portfolioHero .projectsHeroActions,
+.portfolioHero .experienceHeroButtons{margin-top:18px!important}
+.portfolioHero .primaryButton,
+.portfolioHero .secondaryButton,
+.portfolioHero .projectsPrimaryButton,
+.portfolioHero .projectsSecondaryButton,
+.portfolioHero .button,
+.portfolioHero .buttonGhost{
   height:38px!important;
   min-height:38px!important;
   box-sizing:border-box!important;
@@ -467,22 +463,22 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
   font-size:10px!important;
 }
 @media(max-width:900px){
-  :global(.portfolioHero){
+  .portfolioHero{
     height:360px!important;
     min-height:360px!important;
     grid-template-columns:1fr!important;
   }
-  :global(.portfolioHero) .heroVisual,
-  :global(.portfolioHero) .projectsHeroArt,
-  :global(.portfolioHero) .experienceHeroImage{
+  .portfolioHero .heroVisual,
+  .portfolioHero .projectsHeroArt,
+  .portfolioHero .experienceHeroImage{
     position:absolute!important;
     inset:0!important;
     min-height:360px!important;
     z-index:1!important;
   }
-  :global(.portfolioHero) .heroCopy,
-  :global(.portfolioHero) .projectsHeroCopy,
-  :global(.portfolioHero) .experienceHeroCopy{
+  .portfolioHero .heroCopy,
+  .portfolioHero .projectsHeroCopy,
+  .portfolioHero .experienceHeroCopy{
     position:relative!important;
     z-index:5!important;
     width:100%!important;
@@ -491,22 +487,15 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
   }
 }
 @media(max-width:600px){
-  :global(.portfolioHero){
+  .portfolioHero{
     height:390px!important;
     min-height:390px!important;
   }
-  :global(.portfolioHero) .heroVisual,
-  :global(.portfolioHero) .projectsHeroArt,
-  :global(.portfolioHero) .experienceHeroImage{
-    min-height:390px!important;
-  }
-  :global(.portfolioHero) h1{
-    font-size:34px!important;
-    letter-spacing:-1.4px!important;
-  }
-  :global(.portfolioHero) p{
-    font-size:10.5px!important;
-  }
+  .portfolioHero .heroVisual,
+  .portfolioHero .projectsHeroArt,
+  .portfolioHero .experienceHeroImage{min-height:390px!important}
+  .portfolioHero h1{font-size:34px!important;letter-spacing:-1.4px!important}
+  .portfolioHero p{font-size:10.5px!important}
 }
 
 /* Project card media keeps every category image cropped consistently. */
