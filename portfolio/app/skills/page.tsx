@@ -3,9 +3,9 @@
 import type { ElementType } from "react";
 import Link from "next/link";
 import {
-  ArrowRight, BrainCircuit, Code2, Eye, MessageCircle, Monitor,
+  ArrowRight, BrainCircuit, Code2, Eye, Monitor,
   Puzzle, Smartphone, UsersRound, Wrench, BookOpen, BarChart3,
-  Boxes, Download, GitBranch, Cloud, Database, ServerCog
+  Boxes, Download, Cloud, ServerCog, Gauge, Layers3, Sparkles
 } from "lucide-react";
 import {
   SiPython, SiJavascript, SiTypescript, SiDart, SiMysql, SiCplusplus,
@@ -72,12 +72,21 @@ const roadmap = [
   { title:"Next", state:"next", items:[["RAG","next"],["LLMs","next"],["AI Agents","next"]] },
 ] as const;
 
+const roadmapNodes=roadmap.flatMap(group=>group.items.map(([,state])=>state));
+const journeyProgress=Math.round(roadmapNodes.reduce((sum,state)=>sum+(state==="done"?1:state==="progress"?.5:0),0)/roadmapNodes.length*100);
 const dailyTools: [ElementType,string][] = [
   [Code2,"VS Code"],[SiGithub,"GitHub"],[SiNotion,"Notion"],[SiPostman,"Postman"],
   [SiFigma,"Figma"],[SiUbuntu,"Ubuntu"],[SiDocker,"Docker"],[SiGooglecolab,"Google Colab"],
 ];
 
-const learning = ["Deep Learning","MLOps","RAG","LLMs","System Design","Cloud Deployment"];
+const learning = [
+{title:"Deep Learning",icon:BrainCircuit,progress:70,meta:"In progress"},
+{title:"MLOps",icon:Gauge,progress:55,meta:"In progress"},
+{title:"RAG",icon:Layers3,progress:35,meta:"Building next"},
+{title:"LLMs",icon:Sparkles,progress:25,meta:"Exploring"},
+{title:"System Design",icon:ServerCog,progress:40,meta:"Practicing"},
+{title:"Cloud Deployment",icon:Cloud,progress:30,meta:"Practicing"},
+];
 
 const softSkills = [
   [Puzzle,"Problem Solving","Breaking complex problems into simple, practical solutions."],
@@ -104,8 +113,8 @@ export default function SkillsPage() {
             <div className={styles.heroPhoto} />
             <div className={styles.heroPhotoShade} />
             <div className={styles.heroQuote}>
-              <span>“The more I learn,<br />the more I realize<br />how much more there is<br />to explore.”</span>
-              <small>— Nardy Attalla</small>
+              <span>“Nothing in life is to be feared,<br />it is only to be understood.”</span>
+              <small>— Marie Curie</small>
             </div>
             <div className={styles.heroNote}>
               <span>Same<br />Engineer.<br />Bigger<br />Possibilities</span>
@@ -163,7 +172,7 @@ export default function SkillsPage() {
               </div>
             ))}
           </div>
-          <div className={styles.progressTrack}><span /><b>65%</b></div>
+          <div className={styles.progressTrack}><span style={{width:`${journeyProgress}%`}}/><b>{journeyProgress}%</b></div>
           <div className={styles.roadLegend}>
             <span className="done">● &nbsp;Completed</span>
             <span className="progress">● &nbsp;In Progress</span>
@@ -181,12 +190,12 @@ export default function SkillsPage() {
           </div>
           <div className={styles.currentLearning}>
             <SectionHeading icon={BarChart3} title="Currently Learning" right="Focusing on these areas to deepen my expertise." stacked />
-            <div className={styles.learningGrid}>{learning.map(item=><span key={item}>{item}</span>)}</div>
+            <div className={styles.learningGrid}>{learning.map(({title,icon:Icon,progress,meta})=><article className={styles.learningCard} key={title}><span className={styles.learningIcon}><Icon/></span><div className={styles.learningBody}><strong>{title}</strong><small>{meta}</small><i><b style={{width:`${progress}%`}}/></i></div><em>{progress}%</em></article>)}</div>
           </div>
           <blockquote className={styles.quoteCard}>
             <span>“</span>
-            <p>Consistency<br />turns learning<br />into results.</p>
-            <small>— Nardy Attalla</small>
+            <p>The only way to do great work<br />is to love what you do.</p>
+            <small>— Steve Jobs</small>
           </blockquote>
         </section>
 

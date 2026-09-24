@@ -212,3 +212,20 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 
 /* POLISH PASS — shared light quote treatment */
 :global(html[data-theme="light"]) .footerQuote{color:#526277}
+
+.experienceHeroImage{background-image:linear-gradient(180deg,rgba(6,18,35,.16),rgba(2,10,22,.5)),url("https://images.unsplash.com/photo-1552845108-5f775a2ccb9b?auto=format&fit=crop&w=1400&q=85");background-size:cover;background-position:center 48%}
+:global(html[data-theme="light"]) .experienceHeroImage{background-image:linear-gradient(180deg,rgba(244,248,252,.46),rgba(223,233,244,.3)),url("https://images.unsplash.com/photo-1552845108-5f775a2ccb9b?auto=format&fit=crop&w=1400&q=85");border-color:#b9cbe0}
+:global(html[data-theme="light"]) .experienceHeroQuote{color:#17304f}.experienceMountain{opacity:.5}
+:global(html[data-theme="light"]) .experienceCard,:global(html[data-theme="light"]) .quickFactsExact,:global(html[data-theme="light"]) .educationExactCard,:global(html[data-theme="light"]) .courseworkExact,:global(html[data-theme="light"]) .certExactCard{background:linear-gradient(145deg,#fff,#f4f7fb)}
+:global(html[data-theme="light"]) .experienceBrandMark{background:#f8fbff;border-color:#cbd8e7}.experienceBrandMark{background:#f7faff}
+:global(html[data-theme="light"]) .experienceBrandMark img{filter:none;mix-blend-mode:multiply}
+:global(html[data-theme="light"]) .experienceTags span,:global(html[data-theme="light"]) .educationTags span{background:#e7f0fb;color:#355f93;border:1px solid #c7d8eb}
+:global(html[data-theme="light"]) .experienceCardTop h3,:global(html[data-theme="light"]) .quickFactsExact strong,:global(html[data-theme="light"]) .educationExactCard h3,:global(html[data-theme="light"]) .courseworkExact h3,:global(html[data-theme="light"]) .certHeading h2,:global(html[data-theme="light"]) .certCopy b{color:#172033}
+:global(html[data-theme="light"]) .experienceCardTop>b,:global(html[data-theme="light"]) .experienceCardTop>span,:global(html[data-theme="light"]) .experienceCardContent p,:global(html[data-theme="light"]) .quickFactsExact span,:global(html[data-theme="light"]) .educationPlace,:global(html[data-theme="light"]) .courseworkExact li,:global(html[data-theme="light"]) .certHeading em,:global(html[data-theme="light"]) .certCopy span{color:#64778e}
+:global(html[data-theme="light"]) .experienceQuoteCard{background-image:linear-gradient(180deg,rgba(246,249,252,.5),rgba(227,236,246,.38)),url("https://images.unsplash.com/photo-1552845108-5f775a2ccb9b?auto=format&fit=crop&w=1400&q=85");background-size:cover;border-color:#b9cbe0}
+:global(html[data-theme="light"]) .experienceQuoteCard p{color:#172033}.experienceQuoteMountains{opacity:.16}
+:global(html[data-theme="light"]) .opportunityCard{background-image:linear-gradient(145deg,rgba(246,249,253,.88),rgba(232,239,248,.74)),url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Late%20evening%20in%20Cairo.jpg?width=1400");background-size:cover;border-color:#b9cbe0}
+:global(html[data-theme="light"]) .opportunityCard h3{color:#172033}:global(html[data-theme="light"]) .opportunityCard p{color:#52667e}
+:global(html[data-theme="light"]) .opportunityCard a{color:#25415f;background:rgba(255,255,255,.76);border-color:#a9c1de}
+:global(html[data-theme="light"]) .certArrows button{background:#fff;border:1px solid #bfd0e4;color:#315b8f}
+.experienceBrandMark img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}.experienceBrandMark.huawei img{width:100%;height:auto}.experienceBrandMark.guc img{width:88%;height:88%}.experienceBrandMark.esg img,.experienceBrandMark.ees img,.experienceBrandMark.mie img{width:72%;height:72%}
