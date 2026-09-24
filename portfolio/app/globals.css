@@ -106,7 +106,7 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   width:52%!important;
   height:auto!important;
   box-sizing:border-box!important;
-  padding:46px 0 0 5.7%!important;
+  padding:46px 0 0 3.6vw!important;
 }
 .portfolioHero > div:nth-child(2){
   position:absolute!important;
@@ -215,4 +215,28 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   .portfolioHero .experienceHeroButtons{flex-wrap:wrap!important}
   .portfolioHero > div:nth-child(2){height:270px!important}
   .portfolioHero .experienceHeroFacts{grid-template-columns:1fr!important}
+}
+
+/* Contact already owns the full-bleed background; keep the same left copy frame. */
+.contactHero.portfolioHero > div:first-child{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  padding:0!important;
+  z-index:1!important;
+}
+.contactHero.portfolioHero > div:nth-child(2){
+  position:relative!important;
+  inset:auto!important;
+  width:52%!important;
+  height:auto!important;
+  padding:46px 0 0 3.6vw!important;
+  margin:0!important;
+  z-index:5!important;
+}
+.contactHero.portfolioHero .heroQuote{
+  left:49.5%!important;
+}
+.contactHero.portfolioHero .heroAnnotation{
+  right:3.2%!important;
 }
