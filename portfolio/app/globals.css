@@ -92,197 +92,93 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
 
 /* Primary page heroes: exact shared Contact template geometry. */
 .portfolioHero.portfolioHero{
-  height:376px!important;
-  min-height:376px!important;
-  width:100%!important;
-  box-sizing:border-box!important;
-  position:relative!important;
-  overflow:hidden!important;
-  display:block!important;
-  font-family:Arial,Helvetica,sans-serif!important;
+  height:376px!important; min-height:376px!important; width:100%!important;
+  box-sizing:border-box!important; position:relative!important; overflow:hidden!important;
+  display:block!important; font-family:Arial,Helvetica,sans-serif!important;
 }
-.portfolioHero.portfolioHero .portfolioHeroCopy,
-.portfolioHero.portfolioHero .portfolioHeroCopy,
 .portfolioHero.portfolioHero .portfolioHeroCopy{
-  position:relative!important;
-  z-index:5!important;
-  width:52%!important;
-  height:auto!important;
-  box-sizing:border-box!important;
-  padding:46px 0 0 3.6vw!important;
-  margin:0!important;
-  align-self:auto!important;
+  position:relative!important; z-index:5!important; width:52%!important;
+  height:auto!important; box-sizing:border-box!important;
+  padding:46px 0 0 3.6vw!important; margin:0!important;
 }
-.portfolioHero.portfolioHero .portfolioHeroVisual,
-.portfolioHero.portfolioHero .portfolioHeroVisual,
 .portfolioHero.portfolioHero .portfolioHeroVisual{
-  position:absolute!important;
-  z-index:1!important;
-  inset:0 0 0 52%!important;
-  width:48%!important;
-  height:100%!important;
-  min-height:0!important;
-  margin:0!important;
-  padding:0!important;
-  box-sizing:border-box!important;
+  position:absolute!important; z-index:1!important; inset:0 0 0 52%!important;
+  width:48%!important; height:100%!important; min-height:0!important;
+  margin:0!important; padding:0!important; box-sizing:border-box!important;
   border-radius:0!important;
 }
-.portfolioHero.portfolioHero .portfolioHeroCopy > div:first-child,
-.portfolioHero.portfolioHero h1,
-
-.portfolioHero.portfolioHero .portfolioHeroCopy h1,
+.portfolioHero.portfolioHero .portfolioHeroCopy > div:first-child{
+  font-family:Arial,Helvetica,sans-serif!important; font-size:9px!important;
+  line-height:1!important; letter-spacing:4px!important; font-weight:800!important;
+  margin:0 0 13px!important;
+}
 .portfolioHero.portfolioHero .portfolioHeroCopy h1{
-  font-family:Arial,Helvetica,sans-serif!important;
-  font-size:43px!important;
-  line-height:1.02!important;
-  letter-spacing:-1.8px!important;
-  font-weight:850!important;
-  margin:0 0 11px!important;
+  font-family:Arial,Helvetica,sans-serif!important; font-size:43px!important;
+  line-height:1.02!important; letter-spacing:-1.8px!important;
+  font-weight:850!important; margin:0 0 11px!important;
 }
-.portfolioHero.portfolioHero p{
-  font-family:Arial,Helvetica,sans-serif!important;
-  font-size:11px!important;
-  line-height:1.5!important;
+.portfolioHero.portfolioHero .portfolioHeroCopy > p{
+  font-family:Arial,Helvetica,sans-serif!important; font-size:11px!important;
+  line-height:1.5!important; max-width:455px!important; margin:0!important;
 }
-.portfolioHero.portfolioHero .portfolioHeroCopy>p{
-  max-width:455px!important;
-  margin:0!important;
-}
-.portfolioHero.portfolioHero a,
-.portfolioHero.portfolioHero button{
+.portfolioHero.portfolioHero .portfolioHeroCopy a,
+.portfolioHero.portfolioHero .portfolioHeroCopy button{
   font-family:Arial,Helvetica,sans-serif!important;
 }
-.portfolioHero.portfolioHero .heroActions,
-.portfolioHero.portfolioHero .projectsHeroActions,
-.portfolioHero.portfolioHero .experienceHeroButtons{
-  display:flex!important;
-  align-items:center!important;
-  gap:14px!important;
+.portfolioHero.portfolioHero .portfolioHeroActions{
+  display:flex!important; align-items:center!important; gap:14px!important;
   margin-top:25px!important;
 }
-.portfolioHero.portfolioHero .primaryButton,
-.portfolioHero.portfolioHero .secondaryButton,
-.portfolioHero.portfolioHero .projectsPrimaryButton,
-.portfolioHero.portfolioHero .projectsSecondaryButton,
-.portfolioHero.portfolioHero .button,
-.portfolioHero.portfolioHero .buttonGhost{
-  height:36px!important;
-  min-height:36px!important;
-  box-sizing:border-box!important;
-  border-radius:20px!important;
-  font-size:9px!important;
-  padding:0 17px!important;
+.portfolioHero.portfolioHero .portfolioHeroActions a{
+  height:36px!important; min-height:36px!important; box-sizing:border-box!important;
+  border-radius:20px!important; font-size:9px!important; padding:0 17px!important;
 }
 .portfolioHero.portfolioHero .heroQuote{
-  position:absolute!important;
-  z-index:6!important;
-  left:49.5%!important;
-  top:65px!important;
-  color:#dce2ed!important;
-  font-size:11px!important;
-  line-height:1.65!important;
-  font-style:italic!important;
+  position:absolute!important; z-index:6!important; left:49.5%!important;
+  top:65px!important; color:#dce2ed!important; font-size:11px!important;
+  line-height:1.65!important; font-style:italic!important;
 }
 .portfolioHero.portfolioHero .heroQuote small{
-  display:block!important;
-  margin-top:7px!important;
-  font-size:8px!important;
+  display:block!important; margin-top:7px!important; font-size:8px!important;
 }
 .portfolioHero.portfolioHero .heroNote,
 .portfolioHero.portfolioHero .heroAnnotation{
-  position:absolute!important;
-  z-index:7!important;
-  right:3.2%!important;
-  top:31px!important;
-  font-size:10px!important;
-  line-height:1.45!important;
+  position:absolute!important; z-index:7!important; right:3.2%!important;
+  top:31px!important; font-size:10px!important; line-height:1.45!important;
 }
 .portfolioHero.portfolioHero .portfolioHeroFacts{
-  position:absolute!important;
-  z-index:8!important;
-  right:2%!important;
-  top:42px!important;
-  width:20%!important;
-  padding:0!important;
-  display:grid!important;
-  gap:8px!important;
+  position:absolute!important; z-index:8!important; right:2%!important;
+  top:42px!important; width:20%!important; padding:0!important;
+  display:grid!important; gap:8px!important;
 }
-.portfolioHero.portfolioHero .portfolioHeroFacts article{
-  min-height:67px!important;
+.portfolioHero.portfolioHero .portfolioHeroFacts article{min-height:67px!important}
+.contactHero.portfolioHero.portfolioHero .heroOverlay{
+  position:absolute!important; inset:0!important; z-index:2!important;
 }
-.portfolioHero.portfolioHero .contactHero{
-  height:100%!important;
+.contactHero.portfolioHero.portfolioHero .portfolioHeroCopy{
+  position:relative!important; z-index:5!important; width:52%!important;
+  padding:46px 0 0 3.6vw!important;
 }
+.contactHero.portfolioHero.portfolioHero .heroQuote{left:49.5%!important}
+.contactHero.portfolioHero.portfolioHero .heroAnnotation{right:3.2%!important}
+
 @media(max-width:900px){
-  .portfolioHero.portfolioHero{
-    height:560px!important;
-    min-height:560px!important;
-  }
-  .portfolioHero.portfolioHero .portfolioHeroCopy,
-  .portfolioHero.portfolioHero .portfolioHeroCopy,
-  .portfolioHero.portfolioHero .portfolioHeroCopy{
-    width:100%!important;
-    padding:38px 7% 0!important;
-  }
-  .portfolioHero.portfolioHero .portfolioHeroVisual,
-  .portfolioHero.portfolioHero .portfolioHeroVisual,
+  .portfolioHero.portfolioHero{height:560px!important; min-height:560px!important}
+  .portfolioHero.portfolioHero .portfolioHeroCopy{width:100%!important; padding:38px 7% 0!important}
   .portfolioHero.portfolioHero .portfolioHeroVisual{
-    inset:auto 0 0 0!important;
-    width:100%!important;
-    height:270px!important;
+    inset:auto 0 0 0!important; width:100%!important; height:270px!important;
   }
   .portfolioHero.portfolioHero .portfolioHeroFacts{
-    right:5%!important;
-    left:5%!important;
-    top:auto!important;
-    bottom:18px!important;
-    width:auto!important;
-    grid-template-columns:repeat(3,1fr)!important;
+    right:5%!important; left:5%!important; top:auto!important; bottom:18px!important;
+    width:auto!important; grid-template-columns:repeat(3,1fr)!important;
   }
 }
 @media(max-width:650px){
-  .portfolioHero.portfolioHero{
-    height:650px!important;
-    min-height:650px!important;
-  }
-  .portfolioHero.portfolioHero .portfolioHeroCopy,
-  .portfolioHero.portfolioHero .portfolioHeroCopy,
-  .portfolioHero.portfolioHero .portfolioHeroCopy{
-    padding:38px 6% 0!important;
-  }
-  .portfolioHero.portfolioHero h1,
-  .portfolioHero.portfolioHero .portfolioHeroCopy h1,
-  .portfolioHero.portfolioHero .portfolioHeroCopy h1{
-    font-size:38px!important;
-  }
-  .portfolioHero.portfolioHero p{font-size:11px!important}
-  .portfolioHero.portfolioHero .portfolioHeroActions{
-    flex-wrap:wrap!important;
-  }
-  .portfolioHero.portfolioHero .portfolioHeroVisual,
-  .portfolioHero.portfolioHero .portfolioHeroVisual,
-  .portfolioHero.portfolioHero .portfolioHeroVisual{
-    height:270px!important;
-  }
-  .portfolioHero.portfolioHero .portfolioHeroFacts{
-    grid-template-columns:1fr!important;
-  }
-}
-/* Contact keeps its background full-bleed; its copy is the second child. */
-.contactHero.portfolioHero.portfolioHero .heroOverlay{
-  position:absolute!important;
-  inset:0!important;
-  z-index:2!important;
-}
-.contactHero.portfolioHero.portfolioHero .portfolioHeroCopy{
-  position:relative!important;
-  z-index:5!important;
-  width:52%!important;
-  padding:46px 0 0 3.6vw!important;
-}
-.contactHero.portfolioHero.portfolioHero .heroQuote{
-  left:49.5%!important;
-}
-.contactHero.portfolioHero.portfolioHero .heroAnnotation{
-  right:3.2%!important;
+  .portfolioHero.portfolioHero{height:650px!important; min-height:650px!important}
+  .portfolioHero.portfolioHero .portfolioHeroCopy{padding:38px 6% 0!important}
+  .portfolioHero.portfolioHero .portfolioHeroCopy h1{font-size:38px!important}
+  .portfolioHero.portfolioHero .portfolioHeroCopy > p{font-size:11px!important}
+  .portfolioHero.portfolioHero .portfolioHeroActions{flex-wrap:wrap!important}
+  .portfolioHero.portfolioHero .portfolioHeroVisual{height:270px!important}
+  .portfolioHero.portfolioHero .portfolioHeroFacts{grid-template-columns:1fr!important}
 }
