@@ -90,37 +90,56 @@ html[data-theme="light"] { color-scheme: light; }
 html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
 
 
-/* Shared primary-page hero template — match the Contact hero frame exactly. */
-.portfolioHero{
+/* Primary page heroes: exact shared Contact template geometry. */
+.portfolioHero.portfolioHero{
   height:376px!important;
   min-height:376px!important;
+  width:100%!important;
   box-sizing:border-box!important;
   position:relative!important;
   overflow:hidden!important;
   display:block!important;
   font-family:Arial,Helvetica,sans-serif!important;
 }
-.portfolioHero > div:first-child{
+.portfolioHero.portfolioHero .heroCopy,
+.portfolioHero.portfolioHero .projectsHeroCopy,
+.portfolioHero.portfolioHero .experienceHeroCopy{
   position:relative!important;
   z-index:5!important;
   width:52%!important;
   height:auto!important;
   box-sizing:border-box!important;
   padding:46px 0 0 3.6vw!important;
+  margin:0!important;
+  align-self:auto!important;
 }
-.portfolioHero > div:nth-child(2){
+.portfolioHero.portfolioHero .heroVisual,
+.portfolioHero.portfolioHero .projectsHeroArt,
+.portfolioHero.portfolioHero .experienceHeroImage{
   position:absolute!important;
   z-index:1!important;
   inset:0 0 0 52%!important;
   width:48%!important;
   height:100%!important;
+  min-height:0!important;
   margin:0!important;
   padding:0!important;
   box-sizing:border-box!important;
-  border:0!important;
   border-radius:0!important;
 }
-.portfolioHero h1{
+.portfolioHero.portfolioHero .kicker,
+.portfolioHero.portfolioHero .projectsHeroCopy .kicker,
+.portfolioHero.portfolioHero .experienceHeroCopy .kicker{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:9px!important;
+  line-height:1!important;
+  letter-spacing:4px!important;
+  font-weight:800!important;
+  margin:0 0 13px!important;
+}
+.portfolioHero.portfolioHero h1,
+.portfolioHero.portfolioHero .projectsHeroCopy h1,
+.portfolioHero.portfolioHero .experienceHeroCopy h1{
   font-family:Arial,Helvetica,sans-serif!important;
   font-size:43px!important;
   line-height:1.02!important;
@@ -128,38 +147,34 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   font-weight:850!important;
   margin:0 0 11px!important;
 }
-.portfolioHero .kicker{
-  font-family:Arial,Helvetica,sans-serif!important;
-  font-size:9px!important;
-  line-height:1!important;
-  letter-spacing:4px!important;
-  font-weight:800!important;
-  margin-bottom:13px!important;
-}
-.portfolioHero p{
+.portfolioHero.portfolioHero p{
   font-family:Arial,Helvetica,sans-serif!important;
   font-size:11px!important;
   line-height:1.5!important;
 }
-.portfolioHero > div:first-child > p{
+.portfolioHero.portfolioHero .heroCopy>p,
+.portfolioHero.portfolioHero .projectsHeroCopy>p{
   max-width:455px!important;
   margin:0!important;
 }
-.portfolioHero a,.portfolioHero button{font-family:Arial,Helvetica,sans-serif!important}
-.portfolioHero .heroActions,
-.portfolioHero .projectsHeroActions,
-.portfolioHero .experienceHeroButtons{
+.portfolioHero.portfolioHero a,
+.portfolioHero.portfolioHero button{
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+.portfolioHero.portfolioHero .heroActions,
+.portfolioHero.portfolioHero .projectsHeroActions,
+.portfolioHero.portfolioHero .experienceHeroButtons{
   display:flex!important;
   align-items:center!important;
   gap:14px!important;
   margin-top:25px!important;
 }
-.portfolioHero .primaryButton,
-.portfolioHero .secondaryButton,
-.portfolioHero .projectsPrimaryButton,
-.portfolioHero .projectsSecondaryButton,
-.portfolioHero .button,
-.portfolioHero .buttonGhost{
+.portfolioHero.portfolioHero .primaryButton,
+.portfolioHero.portfolioHero .secondaryButton,
+.portfolioHero.portfolioHero .projectsPrimaryButton,
+.portfolioHero.portfolioHero .projectsSecondaryButton,
+.portfolioHero.portfolioHero .button,
+.portfolioHero.portfolioHero .buttonGhost{
   height:36px!important;
   min-height:36px!important;
   box-sizing:border-box!important;
@@ -167,26 +182,31 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   font-size:9px!important;
   padding:0 17px!important;
 }
-.portfolioHero .heroQuote{
+.portfolioHero.portfolioHero .heroQuote{
   position:absolute!important;
   z-index:6!important;
-  left:0!important;
+  left:49.5%!important;
   top:65px!important;
   color:#dce2ed!important;
   font-size:11px!important;
   line-height:1.65!important;
   font-style:italic!important;
 }
-.portfolioHero .heroNote,
-.portfolioHero .heroAnnotation{
+.portfolioHero.portfolioHero .heroQuote small{
+  display:block!important;
+  margin-top:7px!important;
+  font-size:8px!important;
+}
+.portfolioHero.portfolioHero .heroNote,
+.portfolioHero.portfolioHero .heroAnnotation{
   position:absolute!important;
   z-index:7!important;
-  right:6%!important;
+  right:3.2%!important;
   top:31px!important;
   font-size:10px!important;
   line-height:1.45!important;
 }
-.portfolioHero .experienceHeroFacts{
+.portfolioHero.portfolioHero .experienceHeroFacts{
   position:absolute!important;
   z-index:8!important;
   right:2%!important;
@@ -196,47 +216,84 @@ html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
   display:grid!important;
   gap:8px!important;
 }
-.portfolioHero .experienceHeroFacts article{min-height:67px!important}
+.portfolioHero.portfolioHero .experienceHeroFacts article{
+  min-height:67px!important;
+}
+.portfolioHero.portfolioHero .contactHero{
+  height:100%!important;
+}
 @media(max-width:900px){
-  .portfolioHero{height:560px!important;min-height:560px!important}
-  .portfolioHero > div:first-child{width:100%!important;padding:38px 7% 0!important}
-  .portfolioHero > div:nth-child(2){inset:auto 0 0 0!important;width:100%!important;height:270px!important}
-  .portfolioHero .experienceHeroFacts{
-    position:absolute!important;right:5%!important;left:5%!important;top:auto!important;bottom:18px!important;width:auto!important;grid-template-columns:repeat(3,1fr)!important
+  .portfolioHero.portfolioHero{
+    height:560px!important;
+    min-height:560px!important;
+  }
+  .portfolioHero.portfolioHero .heroCopy,
+  .portfolioHero.portfolioHero .projectsHeroCopy,
+  .portfolioHero.portfolioHero .experienceHeroCopy{
+    width:100%!important;
+    padding:38px 7% 0!important;
+  }
+  .portfolioHero.portfolioHero .heroVisual,
+  .portfolioHero.portfolioHero .projectsHeroArt,
+  .portfolioHero.portfolioHero .experienceHeroImage{
+    inset:auto 0 0 0!important;
+    width:100%!important;
+    height:270px!important;
+  }
+  .portfolioHero.portfolioHero .experienceHeroFacts{
+    right:5%!important;
+    left:5%!important;
+    top:auto!important;
+    bottom:18px!important;
+    width:auto!important;
+    grid-template-columns:repeat(3,1fr)!important;
   }
 }
 @media(max-width:650px){
-  .portfolioHero{height:650px!important;min-height:650px!important}
-  .portfolioHero > div:first-child{padding:38px 6% 0!important}
-  .portfolioHero h1{font-size:38px!important}
-  .portfolioHero p{font-size:11px!important}
-  .portfolioHero .heroActions,
-  .portfolioHero .projectsHeroActions,
-  .portfolioHero .experienceHeroButtons{flex-wrap:wrap!important}
-  .portfolioHero > div:nth-child(2){height:270px!important}
-  .portfolioHero .experienceHeroFacts{grid-template-columns:1fr!important}
+  .portfolioHero.portfolioHero{
+    height:650px!important;
+    min-height:650px!important;
+  }
+  .portfolioHero.portfolioHero .heroCopy,
+  .portfolioHero.portfolioHero .projectsHeroCopy,
+  .portfolioHero.portfolioHero .experienceHeroCopy{
+    padding:38px 6% 0!important;
+  }
+  .portfolioHero.portfolioHero h1,
+  .portfolioHero.portfolioHero .projectsHeroCopy h1,
+  .portfolioHero.portfolioHero .experienceHeroCopy h1{
+    font-size:38px!important;
+  }
+  .portfolioHero.portfolioHero p{font-size:11px!important}
+  .portfolioHero.portfolioHero .heroActions,
+  .portfolioHero.portfolioHero .projectsHeroActions,
+  .portfolioHero.portfolioHero .experienceHeroButtons{
+    flex-wrap:wrap!important;
+  }
+  .portfolioHero.portfolioHero .heroVisual,
+  .portfolioHero.portfolioHero .projectsHeroArt,
+  .portfolioHero.portfolioHero .experienceHeroImage{
+    height:270px!important;
+  }
+  .portfolioHero.portfolioHero .experienceHeroFacts{
+    grid-template-columns:1fr!important;
+  }
 }
-
-/* Contact already owns the full-bleed background; keep the same left copy frame. */
-.contactHero.portfolioHero > div:first-child{
+/* Contact keeps its background full-bleed; its copy is the second child. */
+.contactHero.portfolioHero.portfolioHero .heroOverlay{
   position:absolute!important;
   inset:0!important;
-  width:100%!important;
-  padding:0!important;
-  z-index:1!important;
+  z-index:2!important;
 }
-.contactHero.portfolioHero > div:nth-child(2){
+.contactHero.portfolioHero.portfolioHero .heroCopy{
   position:relative!important;
-  inset:auto!important;
-  width:52%!important;
-  height:auto!important;
-  padding:46px 0 0 3.6vw!important;
-  margin:0!important;
   z-index:5!important;
+  width:52%!important;
+  padding:46px 0 0 3.6vw!important;
 }
-.contactHero.portfolioHero .heroQuote{
+.contactHero.portfolioHero.portfolioHero .heroQuote{
   left:49.5%!important;
 }
-.contactHero.portfolioHero .heroAnnotation{
+.contactHero.portfolioHero.portfolioHero .heroAnnotation{
   right:3.2%!important;
 }
