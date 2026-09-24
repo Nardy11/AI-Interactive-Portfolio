@@ -1,6 +1,6 @@
 "use client";
 import type { ReactNode } from "react";
-import { Download, Github, Linkedin, Instagram, Mail, Moon, Search, Sun } from "lucide-react";
+import { Download, Github, Linkedin, Mail, Moon, Search, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./PortfolioPages.module.css";
