@@ -272,3 +272,5 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 :global(html[data-theme="light"]) .experienceQuoteCard p,:global(html[data-theme="light"]) .opportunityCard h3,:global(html[data-theme="light"]) .opportunityCard p{color:#263850}
 :global(html[data-theme="light"]) .opportunityCard{background:linear-gradient(145deg,#edf5ff,#f3efff);border-color:#bdcee2}
 .page a,.page button,.page input,.page select,.page textarea,.page article,.page .projectTag,.page .filterPill{transition-duration:.62s!important}
+
+.projectDetails,.projectIconLinks a,.projectsPrimaryButton,.moreProjectsButton{transition-duration:.65s!important}

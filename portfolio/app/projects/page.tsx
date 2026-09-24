@@ -36,8 +36,8 @@ const projects: Project[] = [
 
 const filters = ["All", "Machine Learning", "Computer Vision", "Web Development", "Mobile App", "Game Development", "Other"];
 
-function GitHubLink({ children, className = "", ariaLabel }: { children: ReactNode; className?: string; ariaLabel?: string }) {
-  return <a href="https://github.com/Nardy11" target="_blank" rel="noreferrer" className={className} aria-label={ariaLabel}>{children}</a>;
+function GitHubLink({ children, className = "", ariaLabel, href = "https://github.com/Nardy11" }: { children: ReactNode; className?: string; ariaLabel?: string; href?: string }) {
+  return <a href={href} target="_blank" rel="noreferrer" className={className} aria-label={ariaLabel}>{children}</a>;
 }
 
 export default function Projects() {
