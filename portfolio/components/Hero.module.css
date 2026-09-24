@@ -100,3 +100,36 @@
 @media(max-width:760px){
   .nlpModelStage .modelCopy{left:24px;right:24px;max-width:300px}
 }
+
+/* NLP model stage: keep the 3D assistant in its own centered visual lane, clear of the copy. */
+.embeddedAvatar{
+  position:absolute!important;
+  left:34%!important;
+  top:0!important;
+  width:66%!important;
+  height:100%!important;
+  z-index:20!important;
+}
+.nlpModelStage .modelCopy{
+  max-width:320px;
+  z-index:30;
+}
+@media(max-width:900px){
+  .embeddedAvatar{
+    left:28%!important;
+    width:72%!important;
+  }
+  .nlpModelStage .modelCopy{
+    max-width:285px;
+  }
+}
+@media(max-width:650px){
+  .embeddedAvatar{
+    left:20%!important;
+    width:80%!important;
+    opacity:.94;
+  }
+  .nlpModelStage .modelCopy{
+    max-width:245px;
+  }
+}
