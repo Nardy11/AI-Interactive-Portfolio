@@ -29,9 +29,9 @@ const projects: Project[] = [
   { img: "/Diablo.png", title: "2D/3D Interactive Games", cat: "Game Development", badge: "Game Development", desc: "Game development projects and Unity experiments exploring gameplay mechanics and interactive environments.", tags: ["Unity", "C#", "Blender"], year: 2024, repo: "https://github.com/Nardy11/DiabloCrimsonAbyss" },
   { img: "/Clinic Webs.png", title: "Mentorship Internship Project", cat: "Web Development", badge: "Web Development", desc: "Web dashboard for managing mentorship programs with analytics and user management.", tags: ["React", "Node.js", "MongoDB"], year: 2025, repo: "https://github.com/Nardy11/Mentorness" },
   { img: "/nlp_assistant.png", title: "Portfolio Assistant (NLP)", cat: "Other", badge: "NLP / AI", desc: "NLP-based assistant that answers questions about my portfolio using semantic similarity. RAG coming soon.", tags: ["Python", "NLP", "Embeddings"], year: 2025, repo: "https://github.com/Nardy11/AI-Interactive-Portfolio" },
-  { img: "/AR.png", title: "Microservices Migration (Customer)", cat: "Other", badge: "Backend / DevOps", desc: "Transforming a monolith into microservices using NestJS, TypeScript and deploying on cloud infrastructure.", tags: ["NestJS", "Docker", "AWS", "Terraform"], year: 2026, repo: "https://github.com/Nardy11/Scalable-App-Task5-RabbitMQ-HotelBooking", repoFallback: true },
+  { img: "https://images.unsplash.com/photo-1774901128302-e2bbd154da44?auto=format&fit=crop&fm=jpg&q=80&w=1200", title: "Microservices Migration (Customer)", cat: "Other", badge: "Backend / DevOps", desc: "Transforming a monolith into microservices using NestJS, TypeScript and deploying on cloud infrastructure.", tags: ["NestJS", "Docker", "AWS", "Terraform"], year: 2026, repo: "https://github.com/Nardy11/Scalable-App-Task5-RabbitMQ-HotelBooking", repoFallback: true },
   { img: "/E-commerce App.png", title: "Shopify Development (Test)", cat: "Web Development", badge: "Full Stack", desc: "E-commerce development with modern stack, including custom themes and app integrations.", tags: ["React", "Next.js", "Shopify", "Node.js"], year: 2026, repo: "https://github.com/Nardy11/basic-e-commerce-application", repoFallback: true },
-  { img: "/eesCalculator.jpeg", title: "Flutter Developer Intern (GUC)", cat: "Mobile App", badge: "Mobile App", desc: "Developed mobile applications using Flutter and Firebase during my internship at GUC.", tags: ["Flutter", "Firebase", "Dart"], year: 2024, repo: "https://github.com/Nardy11", repoFallback: true },
+  { img: "https://images.unsplash.com/photo-1757165792338-b4e8a88ae1c7?auto=format&fit=crop&fm=jpg&q=80&w=1200", title: "Flutter Developer Intern (GUC)", cat: "Mobile App", badge: "Mobile App", desc: "Developed mobile applications using Flutter and Firebase during my internship at GUC.", tags: ["Flutter", "Firebase", "Dart"], year: 2024, repo: "https://github.com/Nardy11", repoFallback: true },
 ];
 
 const filters = ["All", "Machine Learning", "Computer Vision", "Web Development", "Mobile App", "Game Development", "Other"];
@@ -105,7 +105,7 @@ export default function Projects() {
             {visible.map((project) => (
               <article className={styles.projectCardExact} key={project.title}>
                 <div className={styles.projectCardMedia}>
-                  <Image src={project.img} alt="" fill sizes="(max-width: 700px) 100vw, (max-width: 900px) 50vw, 24vw" />
+                  <img src={project.img} alt="" />
                   <span className={styles.projectCategoryBadge}>{project.badge}</span>
                   {project.title.includes("CPAC") && <span className={styles.projectFeaturedBadge}><Star size={9} fill="currentColor" /> Featured</span>}
                 </div>
