@@ -158,7 +158,7 @@ export default function Experience() {
             </div>
           </div>
 
-          <div className={styles.experienceHeroFacts}>
+          <div className={`${styles.experienceHeroFacts} portfolioHeroFacts`}>
             <article><GraduationCap /><div><b>B.Sc. Computer Science<br />and Engineering</b><span>German University in Cairo</span><small>2021 – 2025</small></div></article>
             <article><MapPin /><div><b>Based in</b><span>Cairo, Egypt</span></div></article>
             <article><Target /><div><b>Goal</b><span>Build impactful solutions<br />with ML &amp; Software Engineering</span></div></article>
