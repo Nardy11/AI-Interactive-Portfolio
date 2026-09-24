@@ -25,7 +25,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt (Onsite)",
     tags: ["Linux", "Databases", "Monitoring", "Telecom"],
     description: "Working as a Linux and Database Administrator in a UAE telecom client environment (du). Involved in system monitoring, incident and change management, log analysis and reporting.",
-    logo: "/experience-huawei.svg",
+    logo: "/experience-huawei.png",
     logoAlt: "Huawei",
   },
   {
@@ -35,7 +35,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "Dart", "Mobile"],
     description: "Developed a mobile application as part of an internship, gaining hands-on experience in Flutter development and Firebase integration.",
-    logo: "/experience-guc.svg",
+    logo: "/experience-guc.png",
     logoAlt: "German University in Cairo",
   },
   {
@@ -55,7 +55,7 @@ const experiences: ExperienceItem[] = [
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "Web Dashboard"],
     description: "Built a Flutter mobile app and a web dashboard using Firebase, contributing to a complete full-stack solution.",
-    logo: "/experience-ees.svg",
+    logo: "/experience-ees.png",
     logoAlt: "Egyptian Electrical Solution",
   },
   {
@@ -195,7 +195,7 @@ export default function Experience() {
           </div>
           <div className={styles.educationExactGrid}>
             <article className={styles.educationExactCard}>
-              <BrandLogo src="/experience-guc.svg" alt="German University in Cairo" />
+              <BrandLogo src="/experience-guc.png" alt="German University in Cairo" />
               <div>
                 <b>German University in Cairo (GUC)</b>
                 <h3>B.Sc. Computer Science and Engineering</h3>

@@ -94,3 +94,19 @@
   color:#172033;
   border-bottom-color:#dce5ef;
 }
+
+/* Refined send action: compact, deliberate button instead of a full-width pill. */
+.messageForm{display:flex;flex-direction:column}
+.messageForm button{
+  width:auto;
+  min-width:150px;
+  height:40px;
+  align-self:flex-end;
+  padding:0 18px;
+  border-radius:9px;
+  margin-top:10px;
+  box-shadow:0 8px 20px rgba(60,92,255,.2);
+}
+@media(max-width:650px){
+  .messageForm button{align-self:stretch}
+}

@@ -88,3 +88,20 @@
 html[data-theme="dark"] { color-scheme: dark; }
 html[data-theme="light"] { color-scheme: light; }
 html[data-theme="light"] body { background: #f5f8fc; color: #172033; }
+
+/* Shared header mode controls */
+.modeButton{font-family:inherit}
+.modeButtonActive{border-color:#7168e9!important;background:linear-gradient(100deg,rgba(67,103,255,.2),rgba(118,83,255,.18))!important;box-shadow:0 0 0 1px rgba(113,104,233,.18)}
+@media(max-width:760px){
+  .headerActions .modeButton{padding:0 8px;font-size:8px}
+}
+:global(html[data-theme="light"]) .modeButton{
+  background:#fff;
+  border-color:#bdcde0;
+  color:#24364d;
+}
+:global(html[data-theme="light"]) .modeButtonActive{
+  border-color:#7168d9!important;
+  background:#eef0ff!important;
+  color:#394578!important;
+}

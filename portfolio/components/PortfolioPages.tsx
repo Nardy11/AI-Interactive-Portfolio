@@ -1,6 +1,7 @@
 "use client";
 import type { ReactNode } from "react";
 import { Download, Github, Linkedin, Mail, Moon, Search, Sun } from "lucide-react";
+import InteractiveModes, { InteractiveMode } from "./InteractiveModes";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./PortfolioPages.module.css";
@@ -9,10 +10,14 @@ const links = [["Home","/home"],["Projects","/projects"],["Experience","/experie
 
 export default function SiteHeader({
   active,
-  interactive = false,
+  interactive = true,
+  mode = "none",
+  onModeChange,
 }: {
   active?: string;
   interactive?: boolean;
+  mode?: InteractiveMode;
+  onModeChange?: (mode: InteractiveMode) => void;
 }) {
   const pathname = usePathname();
   const [dark, setDark] = useState(true);
@@ -67,8 +72,12 @@ export default function SiteHeader({
           {dark ? <Moon size={16} /> : <Sun size={16} />}
         </button>
 
-        {interactive && <a href="/cv" className={styles.modeButton}>✋ CV Mode</a>}
-        {interactive && <a href="/nlp" className={styles.modeButton}>✣ NLP Assistant</a>}
+        {interactive && onModeChange && (
+          <>
+            <button type="button" className={`${styles.modeButton} ${mode === "cv" ? styles.modeButtonActive : ""}`} onClick={() => onModeChange(mode === "cv" ? "none" : "cv")}>✋ CV Mode</button>
+            <button type="button" className={`${styles.modeButton} ${mode === "nlp" ? styles.modeButtonActive : ""}`} onClick={() => onModeChange(mode === "nlp" ? "none" : "nlp")}>✣ NLP Assistant</button>
+          </>
+        )}
 
         <a href="/full_stack_cv_edited.pdf" target="_blank" rel="noreferrer" className={styles.headerCv}>
           <Download size={15} /> Download CV
@@ -104,7 +113,7 @@ export function Footer({ variant = "default" }: { variant?: "default" | "dashboa
 export function PageFrame({
   active,
   children,
-  interactive = false,
+  interactive = true,
   variant = "default",
 }: {
   active: string;
@@ -112,11 +121,14 @@ export function PageFrame({
   interactive?: boolean;
   variant?: "default" | "dashboard";
 }) {
+  const [mode, setMode] = useState<InteractiveMode>("none");
+
   return (
     <div className={styles.page}>
-      <SiteHeader active={active} interactive={interactive} />
+      <SiteHeader active={active} interactive={interactive} mode={mode} onModeChange={setMode} />
       {children}
       <Footer variant={variant} />
+      <InteractiveModes mode={mode} onModeChange={setMode} />
     </div>
   );
 }

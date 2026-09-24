@@ -114,7 +114,7 @@ export default function DashboardHome() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [skillMode, setSkillMode] = useState<"Technical Skills" | "Tools & DevOps" | "Soft Skills">("Technical Skills");
   const skills = skillMode === "Technical Skills" ? technicalSkills : skillMode === "Tools & DevOps" ? devOpsSkills : softSkills;
-  const visibleTestimonials = testimonials.map((_, index) => testimonials[(index + testimonialIndex) % testimonials.length]);
+  const visibleTestimonials = [0, 1].map(offset => testimonials[(testimonialIndex + offset) % testimonials.length]);
 
   return (
     <PageFrame active="Home" variant="dashboard">
