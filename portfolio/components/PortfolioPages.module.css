@@ -229,3 +229,17 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 :global(html[data-theme="light"]) .opportunityCard a{color:#25415f;background:rgba(255,255,255,.76);border-color:#a9c1de}
 :global(html[data-theme="light"]) .certArrows button{background:#fff;border:1px solid #bfd0e4;color:#315b8f}
 .experienceBrandMark img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}.experienceBrandMark.huawei img{width:100%;height:auto}.experienceBrandMark.guc img{width:88%;height:88%}.experienceBrandMark.esg img,.experienceBrandMark.ees img,.experienceBrandMark.mie img{width:72%;height:72%}
+
+/* FINAL SITE-WIDE SOFT MOTION + PROJECTS LIGHT THEME */
+.page a,.page button,.page input,.page select,.page textarea,.page article,.page .projectTag,.page .filterPill{transition:color .28s ease,background-color .28s ease,border-color .28s ease,box-shadow .32s ease,transform .32s cubic-bezier(.22,.61,.36,1),opacity .32s ease}
+.page button:active,.page a:active{transform:scale(.98)}
+:global(html[data-theme="light"]) .moreProjectsCard{background:radial-gradient(circle at 72% 18%,rgba(88,108,220,.18),transparent 32%),linear-gradient(145deg,#eef4fc,#e9e4f7 80%,#ddd4ef);border-color:#b8c7df;box-shadow:inset 0 0 45px rgba(55,56,160,.07)}
+:global(html[data-theme="light"]) .moreProjectsPlus{border-color:#8d78d8;color:#4f4b72;background:rgba(255,255,255,.45)}
+:global(html[data-theme="light"]) .moreProjectsCard h2{color:#172033}
+:global(html[data-theme="light"]) .moreProjectsCard p{color:#52667e}
+:global(html[data-theme="light"]) .moreProjectsButton{color:#314d70;background:rgba(255,255,255,.72);border-color:#9a7ce0}
+:global(html[data-theme="light"]) .projectIconLinks a{color:#486b97}
+:global(html[data-theme="light"]) .projectIconLinks a:hover{color:#355ee8}
+:global(html[data-theme="light"]) .projectDetails{color:#456fbd}
+:global(html[data-theme="light"]) .projectsPrimaryButton,.page .projectsPrimaryButton{transition:all .32s ease}
+@media(prefers-reduced-motion:reduce){.page a,.page button,.page input,.page select,.page textarea,.page article,.page .projectTag,.page .filterPill{transition:none!important}}

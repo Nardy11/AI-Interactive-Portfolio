@@ -16,16 +16,18 @@ type Project = {
   desc: string;
   tags: string[];
   year: number;
+  repo: string;
+  repoFallback?: boolean;
 };
 
 const projects: Project[] = [
   { img: "/Distance_stereo.jpeg", title: "Cooperative Perception and Control (CPAC)", cat: "Computer Vision", badge: "Computer Vision", desc: "Real-time multi-sensor perception system for connected autonomous vehicles using YOLOv5/YOLOv8, ROS and sensor fusion.", tags: ["Python", "YOLOv8", "ROS", "OpenCV"], year: 2025 },
-  { img: "/data analysis.png", title: "Heart Failure Prediction", cat: "Machine Learning", badge: "Machine Learning", desc: "Predicting heart failure risk using classical ML models with feature engineering, visualization and evaluation.", tags: ["Python", "Scikit-learn", "Pandas"], year: 2025 },
-  { img: "/ML.png", title: "Gold Price Prediction", cat: "Machine Learning", badge: "Machine Learning", desc: "Time series forecasting using ML models and feature engineering to predict gold prices.", tags: ["Python", "XGBoost", "Scikit-learn"], year: 2025 },
-  { img: "/ESG&.png", title: "Environment Management App", cat: "Mobile App", badge: "Mobile App", desc: "Cross-platform mobile application using Flutter and Firebase for environmental data management and monitoring.", tags: ["Flutter", "Firebase", "Dart"], year: 2024 },
-  { img: "/CV.webp", title: "AI Interactive Portfolio", cat: "Web Development", badge: "Web Development", desc: "An interactive portfolio with multiple navigation modes including NLP assistant and computer vision control.", tags: ["Next.js", "TypeScript", "TailwindCSS"], year: 2026 },
-  { img: "/Diablo.png", title: "2D/3D Interactive Games", cat: "Game Development", badge: "Game Development", desc: "Game development projects and Unity experiments exploring gameplay mechanics and interactive environments.", tags: ["Unity", "C#", "Blender"], year: 2024 },
-  { img: "/Clinic Webs.png", title: "Mentorship Internship Project", cat: "Web Development", badge: "Web Development", desc: "Web dashboard for managing mentorship programs with analytics and user management.", tags: ["React", "Node.js", "MongoDB"], year: 2025 },
+  { img: "/data analysis.png", title: "Heart Failure Prediction", cat: "Machine Learning", badge: "Machine Learning", desc: "Predicting heart failure risk using classical ML models with feature engineering, visualization and evaluation.", tags: ["Python", "Scikit-learn", "Pandas"], year: 2025, repo: "https://github.com/Nardy11/Heart_Failure_prediction" },
+  { img: "/ML.png", title: "Gold Price Prediction", cat: "Machine Learning", badge: "Machine Learning", desc: "Time series forecasting using ML models and feature engineering to predict gold prices.", tags: ["Python", "XGBoost", "Scikit-learn"], year: 2025, repo: "https://github.com/MYoussef885/Gold_Price_Prediction" },
+  { img: "/ESG&.png", title: "Environment Management App", cat: "Mobile App", badge: "Mobile App", desc: "Cross-platform mobile application using Flutter and Firebase for environmental data management and monitoring.", tags: ["Flutter", "Firebase", "Dart"], year: 2024, repo: "https://github.com/Nardy11/Climate-Edge-Company-Flutter-app-web" },
+  { img: "/CV.webp", title: "AI Interactive Portfolio", cat: "Web Development", badge: "Web Development", desc: "An interactive portfolio with multiple navigation modes including NLP assistant and computer vision control.", tags: ["Next.js", "TypeScript", "TailwindCSS"], year: 2026, repo: "https://github.com/Nardy11/AI-Interactive-Portfolio" },
+  { img: "/Diablo.png", title: "2D/3D Interactive Games", cat: "Game Development", badge: "Game Development", desc: "Game development projects and Unity experiments exploring gameplay mechanics and interactive environments.", tags: ["Unity", "C#", "Blender"], year: 2024, repo: "https://github.com/Nardy11/DiabloCrimsonAbyss" },
+  { img: "/Clinic Webs.png", title: "Mentorship Internship Project", cat: "Web Development", badge: "Web Development", desc: "Web dashboard for managing mentorship programs with analytics and user management.", tags: ["React", "Node.js", "MongoDB"], year: 2025, repo: "https://github.com/Nardy11/Mentorness" },
   { img: "/nlp_assistant.png", title: "Portfolio Assistant (NLP)", cat: "Other", badge: "NLP / AI", desc: "NLP-based assistant that answers questions about my portfolio using semantic similarity. RAG coming soon.", tags: ["Python", "NLP", "Embeddings"], year: 2025 },
   { img: "/AR.png", title: "Microservices Migration (Customer)", cat: "Other", badge: "Backend / DevOps", desc: "Transforming a monolith into microservices using NestJS, TypeScript and deploying on cloud infrastructure.", tags: ["NestJS", "Docker", "AWS", "Terraform"], year: 2026 },
   { img: "/E-commerce App.png", title: "Shopify Development (Test)", cat: "Web Development", badge: "Full Stack", desc: "E-commerce development with modern stack, including custom themes and app integrations.", tags: ["React", "Next.js", "Shopify", "Node.js"], year: 2026 },
@@ -61,7 +63,7 @@ export default function Projects() {
               for building impactful solutions.
             </p>
             <div className={styles.projectsHeroActions}>
-              <GitHubLink className={styles.projectsPrimaryButton}><Github size={14} /> View GitHub</GitHubLink>
+              <GitHubLink href="https://github.com/Nardy11" className={styles.projectsPrimaryButton}><Github size={14} /> View GitHub</GitHubLink>
               <Link href="/contact" className={styles.projectsSecondaryButton}>Let&apos;s Collaborate <ArrowRight size={14} /></Link>
             </div>
           </div>
@@ -112,10 +114,10 @@ export default function Projects() {
                   <p>{project.desc}</p>
                   <div className={styles.projectTagRow}>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                   <div className={styles.projectCardFooter}>
-                    <GitHubLink className={styles.projectDetails}>View Details <ArrowRight size={12} /></GitHubLink>
+                    <GitHubLink href={project.repo} className={styles.projectDetails}>View Details <ArrowRight size={12} /></GitHubLink>
                     <div className={styles.projectIconLinks}>
-                      <GitHubLink ariaLabel={project.title + " GitHub"}><Github size={14} /></GitHubLink>
-                      <GitHubLink ariaLabel={project.title + " external link"}><ExternalLink size={14} /></GitHubLink>
+                      <GitHubLink href={project.repo} ariaLabel={project.title + " GitHub repository"}><Github size={14} /></GitHubLink>
+                      <GitHubLink href={project.repo} ariaLabel={project.title + " repository"}><ExternalLink size={14} /></GitHubLink>
                     </div>
                   </div>
                 </div>
@@ -126,7 +128,7 @@ export default function Projects() {
                 <div className={styles.moreProjectsPlus}>+</div>
                 <h2>More Projects<br />Coming Soon</h2>
                 <p>I&apos;m always working on new ideas.<br />Stay tuned!</p>
-                <GitHubLink className={styles.moreProjectsButton}>Check GitHub <ArrowRight size={13} /></GitHubLink>
+                <GitHubLink href="https://github.com/Nardy11" className={styles.moreProjectsButton}>Check GitHub <ArrowRight size={13} /></GitHubLink>
               </article>
             )}
           </div>

@@ -168,3 +168,23 @@
 /* POLISH PASS — light theme hero quote */
 :global(html[data-theme="light"]) .heroQuote{color:#263b55}
 :global(html[data-theme="light"]) .heroQuote span{color:#60728a}
+
+/* FINAL HOME INTERACTION + LIGHT THEME POLISH */
+.home a,.home button,.home input,.home select,.home textarea,.home article{transition:color .28s ease,background-color .28s ease,border-color .28s ease,box-shadow .32s ease,transform .32s cubic-bezier(.22,.61,.36,1),opacity .32s ease}
+.testimonial{transition:opacity .35s ease,transform .35s cubic-bezier(.22,.61,.36,1),background-color .3s ease,border-color .3s ease}
+.testimonialGrid{min-height:164px}
+.testimonialArrows button{cursor:pointer}
+.testimonialArrows button:hover{transform:translateY(-1px)}
+.testimonialArrows button:active{transform:scale(.94)}
+.testimonial img{width:38px;height:38px}
+:global(html[data-theme="light"]) .testimonial{background:linear-gradient(145deg,#fff,#f2f6fb);border-color:#c9d8e8}
+:global(html[data-theme="light"]) .testimonial>p{color:#40536b}
+:global(html[data-theme="light"]) .testimonial b{color:#172033}
+:global(html[data-theme="light"]) .testimonial small{color:#687b91}
+:global(html[data-theme="light"]) .testimonialArrows button{background:#fff;border-color:#bfd0e3;color:#355d91}
+:global(html[data-theme="light"]) .opportunity{background:linear-gradient(110deg,#edf5ff,#f1edff);border-color:#bfd1e5}
+:global(html[data-theme="light"]) .opportunityCopy b{color:#172033}
+:global(html[data-theme="light"]) .opportunityCopy p{color:#5c7088}
+:global(html[data-theme="light"]) .opportunityIcon{background:#e7f1ff;border-color:#a9c5e7;color:#477fd1}
+:global(html[data-theme="light"]) .opportunity>a{box-shadow:0 6px 14px rgba(57,89,140,.12)}
+@media(prefers-reduced-motion:reduce){.home a,.home button,.home input,.home select,.home textarea,.home article,.testimonial{transition:none!important}}
