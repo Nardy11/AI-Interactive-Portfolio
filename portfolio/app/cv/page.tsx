@@ -1,1 +1,5 @@
-import Hero from "@/components/Hero"; export default function CVMode(){return <Hero initialMode="cv"/>;}
+import { redirect } from "next/navigation";
+
+export default function CVModeRedirect(){
+  redirect("/home");
+}
