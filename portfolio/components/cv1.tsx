@@ -33,6 +33,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
     const smoothCursorRef = useRef<Point | null>(null)
     const lastYRef = useRef<number | null>(null)
     const lastScrollTimeRef = useRef(0)
+    const lastClickTimeRef = useRef(0)
     const pinchActiveRef = useRef(false)
 
     useImperativeHandle(ref, () => ({
@@ -146,6 +147,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
       smoothCursorRef.current = null
       lastYRef.current = null
       lastScrollTimeRef.current = 0
+      lastClickTimeRef.current = 0
       pinchActiveRef.current = false
 
       onStreamChange?.(null)
@@ -292,9 +294,10 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
               indexExtended &&
               pinchDistance < 34 &&
               !pinchActiveRef.current &&
-              now - lastScrollTimeRef.current > 180
+              now - lastClickTimeRef.current > 180
             ) {
               pinchActiveRef.current = true
+              lastClickTimeRef.current = now
               handleVirtualClick(screen.x, screen.y)
             } else if (pinchDistance > 52) {
               pinchActiveRef.current = false
