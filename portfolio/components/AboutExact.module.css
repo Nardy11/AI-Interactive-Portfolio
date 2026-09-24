@@ -57,3 +57,15 @@
   .heroCopy{padding-left:24px;padding-right:24px}
 }
 
+
+/* POLISH PASS — supplied globe image + light mode */
+.earth{display:none}
+.connectArt{min-height:220px}
+.earthImage{position:absolute;width:560px;height:420px;right:-190px;bottom:-175px;object-fit:cover;object-position:center 50%;border-radius:50%;opacity:.96;filter:saturate(1.02) contrast(1.02);mask-image:radial-gradient(circle at 50% 50%,#000 0 70%,transparent 73%);-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 0 70%,transparent 73%)}
+:global(html[data-theme="light"]) .connectArt{background:linear-gradient(90deg,transparent,#eef4fb)}
+:global(html[data-theme="light"]) .earthImage{opacity:.88;filter:saturate(.9) brightness(.98) contrast(.98)}
+:global(html[data-theme="light"]) .opportunityButton{background:#fff;border-color:#b9cbe1;color:#243247}
+:global(html[data-theme="light"]) .opportunityButton svg{color:#4f86e8}
+:global(html[data-theme="light"]) .messageCard{background:#fff;border-color:#cbd8e7}
+:global(html[data-theme="light"]) .messageCard input,:global(html[data-theme="light"]) .messageCard textarea{background:#f5f8fc;border-color:#cbd8e7;color:#172033}
+:global(html[data-theme="light"]) .messageCard input::placeholder,:global(html[data-theme="light"]) .messageCard textarea::placeholder{color:#71839a}

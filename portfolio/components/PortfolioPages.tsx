@@ -88,7 +88,7 @@ export function Footer({ variant = "default" }: { variant?: "default" | "dashboa
           <small>CS Engineer | Aspiring ML Engineer</small>
         </div>
       </div>
-      <div className={styles.footerQuote}>“Build. Learn. Improve. Repeat.”</div>
+      <div className={styles.footerQuote}>“The important thing is to never stop questioning.” — Albert Einstein</div>
       {variant === "dashboard" && <div className={styles.dashboardFooterMiddle}>Build <span>•</span> Learn <span>•</span> Improve <span>•</span> Repeat</div>}
       <div className={styles.socials}>
         <a href="https://github.com/Nardy11" target="_blank" rel="noreferrer"><Github size={18} /></a>

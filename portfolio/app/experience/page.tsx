@@ -118,8 +118,8 @@ export default function Experience() {
           <div className={styles.experienceHeroImage}>
             <div className={styles.experienceMountain} />
             <div className={styles.experienceHeroQuote}>
-              <span>“A little progress<br />every day adds up to<br />big results.”</span>
-              <small>— Nardy Attalla</small>
+              <span>“The best way to predict your future<br />is to create it.”</span>
+              <small>— Peter Drucker</small>
             </div>
           </div>
 

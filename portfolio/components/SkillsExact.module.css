@@ -111,3 +111,38 @@
   .cta{margin-left:24px;margin-right:24px}
 }
 
+
+/* POLISH PASS — roadmap, learning cards, brand icons, light theme */
+.roadItems span i{width:19px;height:19px;border-radius:50%;background:#071a31;border:1.5px solid #5ca2ff;box-shadow:0 0 0 3px rgba(76,144,255,.08)}
+.roadItems span i::after{content:"";position:absolute;inset:5px;border-radius:50%;background:#5ca2ff;box-shadow:0 0 7px rgba(92,162,255,.5)}
+.roadItems span.progress i{border-color:#a56eff;background:#21143d}
+.roadItems span.progress i::after{background:#a56eff;box-shadow:0 0 7px rgba(165,110,255,.5)}
+.roadItems span.next i{background:transparent;border:1.5px dashed #8fa3c2;box-shadow:none}
+.roadItems span.next i::after{background:transparent;border:1px dashed #8fa3c2;inset:5px}
+.dailyTool svg{color:currentColor}
+.dailyTool[data-tool="VS Code"] svg{color:#007acc}.dailyTool[data-tool="GitHub"] svg{color:#f0f2f5}.dailyTool[data-tool="Notion"] svg{color:#f0f0f0}.dailyTool[data-tool="Postman"] svg{color:#ff6c37}.dailyTool[data-tool="Figma"] svg{color:#f24e1e}.dailyTool[data-tool="Ubuntu"] svg{color:#e95420}.dailyTool[data-tool="Docker"] svg{color:#2496ed}.dailyTool[data-tool="Google Colab"] svg{color:#f9ab00}
+.learningGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.learningCard{height:44px;box-sizing:border-box;display:grid;grid-template-columns:22px minmax(0,1fr) auto;align-items:center;gap:7px;padding:0 8px;border:1px solid #1a385c;border-radius:7px;background:#0a1c32;color:#dce6f4}
+.learningIcon{width:20px;height:20px;display:grid;place-items:center;color:#63a2ff}.learningIcon svg{width:15px;height:15px}
+.learningBody{min-width:0}.learningBody strong{display:block;color:#dfe7f3;font-size:7px;line-height:1.1;white-space:nowrap}.learningBody small{display:block;color:#8fa2bd;font-size:5.5px;margin-top:2px;white-space:nowrap}.learningBody i{display:block;height:2px;margin-top:3px;border-radius:2px;background:#1b3657;overflow:hidden}.learningBody i b{display:block;height:100%;border-radius:2px;background:linear-gradient(90deg,#4a9cff,#8a67ff)}
+.learningCard>em{font-size:6px;color:#79a8ff;font-style:normal}
+:global(html[data-theme="light"]) .roadItems span{color:#34465e}
+:global(html[data-theme="light"]) .roadItems span i{background:#fff;border-color:#4d86df;box-shadow:0 0 0 3px rgba(77,134,223,.12)}
+:global(html[data-theme="light"]) .roadItems span i::after{background:#4d86df}
+:global(html[data-theme="light"]) .roadItems span.progress i{background:#f4edff;border-color:#8d63df}
+:global(html[data-theme="light"]) .roadItems span.progress i::after{background:#8d63df}
+:global(html[data-theme="light"]) .roadItems span.next i{background:#fff;border-color:#8092aa}
+:global(html[data-theme="light"]) .roadItems span.next i::after{border-color:#8092aa}
+:global(html[data-theme="light"]) .dailyTool small{color:#3f536d}
+:global(html[data-theme="light"]) .dailyTool[data-tool="GitHub"] svg,:global(html[data-theme="light"]) .dailyTool[data-tool="Notion"] svg{color:#111827}
+:global(html[data-theme="light"]) .learningCard{background:#fff;border-color:#d5dfeb}
+:global(html[data-theme="light"]) .learningBody strong{color:#243247}
+:global(html[data-theme="light"]) .learningBody small{color:#687a91}
+:global(html[data-theme="light"]) .quoteCard{background:#fff;color:#243247}
+:global(html[data-theme="light"]) .quoteCard p{color:#243247}
+:global(html[data-theme="light"]) .quoteCard small{color:#667892}
+:global(html[data-theme="light"]) .cta{background:#fff;border-color:#c6d5e7}
+:global(html[data-theme="light"]) .ctaBackdrop{background-image:linear-gradient(90deg,rgba(247,250,255,.9),rgba(244,247,252,.72)),url("https://turbo.6tu.com/2023/08/20230827095625730.jpg");opacity:.72}
+:global(html[data-theme="light"]) .ctaCopy h2{color:#172033}
+:global(html[data-theme="light"]) .ctaCopy p{color:#53657b}
+@media(max-width:620px){.learningGrid{grid-template-columns:1fr!important}.learningCard{height:44px}}
