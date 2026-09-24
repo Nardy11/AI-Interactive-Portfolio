@@ -19,24 +19,64 @@ type ExperienceItem = {
 
 const experiences: ExperienceItem[] = [
   {
-    date: "Dec 2025\n– Present",
-    company: "Huawei (Via Premier Service & Recruitment)",
-    role: "Linux & Database Administrator",
+    date: "Jul 2026\n– Present",
+    company: "Prime Softworks × Poseidon X",
+    role: "Full-Stack / Software Engineer",
+    place: "Nasr City, Cairo (Onsite)",
+    tags: ["React", "TypeScript", "NestJS", "PostgreSQL"],
+    description: "Contributing to 5 production web projects across frontend, backend, APIs, testing and production delivery. Built and integrated features with React, React Native, TypeScript, NestJS, REST APIs, PostgreSQL/Supabase and Docker, while supporting monolith-to-microservices modernization.",
+    logo: "",
+    logoAlt: "Prime Softworks",
+  },
+  {
+    date: "Dec 2025\n– Jun 2026",
+    company: "Huawei Technologies",
+    role: "Backend Systems Engineer",
     place: "Cairo, Egypt (Onsite)",
-    tags: ["Linux", "Databases", "Monitoring", "Telecom"],
-    description: "Working as a Linux and Database Administrator in a UAE telecom client environment (du). Involved in system monitoring, incident and change management, log analysis and reporting.",
+    tags: ["Linux", "SQL", "Production", "Debugging"],
+    description: "Worked with Linux-based production environments supporting enterprise backend platforms. Developed SQL queries to validate operational datasets, analyzed logs and backend workflows, and troubleshot production incidents.",
     logo: "/experience-huawei.png",
     logoAlt: "Huawei",
   },
   {
+    date: "Mar 2025\n– Apr 2025",
+    company: "Egyptian Electrical Solution (EES)",
+    role: "Flutter Developer",
+    place: "Cairo, Egypt",
+    tags: ["Flutter", "Firebase", "Inventory", "Web"],
+    description: "Built a cross-platform inventory and factory management system using Flutter and Firebase, implementing real-time data synchronization and authentication across multiple modules.",
+    logo: "/experience-ees.png",
+    logoAlt: "Egyptian Electrical Solution",
+  },
+  {
     date: "Aug 2024\n– Oct 2024",
     company: "German University in Cairo (GUC)",
-    role: "Flutter Developer Intern",
+    role: "Flutter Developer",
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "Dart", "Mobile"],
-    description: "Developed a mobile application as part of an internship, gaining hands-on experience in Flutter development and Firebase integration.",
+    description: "Developed and improved cross-platform mobile applications using Flutter during my internship at GUC.",
     logo: "/experience-guc.png",
     logoAlt: "German University in Cairo",
+  },
+  {
+    date: "Jun 2024\n– Aug 2024",
+    company: "ESG & Company",
+    role: "Flutter Developer",
+    place: "Cairo, Egypt",
+    tags: ["Flutter", "Firebase", "API Integration", "Mobile"],
+    description: "Implemented production mobile applications with Firebase authentication and API integrations.",
+    logo: "/ESG&.png",
+    logoAlt: "ESG & Company",
+  },
+  {
+    date: "Jul 2024",
+    company: "Stuttgart University",
+    role: "DAAD Research Intern",
+    place: "Stuttgart, Germany",
+    tags: ["OpenCV", "ROS", "Computer Vision", "Linux"],
+    description: "Built computer vision pipelines using OpenCV in ROS-based Linux environments as part of a DAAD research internship.",
+    logo: "",
+    logoAlt: "Stuttgart University",
   },
   {
     date: "2023",
@@ -44,29 +84,9 @@ const experiences: ExperienceItem[] = [
     role: "Participant",
     place: "Cairo, Egypt",
     tags: ["Competition", "Innovation", "Teamwork"],
-    description: "Participated in the Microsoft Innovation in Education (MIE) competition, working on innovative technology solutions in a global environment.",
+    description: "Participated in the Microsoft Innovation in Education competition, working on innovative technology solutions.",
     logo: "/experience-mie.png",
     logoAlt: "Microsoft Innovation in Education",
-  },
-  {
-    date: "Mar 2025",
-    company: "Egyptian Electrical Solution (EES)",
-    role: "Flutter App & Web Developer Intern",
-    place: "Cairo, Egypt",
-    tags: ["Flutter", "Firebase", "Web Dashboard"],
-    description: "Built a Flutter mobile app and a web dashboard using Firebase, contributing to a complete full-stack solution.",
-    logo: "/experience-ees.png",
-    logoAlt: "Egyptian Electrical Solution",
-  },
-  {
-    date: "Jun 2024\n– Aug 2024",
-    company: "ESG & Company",
-    role: "Flutter Developer Intern",
-    place: "Cairo, Egypt",
-    tags: ["Flutter", "Firebase", "App Development"],
-    description: "Worked on a Flutter mobile application for environmental data management, focusing on real-world data integration and user-centric design.",
-    logo: "/ESG&.png",
-    logoAlt: "ESG",
   },
 ];
 
@@ -89,7 +109,7 @@ const certificates = [
 function BrandLogo({ src, alt }: { src: string; alt: string }) {
   return (
     <div className={styles.experienceBrandMark}>
-      <img src={src} alt={alt} loading="lazy" />
+      {src ? <img src={src} alt={alt} loading="lazy" /> : <span>{alt.includes("Prime") ? "PS" : "SU"}</span>}
     </div>
   );
 }
@@ -169,7 +189,7 @@ export default function Experience() {
           <aside className={styles.experienceAside}>
             <div className={styles.quickFactsExact}>
               <h3>♙&nbsp; Quick Facts</h3>
-              <div><BriefcaseBusiness /><strong>4+</strong><span>Professional &amp; Internship<br />Experiences</span></div>
+              <div><BriefcaseBusiness /><strong>6+</strong><span>Professional, Research &amp;<br />Internship Experiences</span></div>
               <div><div className={styles.factFolder}>▰</div><strong>10+</strong><span>Projects Completed</span></div>
               <div><GraduationCap /><strong>B.Sc.</strong><span>Computer Science and Engineering<br />(GUC)</span></div>
               <div><MapPin /><strong>Cairo, Egypt</strong><span>Open to opportunities worldwide</span></div>
@@ -183,7 +203,7 @@ export default function Experience() {
 
             <div className={styles.opportunityCard}>
               <h3><i /> Open to Opportunities</h3>
-              <p>I&apos;m currently open to internship and full-time opportunities in Software Engineering and Machine Learning.</p>
+              <p>I&apos;m currently open to full-time opportunities in Full-Stack Software Engineering, Backend Engineering and Machine Learning.</p>
               <Link href="/contact">✈&nbsp; Let&apos;s Connect <ArrowRight size={13} /></Link>
             </div>
           </aside>
