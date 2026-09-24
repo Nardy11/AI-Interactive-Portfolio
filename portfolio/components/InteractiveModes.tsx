@@ -1,7 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { BrainCircuit, Camera, Hand, Pause, X, CircleDot, CheckCircle2, Send } from "lucide-react";
+import {
+  BrainCircuit,
+  Camera,
+  CheckCircle2,
+  CircleDot,
+  Hand,
+  Pause,
+  Send,
+  Sparkles,
+  X,
+} from "lucide-react";
 import HandTrackingMouse, { HandTrackingHandle } from "./cv1";
 import styles from "./InteractiveModes.module.css";
 
@@ -19,125 +29,140 @@ export default function InteractiveModes({
   const [camera, setCamera] = useState(false);
   const [hand, setHand] = useState(false);
   const [tracking, setTracking] = useState(false);
-  const [cursor, setCursor] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
     if (mode === "cv") {
-      handRef.current?.startCamera();
+      requestAnimationFrame(() => handRef.current?.startCamera());
     } else {
       handRef.current?.stopCamera();
       setCamera(false);
-      setTracking(false);
       setHand(false);
+      setTracking(false);
     }
-    return () => {
-      handRef.current?.stopCamera();
-    };
+
+    return () => handRef.current?.stopCamera();
   }, [mode]);
 
-  useEffect(() => {
-    return () => handRef.current?.stopCamera();
-  }, []);
+  const startOrPauseCamera = () => {
+    if (tracking) {
+      handRef.current?.stopCamera();
+      setTracking(false);
+      return;
+    }
 
-  const cvPanel = mode === "cv";
-  const nlpPanel = mode === "nlp";
+    handRef.current?.startCamera();
+  };
 
   return (
     <>
-      {cvPanel && (
-        <HandTrackingMouse
-          ref={handRef}
-          onStreamChange={(stream) => {
-            setCamera(Boolean(stream));
-            setTracking(Boolean(stream));
-            if (previewRef.current) {
-              previewRef.current.srcObject = stream;
-              if (stream) previewRef.current.play().catch(() => {});
-            }
-          }}
-          onHandStatusChange={setHand}
-          onCursorMove={setCursor}
-        />
-      )}
+      {mode === "cv" && (
+        <>
+          <HandTrackingMouse
+            ref={handRef}
+            onStreamChange={(stream) => {
+              setCamera(Boolean(stream));
+              setTracking(Boolean(stream));
 
-      {cvPanel && (
-        <aside className={styles.cvOverlay} aria-label="Computer Vision Mode">
-          <div className={styles.panelHeader}>
-            <div>
-              <h2><Hand size={17} /> Computer Vision Mode</h2>
-              <p>Control this portfolio using hand gestures</p>
-            </div>
-            <div className={styles.panelHeaderActions}>
-              <span className={styles.status}><i /> Active</span>
-              <button aria-label="Exit CV Mode" onClick={() => onModeChange("none")}><X size={16} /></button>
-            </div>
-          </div>
-
-          <div className={styles.cameraBox}>
-            <video ref={previewRef} muted playsInline className={styles.cameraVideo} />
-            <span className={styles.detected}><i /> {hand ? "Hand Detected" : camera ? "Camera Connected" : "Starting Camera"}</span>
-          </div>
-
-          <div className={styles.infoGrid}>
-            <div>
-              <h3>Gestures</h3>
-              <p><Hand size={15} /> Move Hand = Move Cursor</p>
-              <p><CircleDot size={15} /> Pinch Fingers = Click</p>
-              <p><Hand size={15} /> Two Fingers = Scroll</p>
-              <p><CheckCircle2 size={15} /> Closed Hand = Pause</p>
-            </div>
-            <div>
-              <h3>Camera Status</h3>
-              <p><Camera size={15} /> Camera: <b>{camera ? "Connected" : "Starting"}</b></p>
-              <p><CheckCircle2 size={15} /> Hand: <b>{hand ? "Detected" : "Not Detected"}</b></p>
-              <p><CircleDot size={15} /> Tracking: <b>{tracking ? "Active" : "Paused"}</b></p>
-              <p><span className={styles.fpsDot} /> FPS: 30</p>
-            </div>
-          </div>
-
-          <div className={styles.cvFooterActions}>
-            <button onClick={() => tracking ? handRef.current?.stopCamera() : handRef.current?.startCamera()}>
-              <Pause size={15} /> {tracking ? "Pause" : "Resume"}
-            </button>
-            <button className={styles.exitButton} onClick={() => onModeChange("none")}>Exit CV Mode</button>
-          </div>
-
-          <span
-            className={styles.virtualCursor}
-            style={{ left: cursor.x, top: cursor.y }}
-            aria-hidden="true"
+              if (previewRef.current) {
+                previewRef.current.srcObject = stream;
+                if (stream) previewRef.current.play().catch(() => {});
+              }
+            }}
+            onHandStatusChange={setHand}
           />
-        </aside>
+
+          <aside className={styles.cvPanel} aria-label="Computer Vision Mode">
+            <div className={styles.panelHeader}>
+              <div>
+                <h3><Hand size={18} /> Computer Vision Mode</h3>
+                <p>Control this portfolio using hand gestures</p>
+              </div>
+
+              <div className={styles.panelHeaderActions}>
+                <span className={styles.activePill}>
+                  <span />
+                  {camera ? "Active" : "Starting"}
+                </span>
+                <button
+                  className={styles.panelIcon}
+                  onClick={() => onModeChange("none")}
+                  aria-label="Close Computer Vision Mode"
+                >
+                  <X size={17} />
+                </button>
+              </div>
+            </div>
+
+            <div className={styles.cameraFrame}>
+              <video
+                ref={previewRef}
+                muted
+                playsInline
+                className={styles.cameraVideo}
+              />
+              <div className={styles.cameraBadge}>
+                <span />
+                {hand ? "Hand Detected" : "Waiting for Hand"}
+              </div>
+            </div>
+
+            <div className={styles.cvInfoGrid}>
+              <div className={styles.infoCard}>
+                <h4>Gestures</h4>
+                <ul>
+                  <li><Hand size={15} /> Move Hand = Move Cursor</li>
+                  <li><CircleDot size={15} /> Pinch Fingers = Click</li>
+                  <li><Hand size={15} /> Two Fingers = Scroll</li>
+                  <li><CheckCircle2 size={15} /> Closed Hand = Pause</li>
+                </ul>
+              </div>
+
+              <div className={styles.infoCard}>
+                <h4>Camera Status</h4>
+                <ul>
+                  <li><Camera size={15} /> Camera: {camera ? "Connected" : "Starting"}</li>
+                  <li><CheckCircle2 size={15} /> Hand: {hand ? "Detected" : "Not detected"}</li>
+                  <li><CircleDot size={15} /> Tracking: {tracking ? "Active" : "Idle"}</li>
+                  <li><Sparkles size={15} /> Status: {tracking ? "Ready" : "Paused"}</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className={styles.panelFooter}>
+              <button className={styles.panelAction} onClick={startOrPauseCamera}>
+                <Pause size={14} />
+                {tracking ? "Pause" : "Start Camera"}
+              </button>
+              <button
+                className={styles.exitButton}
+                onClick={() => onModeChange("none")}
+              >
+                Exit CV Mode
+              </button>
+            </div>
+          </aside>
+        </>
       )}
 
-      {nlpPanel && (
-        <aside className={styles.nlpOverlay} aria-label="NLP Assistant">
-          <div className={styles.nlpHeader}>
-            <div>
-              <h2><BrainCircuit size={17} /> NLP Assistant</h2>
-              <p>Ask about projects, skills, experience or technologies</p>
-            </div>
-            <button aria-label="Close NLP Assistant" onClick={() => onModeChange("none")}><X size={16} /></button>
-          </div>
-          <NlpChat />
-        </aside>
-      )}
+      {mode === "nlp" && <NlpAssistant onClose={() => onModeChange("none")} />}
     </>
   );
 }
 
-function NlpChat() {
+function NlpAssistant({ onClose }: { onClose: () => void }) {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<{ role: "user" | "assistant"; text: string }[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://ai-interactive-portfolio-back-end.vercel.app";
+  const API_URL =
+    process.env.NEXT_PUBLIC_API_URL ||
+    "https://ai-interactive-portfolio-back-end.vercel.app";
 
-  const send = async (preset?: string) => {
-    const question = (preset ?? input).trim();
+  const send = async (value = input) => {
+    const question = value.trim();
     if (!question || loading) return;
 
-    setMessages(current => [...current, { role: "user", text: question }]);
+    setMessages((current) => [...current, { role: "user", text: question }]);
     setInput("");
     setLoading(true);
 
@@ -147,16 +172,22 @@ function NlpChat() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question }),
       });
+
       const data = await response.json().catch(() => ({}));
-      setMessages(current => [
+
+      setMessages((current) => [
         ...current,
         {
           role: "assistant",
-          text: data.answer || data.response || data.message || "I couldn't get a response from the assistant.",
+          text:
+            data.answer ||
+            data.response ||
+            data.message ||
+            "I couldn't get a response from the assistant.",
         },
       ]);
     } catch {
-      setMessages(current => [
+      setMessages((current) => [
         ...current,
         { role: "assistant", text: "The NLP backend is currently unavailable." },
       ]);
@@ -166,28 +197,52 @@ function NlpChat() {
   };
 
   return (
-    <div className={styles.nlpBody}>
-      <div className={styles.nlpReady}>
-        <span><i /> Assistant ready</span>
-        <small>Ask about projects, skills, experience or technologies</small>
-        {messages.length === 0 && (
-          <div className={styles.nlpSuggestions}>
-            <button onClick={() => send("Tell me about my ML projects")}>ML projects</button>
-            <button onClick={() => send("What technologies do I use?")}>Tech stack</button>
-          </div>
-        )}
+    <aside className={styles.nlpPanel} aria-label="NLP Assistant">
+      <div className={styles.nlpHeader}>
+        <div>
+          <span>PORTFOLIO ASSISTANT</span>
+          <h2><BrainCircuit size={18} /> NLP Assistant</h2>
+        </div>
+        <button onClick={onClose} aria-label="Close NLP Assistant">
+          <X size={17} />
+        </button>
       </div>
 
-      <div className={styles.messages} aria-live="polite">
+      <div className={styles.nlpReady}>
+        <Sparkles size={20} />
+        <b>Assistant ready</b>
+        <span>Ask about projects, skills, experience or technologies.</span>
+      </div>
+
+      <div className={styles.nlpMessages} aria-live="polite">
+        {messages.length === 0 && (
+          <div className={styles.nlpWelcome}>
+            <b>What would you like to know?</b>
+            <span>Ask about my projects, skills, education or experience.</span>
+            <div>
+              <button onClick={() => send("Tell me about my ML projects")}>ML projects</button>
+              <button onClick={() => send("What technologies do you use?")}>Tech stack</button>
+            </div>
+          </div>
+        )}
+
         {messages.map((message, index) => (
-          <div key={index} className={message.role === "user" ? styles.userMessage : styles.assistantMessage}>
+          <div
+            key={index}
+            className={
+              message.role === "user"
+                ? styles.nlpUser
+                : styles.nlpAssistant
+            }
+          >
             {message.text}
           </div>
         ))}
-        {loading && <div className={styles.assistantMessage}>Thinking…</div>}
+
+        {loading && <div className={styles.nlpAssistant}>Thinking…</div>}
       </div>
 
-      <div className={styles.inputRow}>
+      <div className={styles.nlpInput}>
         <input
           value={input}
           onChange={(event) => setInput(event.target.value)}
@@ -201,6 +256,6 @@ function NlpChat() {
           <Send size={15} />
         </button>
       </div>
-    </div>
+    </aside>
   );
 }
