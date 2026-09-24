@@ -75,7 +75,7 @@ export default function SiteHeader({
         {interactive && onModeChange && (
           <>
             <button type="button" className={`${styles.modeButton} ${mode === "cv" ? styles.modeButtonActive : ""}`} onClick={() => onModeChange(mode === "cv" ? "none" : "cv")}><Hand size={15} /> CV Mode</button>
-            <button type="button" className={`${styles.modeButton} ${mode === "nlp" ? styles.modeButtonActive : ""}`} onClick={() => onModeChange(mode === "nlp" ? "none" : "nlp")}><BrainCircuit size={15} /> NLP Assistant</button>
+            <a href="/nlp" className={`${styles.modeButton} ${pathname === "/nlp" ? styles.modeButtonActive : ""}`}><BrainCircuit size={15} /> NLP Assistant</a>
           </>
         )}
 

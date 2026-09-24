@@ -43,3 +43,51 @@
 }
 .modelStageFooter span,.modelStageFooter small{justify-content:center;text-align:center}
 @media(max-width:760px){.modelStageFooter{width:min(320px,78%)}}
+
+
+/* Final standalone CV/NLP mode controls: higher contrast and compact on mobile. */
+.modeActions .modeButton{
+  border-color:#46648f;
+  background:#0b1930;
+  color:#f1f5ff;
+}
+.modeActions .modeButton:hover{
+  border-color:#6d8fc1;
+  box-shadow:0 6px 16px rgba(36,91,165,.18);
+}
+.modeActions .modeButtonActive{
+  background:#171c46;
+  border-color:#8a83ff;
+  box-shadow:0 0 0 2px rgba(119,113,232,.14),0 6px 18px rgba(72,67,180,.18);
+}
+:global(html[data-theme="light"]) .modeActions .modeButton{
+  background:#e9f0f8;
+  color:#1d3450;
+  border-color:#8da5bf;
+}
+:global(html[data-theme="light"]) .modeActions .modeButtonActive{
+  background:#eceaff;
+  color:#37366c;
+  border-color:#6f68dd;
+}
+@media(max-width:760px){
+  .modeActions{gap:5px}
+  .modeActions .modeButton{
+    width:34px;
+    height:34px;
+    padding:0;
+    gap:0;
+    font-size:0;
+  }
+  .modeActions .modeButton svg{width:16px;height:16px}
+}
+.cameraStatus{
+  background:rgba(36,55,82,.9)!important;
+  border:1px solid rgba(137,166,207,.42);
+  color:#f2f6ff!important;
+}
+:global(html[data-theme="light"]) .cameraStatus{
+  background:rgba(255,255,255,.92)!important;
+  border-color:#c1d2e4;
+  color:#304b68!important;
+}

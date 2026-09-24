@@ -192,3 +192,30 @@
 .testimonialGrid{animation:testimonialCarouselIn .38s cubic-bezier(.22,.61,.36,1)}
 @keyframes testimonialCarouselIn{from{opacity:.45;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
 @media(prefers-reduced-motion:reduce){.testimonialGrid{animation:none!important}}
+
+
+/* Final testimonial layout: same card height and aligned author rows. */
+.testimonial{
+  height:205px;
+  padding:14px 14px 12px;
+  display:flex;
+  flex-direction:column;
+}
+.testimonial>p{
+  flex:1;
+  margin:0;
+  font-size:8.5px;
+  line-height:1.45;
+}
+.testimonial>div{
+  margin-top:auto;
+  min-height:38px;
+}
+.testimonialGrid{min-height:205px}
+@media(max-width:900px){
+  .testimonial{height:auto;min-height:180px}
+}
+@media(max-width:650px){
+  .testimonial{min-height:180px;padding:13px}
+  .testimonial>p{font-size:8.5px}
+}

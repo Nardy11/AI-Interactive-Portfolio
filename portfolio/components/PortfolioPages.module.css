@@ -277,3 +277,72 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
 
 /* Shared navbar mode controls — match the original interactive button language. */
 .modeButton{min-height:36px;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid rgba(116,98,255,.58);color:var(--text,#f5f7ff);background:rgba(12,18,39,.42);border-radius:10px;padding:0 12px;text-decoration:none;font-size:10px;font-weight:700;white-space:nowrap;cursor:pointer}.modeButton:hover{transform:translateY(-1px)}.modeButtonActive{border-color:#7771e8;box-shadow:0 0 0 2px rgba(119,113,232,.12)}:global(html[data-theme="light"]) .modeButton{background:#fff;color:#243247;border-color:#b9cbe1}:global(html[data-theme="light"]) .modeButtonActive{background:#f0efff;color:#3e4274;border-color:#7771e8}@media(max-width:1050px){.modeButton{padding:0 8px;font-size:9px}}@media(max-width:760px){.modeButton{padding:0 7px;font-size:8px}.headerActions .modeButton{display:none}}
+
+
+/* Final interactive-mode controls: stronger contrast and clean mobile sizing. */
+.modeButton{
+  min-height:36px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  border:1px solid #46648f;
+  color:#f1f5ff;
+  background:#0b1930;
+  border-radius:10px;
+  padding:0 12px;
+  text-decoration:none;
+  font-size:10px;
+  font-weight:700;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:background-color .28s ease,border-color .28s ease,color .28s ease,transform .28s ease,box-shadow .28s ease;
+}
+.modeButton:hover{
+  transform:translateY(-1px);
+  border-color:#6d8fc1;
+  box-shadow:0 6px 16px rgba(36,91,165,.18);
+}
+.modeButtonActive{
+  background:#171c46;
+  border-color:#8a83ff;
+  box-shadow:0 0 0 2px rgba(119,113,232,.14),0 6px 18px rgba(72,67,180,.18);
+}
+:global(html[data-theme="light"]) .modeButton{
+  background:#e9f0f8;
+  color:#1d3450;
+  border-color:#8da5bf;
+}
+:global(html[data-theme="light"]) .modeButton:hover{
+  background:#e3ecf6;
+  border-color:#6f8cab;
+}
+:global(html[data-theme="light"]) .modeButtonActive{
+  background:#eceaff;
+  color:#37366c;
+  border-color:#6f68dd;
+  box-shadow:0 0 0 2px rgba(111,104,221,.13),0 6px 18px rgba(111,104,221,.12);
+}
+@media(max-width:1050px){
+  .modeButton{padding:0 9px;font-size:9px}
+  .headerActions{gap:8px}
+}
+@media(max-width:760px){
+  .header{grid-template-columns:minmax(0,1fr) auto}
+  .brand{min-width:0}
+  .brandText{min-width:0}
+  .brand small{display:none}
+  .headerActions{gap:6px}
+  .headerSearch,.headerCv{display:none}
+  .modeButton{
+    width:34px;
+    min-height:34px;
+    height:34px;
+    padding:0;
+    gap:0;
+    font-size:0;
+    border-radius:9px;
+  }
+  .modeButton svg{width:16px;height:16px}
+  .themeButton{width:34px!important;height:34px!important}
+}
