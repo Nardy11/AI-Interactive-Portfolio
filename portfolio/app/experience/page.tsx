@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Award, BookOpen, BriefcaseBusiness, CalendarDays, GraduationCap, MapPin, Plane, Target } from "lucide-react";
 import { PageFrame } from "@/components/PortfolioPages";
@@ -92,6 +95,8 @@ function BrandLogo({ src, alt }: { src: string; alt: string }) {
 }
 
 export default function Experience() {
+  const [certOffset,setCertOffset]=useState(0);
+  const visibleCertificates=certificates.map((_,i)=>certificates[(i+certOffset)%certificates.length]);
   return (
     <PageFrame active="Experience">
       <main className={styles.experiencePage}>
@@ -212,7 +217,7 @@ export default function Experience() {
             <em>Always learning. Always improving.</em>
           </div>
           <div className={styles.certExactGrid}>
-            {certificates.map(cert => (
+            {visibleCertificates.map(cert => (
               <article className={styles.certExactCard} key={cert.title}>
                 <div className={`${styles.certLogo} ${styles[cert.className as keyof typeof styles]}`}>{cert.mark}</div>
                 <div className={styles.certCopy}>
@@ -223,7 +228,7 @@ export default function Experience() {
               </article>
             ))}
           </div>
-          <div className={styles.certArrows}><button aria-label="Previous certifications">←</button><button aria-label="Next certifications">→</button></div>
+          <div className={styles.certArrows}><button type="button" aria-label="Previous certifications" onClick={()=>setCertOffset(o=>(o-1+certificates.length)%certificates.length)}>←</button><button type="button" aria-label="Next certifications" onClick={()=>setCertOffset(o=>(o+1)%certificates.length)}>→</button></div>
         </section>
       </main>
     </PageFrame>

@@ -146,3 +146,15 @@
 :global(html[data-theme="light"]) .ctaCopy h2{color:#172033}
 :global(html[data-theme="light"]) .ctaCopy p{color:#53657b}
 @media(max-width:620px){.learningGrid{grid-template-columns:1fr!important}.learningCard{height:44px}}
+
+.roadItems span.next i::after{display:none}.roadItems span.next i{border-style:dashed}
+:global(html[data-theme="light"]) .roadItems span.next i{background:transparent;border-style:dashed}
+:global(html[data-theme="light"]) .roadItems span.next i::after{display:none}
+:global(html[data-theme="light"]) .heroPhoto{background-image:url("https://images.unsplash.com/photo-1552845108-5f775a2ccb9b?auto=format&fit=crop&w=2200&q=85");background-position:center 48%;filter:saturate(.92) brightness(1.02)}
+:global(html[data-theme="light"]) .heroPhotoShade{background:linear-gradient(90deg,rgba(246,250,255,.9),rgba(246,250,255,.48) 35%,rgba(10,30,55,.15))}
+:global(html[data-theme="light"]) .heroQuote{color:#263b55}:global(html[data-theme="light"]) .heroNote{color:#7356c7}
+:global(html[data-theme="light"]) .learningCard{box-shadow:0 5px 14px rgba(30,50,80,.06)}
+:global(html[data-theme="light"]) .learningIcon{color:#4d7fd4}:global(html[data-theme="light"]) .learningCard>em{color:#4d73b8}
+:global(html[data-theme="light"]) .cta{background:linear-gradient(110deg,#dcecff,#eee7ff);border-color:#9fb7db}
+:global(html[data-theme="light"]) .ctaBackdrop{background-image:linear-gradient(90deg,rgba(218,232,250,.72),rgba(238,231,251,.55)),url("https://images.unsplash.com/photo-1552845108-5f775a2ccb9b?auto=format&fit=crop&w=2200&q=85");opacity:.8}
+:global(html[data-theme="light"]) .ctaCopy h2{color:#172033}:global(html[data-theme="light"]) .ctaCopy p{color:#4e6077}

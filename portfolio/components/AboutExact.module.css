@@ -69,3 +69,10 @@
 :global(html[data-theme="light"]) .messageCard{background:#fff;border-color:#cbd8e7}
 :global(html[data-theme="light"]) .messageCard input,:global(html[data-theme="light"]) .messageCard textarea{background:#f5f8fc;border-color:#cbd8e7;color:#172033}
 :global(html[data-theme="light"]) .messageCard input::placeholder,:global(html[data-theme="light"]) .messageCard textarea::placeholder{color:#71839a}
+
+:global(html[data-theme="light"]) .aboutHero{background:#e8f1f8}
+:global(html[data-theme="light"]) .heroSky{background:linear-gradient(90deg,rgba(239,246,252,.82),rgba(231,241,249,.28) 45%,rgba(16,38,64,.08)),url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Cairo%20Skyline%20%282020%29.jpg?width=1600") center/cover}
+:global(html[data-theme="light"]) .heroPortrait{filter:drop-shadow(0 12px 18px rgba(35,59,86,.22))}
+:global(html[data-theme="light"]) .heroQuote{color:#253a55}:global(html[data-theme="light"]) .heroQuote small{color:#5e7188}:global(html[data-theme="light"]) .heroAnnotation{color:#7356c7}
+.earthImage{width:420px;height:315px;right:-145px;bottom:-118px;object-fit:contain;object-position:center;mask-image:radial-gradient(ellipse at 50% 50%,#000 0 68%,transparent 72%);-webkit-mask-image:radial-gradient(ellipse at 50% 50%,#000 0 68%,transparent 72%);filter:saturate(1.05) contrast(1.05)}
+:global(html[data-theme="light"]) .earthImage{opacity:.98;filter:saturate(.98) contrast(1.04) brightness(1.02)}
