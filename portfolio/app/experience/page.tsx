@@ -130,7 +130,7 @@ export default function Experience() {
   return (
     <PageFrame active="Experience">
       <main className={styles.experiencePage}>
-        <section className={styles.experienceHero}>
+        <section className={styles.experienceHero} portfolioHero>
           <div className={styles.experienceHeroCopy}>
             <div className={styles.kicker}>EXPERIENCE &amp; EDUCATION</div>
             <h1>My Journey <span>So Far</span></h1>
