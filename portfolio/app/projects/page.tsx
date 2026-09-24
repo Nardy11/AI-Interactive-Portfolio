@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, ExternalLink, Github, Star } from "lucide-react";
 import { PageFrame } from "@/components/PortfolioPages";
 import styles from "@/components/PortfolioPages.module.css";
