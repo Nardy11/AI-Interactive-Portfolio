@@ -78,6 +78,7 @@ const softSkills = [
 const experiences = [
   ["2026", "Present", "Full-Stack / Software Engineer", "Poseidon X · Prime Softworks", "Full-time"],
   ["2025–2026", "", "Backend Systems Engineer", "Huawei Technologies", "Full-time"],
+  ["2025–2026", "", "Machine Learning Program", "ReDI School of Digital Integration", "Program"],
   ["2025", "", "Flutter Developer", "Egyptian Electrical Solution", "Internship"],
   ["2024", "", "Flutter Developer", "GUC", "Internship"],
   ["2024", "", "Flutter Developer", "ESG & Company", "Internship"],
