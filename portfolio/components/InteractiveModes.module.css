@@ -121,3 +121,5 @@
 @media(max-width:500px){
   .panelFooter{grid-template-columns:1fr}
 }
+
+.virtualCursor{position:fixed;z-index:1150;width:18px;height:18px;border:2px solid #ff6666;border-radius:50%;box-shadow:0 0 0 4px rgba(255,76,76,.12),0 0 14px rgba(255,76,76,.65);pointer-events:none;transform:translate(-50%,-50%);transition:left .08s linear,top .08s linear}
