@@ -76,34 +76,35 @@ const softSkills = [
 ];
 
 const experiences = [
-  ["2025", "Present", "Linux & Database Administrator", "Huawei (UAE Telecom Environment)", "Full-time"],
-  ["2024", "", "Flutter Developer Intern", "GUC", "Internship"],
-  ["2024", "", "Mobile App Developer Intern", "ESG & Company", "Internship"],
-  ["2023", "", "Student Competition", "MIE Competition – Egypt", "Competition"],
-  ["2021–2025", "", "B.Sc. Computer Science and Engineering", "German University in Cairo (GUC)", "Graduated"],
+  ["2026", "Present", "Full-Stack / Software Engineer", "Poseidon X · Prime Softworks", "Full-time"],
+  ["2025–2026", "", "Backend Systems Engineer", "Huawei Technologies", "Full-time"],
+  ["2025", "", "Flutter Developer", "Egyptian Electrical Solution", "Internship"],
+  ["2024", "", "Flutter Developer", "GUC", "Internship"],
+  ["2024", "", "Flutter Developer", "ESG & Company", "Internship"],
+  ["2024–2025", "", "Bachelor Project Mentorship", "Valeo · CPAC for Connected Vehicles", "Mentorship"],
 ];
 
 const testimonials = [
   {
-    quote: "Nardy showcased exceptional creativity and technical skills in VR/AR projects, as well as thorough research on XR for therapeutic applications. A proactive learner with a problem-solving mindset.",
+    quote: "Nardy showed strong creativity and technical skill in VR/AR work, with thorough research and a proactive problem-solving mindset.",
     name: "Yomna M.I. Hassan",
     role: "Assistant Professor, GUC",
     image: "https://i1.rgstatic.net/ii/profile.image/11431281319539270-1742714583711_Q128/Yomna-Hassan-8.jpg",
   },
   {
-    quote: "Nardy exhibited exceptional dedication and analytical thinking in ML, successfully applying concepts in innovative ways. His communication, collaborative spirit, and research potential are outstanding.",
+    quote: "Nardy demonstrated strong dedication and analytical thinking in ML, applying concepts creatively with excellent communication.",
     name: "Assoc. Prof. Dr. Mohamed Hamed",
     role: "Professor of Bioinformatics & Computational Biology, GUC",
     image: "https://profile-images.xing.com/images/c8b61fc1c26d681a04db17d84591663a-1/mohamed-hamed.256x256.jpg",
   },
   {
-    quote: "Nardy is determined, focused, and worked independently on his graduation project, demonstrating diverse computer science skills and eagerness to learn. He will excel in any research environment.",
+    quote: "Nardy worked independently on his graduation project and showed diverse CS skills, focus and eagerness to learn.",
     name: "Assoc. Prof. Mervat Abu-Elkheir",
     role: "Computer Science Dept., GUC",
     image: "https://ui-avatars.com/api/?name=Mervat+Abu-Elkheir&background=6d5cff&color=fff&size=96",
   },
   {
-    quote: "During his internship, Nardy demonstrated strong commitment, reliability, and technical skills. He proactively offered innovative suggestions and adapted quickly to new challenges.",
+    quote: "Nardy showed strong commitment, reliability and technical skill during his internship, adapting quickly to new challenges.",
     name: "Eng. Kareem El Hossainy",
     role: "ESG& Company",
     image: "https://ui-avatars.com/api/?name=Kareem+El+Hossainy&background=367dff&color=fff&size=96",

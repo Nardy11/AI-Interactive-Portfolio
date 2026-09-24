@@ -371,3 +371,31 @@ linear-gradient(150deg,transparent 40%,#182945 41%,#0c1728 66%,#050c18 67%);
   background:#f8fbff!important;
   border-color:#cbd8e7!important;
 }
+
+
+/* Experience identity cards: white-filled frames for every supplied/organization mark. */
+.experienceBrandMark{
+  background:#fff!important;
+  border:1px solid #d8e0ea!important;
+  border-radius:7px;
+  box-shadow:0 5px 14px rgba(31,52,78,.08)!important;
+  padding:7px!important;
+}
+.experienceBrandMark img{
+  mix-blend-mode:normal!important;
+  filter:none!important;
+}
+.experienceBrandMark span{
+  display:grid;
+  place-items:center;
+  width:100%;
+  height:100%;
+  color:#14263d;
+  font-weight:900;
+  font-size:14px;
+  letter-spacing:-.5px;
+}
+:global(html[data-theme="dark"]) .experienceBrandMark{
+  background:#fff!important;
+  border-color:#d8e0ea!important;
+}

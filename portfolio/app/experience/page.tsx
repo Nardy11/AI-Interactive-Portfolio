@@ -20,38 +20,38 @@ type ExperienceItem = {
 const experiences: ExperienceItem[] = [
   {
     date: "Jul 2026\n– Present",
-    company: "Prime Softworks × Poseidon X",
+    company: "Poseidon X",
     role: "Full-Stack / Software Engineer",
     place: "Nasr City, Cairo (Onsite)",
     tags: ["React", "TypeScript", "NestJS", "PostgreSQL"],
-    description: "Contributing to 5 production web projects across frontend, backend, APIs, testing and production delivery. Built and integrated features with React, React Native, TypeScript, NestJS, REST APIs, PostgreSQL/Supabase and Docker, while supporting monolith-to-microservices modernization.",
-    logo: "",
-    logoAlt: "Prime Softworks",
+    description: "Working on production software projects through the Prime Softworks × Poseidon X team, covering frontend, backend, APIs, testing and delivery. The role includes React, React Native, TypeScript, NestJS, REST APIs, PostgreSQL/Supabase and Docker.",
+    logo: "https://primesoftworks.com/favicon.ico",
+    logoAlt: "Poseidon X / Prime Softworks",
   },
   {
     date: "Dec 2025\n– Jun 2026",
     company: "Huawei Technologies",
-    role: "Backend Systems Engineer",
+    role: "Linux & Database Administrator",
     place: "Cairo, Egypt (Onsite)",
-    tags: ["Linux", "SQL", "Production", "Debugging"],
-    description: "Worked with Linux-based production environments supporting enterprise backend platforms. Developed SQL queries to validate operational datasets, analyzed logs and backend workflows, and troubleshot production incidents.",
+    tags: ["Linux", "Databases", "Monitoring", "Telecom"],
+    description: "Worked in a UAE telecom client environment (du), supporting Linux-based production systems through monitoring, incident and change management, log analysis, SQL/database operations and reporting.",
     logo: "/experience-huawei.png",
     logoAlt: "Huawei",
   },
   {
-    date: "Mar 2025\n– Apr 2025",
+    date: "Mar 2025",
     company: "Egyptian Electrical Solution (EES)",
     role: "Flutter Developer",
     place: "Cairo, Egypt",
-    tags: ["Flutter", "Firebase", "Inventory", "Web"],
-    description: "Built a cross-platform inventory and factory management system using Flutter and Firebase, implementing real-time data synchronization and authentication across multiple modules.",
+    tags: ["Flutter", "Firebase", "Web Dashboard"],
+    description: "Built a Flutter mobile app and a web dashboard using Firebase, contributing to a complete full-stack solution.",
     logo: "/experience-ees.png",
     logoAlt: "Egyptian Electrical Solution",
   },
   {
     date: "Aug 2024\n– Oct 2024",
     company: "German University in Cairo (GUC)",
-    role: "Flutter Developer",
+    role: "Flutter Developer Intern",
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "Dart", "Mobile"],
     description: "Developed and improved cross-platform mobile applications using Flutter during my internship at GUC.",
@@ -61,7 +61,7 @@ const experiences: ExperienceItem[] = [
   {
     date: "Jun 2024\n– Aug 2024",
     company: "ESG & Company",
-    role: "Flutter Developer",
+    role: "Flutter Developer Intern",
     place: "Cairo, Egypt",
     tags: ["Flutter", "Firebase", "API Integration", "Mobile"],
     description: "Implemented production mobile applications with Firebase authentication and API integrations.",
@@ -69,14 +69,14 @@ const experiences: ExperienceItem[] = [
     logoAlt: "ESG & Company",
   },
   {
-    date: "Jul 2024",
-    company: "Stuttgart University",
-    role: "DAAD Research Intern",
-    place: "Stuttgart, Germany",
-    tags: ["OpenCV", "ROS", "Computer Vision", "Linux"],
-    description: "Built computer vision pipelines using OpenCV in ROS-based Linux environments as part of a DAAD research internship.",
+    date: "2024\n– 2025",
+    company: "Valeo",
+    role: "Graduation Project Mentorship",
+    place: "GUC · Cairo, Egypt",
+    tags: ["CPAC", "Connected Vehicles", "Computer Vision", "Research"],
+    description: "Completed the bachelor project Cooperative Perception And Control (CPAC) for Connected Vehicles under Valeo mentorship. The thesis received an A+ and focused on computer vision and connected-vehicle perception.",
     logo: "",
-    logoAlt: "Stuttgart University",
+    logoAlt: "Valeo",
   },
   {
     date: "2023",
@@ -189,7 +189,7 @@ export default function Experience() {
           <aside className={styles.experienceAside}>
             <div className={styles.quickFactsExact}>
               <h3>♙&nbsp; Quick Facts</h3>
-              <div><BriefcaseBusiness /><strong>6+</strong><span>Professional, Research &amp;<br />Internship Experiences</span></div>
+              <div><BriefcaseBusiness /><strong>7+</strong><span>Professional, Research &amp;<br />Mentorship Experiences</span></div>
               <div><div className={styles.factFolder}>▰</div><strong>10+</strong><span>Projects Completed</span></div>
               <div><GraduationCap /><strong>B.Sc.</strong><span>Computer Science and Engineering<br />(GUC)</span></div>
               <div><MapPin /><strong>Cairo, Egypt</strong><span>Open to opportunities worldwide</span></div>

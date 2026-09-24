@@ -219,3 +219,15 @@
   .testimonial{min-height:180px;padding:13px}
   .testimonial>p{font-size:8.5px}
 }
+
+
+/* Compact testimonial cards to stay inside the Home section. */
+.testimonial{height:168px;padding:11px 12px 10px}
+.testimonial>p{font-size:7.7px;line-height:1.34}
+.testimonial>div{min-height:32px}
+.testimonial img{width:32px;height:32px}
+.testimonial b{font-size:7.3px}
+.testimonial small{font-size:6px;margin-top:2px}
+.testimonialGrid{min-height:168px}
+@media(max-width:900px){.testimonial{height:auto;min-height:154px}}
+@media(max-width:650px){.testimonial{min-height:145px;padding:10px}.testimonial>p{font-size:7.6px}}

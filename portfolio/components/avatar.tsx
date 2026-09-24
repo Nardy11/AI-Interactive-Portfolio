@@ -109,7 +109,7 @@ function AvatarModel({ isTalking, scale = 1, positionY = -1 }: AvatarOverlayProp
   });
 
   if (!scene) return null;
-  return <primitive object={scene} rotation={[0.2, 0, 0]} position={[0, positionY, 0]} scale={scale} />;
+  return <primitive object={scene} rotation={[0.2, -0.28, 0]} position={[0, positionY, 0]} scale={scale} />;
 }
 export default function AvatarOverlay({ embedded = false }: AvatarOverlayProps) {
   const [isTalking, setIsTalking] = useState(false);
@@ -227,8 +227,8 @@ export default function AvatarOverlay({ embedded = false }: AvatarOverlayProps) 
         <pointLight position={[-2, 2, 2]} intensity={0.4} />
         <AvatarModel
           isTalking={isTalking}
-          scale={embedded ? 0.72 : 1}
-          positionY={embedded ? -1.22 : -1}
+          scale={embedded ? 0.66 : 1}
+          positionY={embedded ? -0.18 : -1}
         />
       </Canvas>
 
