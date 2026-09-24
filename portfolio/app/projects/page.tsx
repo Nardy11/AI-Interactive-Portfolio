@@ -52,7 +52,7 @@ export default function Projects() {
     <PageFrame active="Projects">
       <main className={styles.projectsPage}>
         <section className={`${styles.projectsHero} portfolioHero`}>
-          <div className={styles.projectsHeroCopy}>
+          <div className={`${styles.projectsHeroCopy} portfolioHeroCopy`} >
             <div className={styles.kicker}>PROJECTS</div>
             <h1>Ideas to Real-World<br /><span>Applications</span></h1>
             <p>
@@ -67,7 +67,7 @@ export default function Projects() {
             </div>
           </div>
 
-          <div className={styles.projectsHeroArt} aria-hidden="true">
+          <div className={`${styles.projectsHeroArt} portfolioHeroVisual`}  aria-hidden="true">
             <div className={styles.heroQuote}>
               <span>&ldquo;Stay hungry.<br />Stay foolish.&rdquo;</span>
               <small>— Steve Jobs</small>
