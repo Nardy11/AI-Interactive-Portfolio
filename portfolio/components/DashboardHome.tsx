@@ -96,6 +96,18 @@ const testimonials = [
     role: "Professor of Bioinformatics & Computational Biology, GUC",
     image: "https://profile-images.xing.com/images/c8b61fc1c26d681a04db17d84591663a-1/mohamed-hamed.256x256.jpg",
   },
+  {
+    quote: "Nardy is determined, focused, and worked independently on his graduation project, demonstrating diverse computer science skills and eagerness to learn. He will excel in any research environment.",
+    name: "Assoc. Prof. Mervat Abu-Elkheir",
+    role: "Computer Science Dept., GUC",
+    image: "https://ui-avatars.com/api/?name=Mervat+Abu-Elkheir&background=6d5cff&color=fff&size=96",
+  },
+  {
+    quote: "During his internship, Nardy demonstrated strong commitment, reliability, and technical skills. He proactively offered innovative suggestions and adapted quickly to new challenges.",
+    name: "Eng. Kareem El Hossainy",
+    role: "ESG& Company",
+    image: "https://ui-avatars.com/api/?name=Kareem+El+Hossainy&background=367dff&color=fff&size=96",
+  },
 ];
 
 export default function DashboardHome() {
@@ -255,7 +267,7 @@ export default function DashboardHome() {
                   ))}
                 </div>
 
-                <div className={styles.skillCloud}>
+                <div key={skillMode} className={styles.skillCloud}>
                   {skills.map((skill) => <span key={skill}>{skill}</span>)}
                 </div>
 

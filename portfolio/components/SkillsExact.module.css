@@ -158,3 +158,18 @@
 :global(html[data-theme="light"]) .cta{background:linear-gradient(110deg,#dcecff,#eee7ff);border-color:#9fb7db}
 :global(html[data-theme="light"]) .ctaBackdrop{background-image:linear-gradient(90deg,rgba(218,232,250,.72),rgba(238,231,251,.55)),url("https://images.unsplash.com/photo-1552845108-5f775a2ccb9b?auto=format&fit=crop&w=2200&q=85");opacity:.8}
 :global(html[data-theme="light"]) .ctaCopy h2{color:#172033}:global(html[data-theme="light"]) .ctaCopy p{color:#4e6077}
+
+/* FINAL VISUAL POLISH — keep learning icons inside their cards */
+.currentLearning .learningGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.currentLearning .learningCard{width:100%;min-width:0;overflow:hidden}
+.currentLearning .learningCard .learningIcon{
+  width:22px;height:22px;min-width:22px;padding:0!important;
+  border:0!important;background:transparent!important;
+  display:grid;place-items:center;box-sizing:border-box;
+}
+.currentLearning .learningCard .learningIcon svg{width:16px;height:16px;display:block}
+.currentLearning .learningBody{min-width:0;overflow:hidden}
+.currentLearning .learningBody strong,.currentLearning .learningBody small{overflow:hidden;text-overflow:ellipsis}
+.skillCloud{animation:skillCloudSwap .34s cubic-bezier(.22,.61,.36,1)}
+@keyframes skillCloudSwap{from{opacity:.45;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.skillCloud{animation:none!important}}
