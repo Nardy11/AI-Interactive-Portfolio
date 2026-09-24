@@ -79,7 +79,7 @@ const experiences = [
   ["2025", "Present", "Linux & Database Administrator", "Huawei (UAE Telecom Environment)", "Full-time"],
   ["2024", "", "Flutter Developer Intern", "GUC", "Internship"],
   ["2024", "", "Mobile App Developer Intern", "ESG & Company", "Internship"],
-  ["2023", "", "Student Competition", "MIE Competition – Stuttgart", "Competition"],
+  ["2023", "", "Student Competition", "MIE Competition – Egypt", "Competition"],
   ["2021–2025", "", "B.Sc. Computer Science and Engineering", "German University in Cairo (GUC)", "Graduated"],
 ];
 
