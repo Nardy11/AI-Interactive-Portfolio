@@ -91,3 +91,12 @@
   border-color:#c1d2e4;
   color:#304b68!important;
 }
+
+/* NLP avatar sizing: keep the 3D assistant clear of the heading/copy. */
+.nlpModelStage .modelCopy{max-width:370px}
+@media(max-width:1050px){
+  .nlpModelStage .modelCopy{max-width:330px}
+}
+@media(max-width:760px){
+  .nlpModelStage .modelCopy{left:24px;right:24px;max-width:300px}
+}
