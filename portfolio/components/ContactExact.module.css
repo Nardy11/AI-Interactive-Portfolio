@@ -112,3 +112,21 @@
 }
 
 :global(html[data-theme="light"]) .messageForm button{border-color:#6680d6;box-shadow:0 8px 18px rgba(60,92,255,.13)}
+
+/* Light mode uses the same daylight visual language as the rest of the portfolio. */
+:global(html[data-theme="light"]) .contactPage{
+  color:#172033;
+  background:linear-gradient(180deg,#f8fbff,#eef4f9);
+}
+:global(html[data-theme="light"]) .contactHero{
+  background-image:
+    linear-gradient(90deg,rgba(248,251,255,.94) 0%,rgba(248,251,255,.72) 44%,rgba(248,251,255,.18) 76%),
+    linear-gradient(180deg,rgba(255,255,255,.08),rgba(232,241,249,.28)),
+    url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Cairo%20Skyline%20%282020%29.jpg?width=1600);
+  background-size:cover;
+  background-position:center 55%;
+  border-bottom-color:#d7e2ec;
+}
+:global(html[data-theme="light"]) .heroOverlay{
+  background:linear-gradient(90deg,rgba(248,251,255,.48),rgba(248,251,255,.08) 60%,transparent);
+}
