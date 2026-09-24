@@ -94,6 +94,7 @@ export default function InteractiveModes({
               }
             }}
             onHandStatusChange={setHand}
+            onCursorMove={setCursor}
           />
 
           <span className={styles.virtualCursor} style={{ left: cursor.x, top: cursor.y }} aria-hidden="true" />
