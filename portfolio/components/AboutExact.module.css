@@ -107,3 +107,46 @@
   border-color:rgba(76,126,190,.24);
   box-shadow:-8px -8px 32px rgba(70,105,150,.12),inset 14px 8px 28px rgba(255,255,255,.18),inset -16px -18px 35px rgba(40,70,105,.14);
 }
+
+/* Compact, consistent message action + photoreal Earth globe. */
+.messageCard{display:flex;flex-direction:column}
+.messageButton{
+  align-self:flex-end;
+  height:38px;
+  min-width:138px;
+  padding:0 16px;
+  border:1px solid #4d7dff;
+  border-radius:9px;
+  background:linear-gradient(100deg,#367cff,#655dff);
+  color:#fff;
+  font-size:9px;
+  font-weight:800;
+  box-shadow:0 7px 18px rgba(55,104,255,.22);
+}
+.messageButton svg{transition:transform .25s ease}
+.messageButton:hover svg{transform:translateX(3px)}
+.earthImage{
+  width:350px;
+  height:350px;
+  right:-65px;
+  bottom:-118px;
+  object-fit:cover;
+  object-position:center;
+  border-radius:50%;
+  opacity:.94;
+  border:1px solid rgba(111,181,255,.28);
+  box-shadow:-12px -10px 42px rgba(64,132,225,.18),inset 16px 10px 35px rgba(255,255,255,.05),inset -18px -20px 45px rgba(0,0,0,.4);
+}
+:global(html[data-theme="light"]) .messageButton{
+  color:#fff;
+  border-color:#6a82ec;
+}
+:global(html[data-theme="light"]) .earthImage{
+  opacity:.82;
+  filter:saturate(.78) brightness(1.16) contrast(.92);
+  border-color:rgba(80,125,188,.24);
+  box-shadow:-8px -8px 34px rgba(70,105,150,.1),inset 14px 8px 28px rgba(255,255,255,.16),inset -16px -18px 35px rgba(40,70,105,.12);
+}
+@media(max-width:900px){
+  .earthImage{width:300px;height:300px;right:50%;transform:translateX(50%);bottom:-105px}
+}
