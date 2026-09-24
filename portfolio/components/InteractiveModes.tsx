@@ -8,6 +8,7 @@ import {
   CircleDot,
   Hand,
   Pause,
+  Play,
   Send,
   Sparkles,
   X,
@@ -29,29 +30,51 @@ export default function InteractiveModes({
   const [camera, setCamera] = useState(false);
   const [hand, setHand] = useState(false);
   const [tracking, setTracking] = useState(false);
+  const [cameraStarting, setCameraStarting] = useState(false);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    let cancelled = false;
+
     if (mode === "cv") {
-      requestAnimationFrame(() => handRef.current?.startCamera());
+      setCameraStarting(true);
+      void (async () => {
+        try {
+          if (!cancelled) await handRef.current?.startCamera();
+        } finally {
+          if (!cancelled) setCameraStarting(false);
+        }
+      })();
     } else {
       handRef.current?.stopCamera();
       setCamera(false);
       setHand(false);
       setTracking(false);
+      setCameraStarting(false);
     }
 
-    return () => handRef.current?.stopCamera();
+    return () => {
+      cancelled = true;
+      handRef.current?.stopCamera();
+    };
   }, [mode]);
 
-  const startOrPauseCamera = () => {
+  const startOrPauseCamera = async () => {
     if (tracking) {
       handRef.current?.stopCamera();
       setTracking(false);
+      setCameraStarting(false);
       return;
     }
 
-    handRef.current?.startCamera();
+    if (cameraStarting) return;
+
+    setCameraStarting(true);
+    try {
+      await handRef.current?.startCamera();
+    } finally {
+      setCameraStarting(false);
+    }
   };
 
   return (
@@ -87,6 +110,7 @@ export default function InteractiveModes({
                   {camera ? "Active" : "Starting"}
                 </span>
                 <button
+                  type="button"
                   className={styles.panelIcon}
                   onClick={() => onModeChange("none")}
                   aria-label="Close Computer Vision Mode"
@@ -132,11 +156,18 @@ export default function InteractiveModes({
             </div>
 
             <div className={styles.panelFooter}>
-              <button className={styles.panelAction} onClick={startOrPauseCamera}>
-                <Pause size={14} />
-                {tracking ? "Pause" : "Start Camera"}
+              <button
+                type="button"
+                className={styles.panelAction}
+                onClick={startOrPauseCamera}
+                disabled={cameraStarting}
+                aria-busy={cameraStarting}
+              >
+                {cameraStarting ? <CircleDot size={14} /> : tracking ? <Pause size={14} /> : <Play size={14} />}
+                {cameraStarting ? "Starting…" : tracking ? "Pause Camera" : "Start Camera"}
               </button>
               <button
+                type="button"
                 className={styles.exitButton}
                 onClick={() => onModeChange("none")}
               >

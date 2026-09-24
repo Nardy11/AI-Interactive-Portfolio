@@ -13,7 +13,7 @@ interface HandTrackingProps {
 }
 
 export interface HandTrackingHandle {
-  startCamera: () => void
+  startCamera: () => Promise<void>
   stopCamera: () => void
 }
 
@@ -31,6 +31,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
   const lastYRef = useRef<number | null>(null)
   const lastScrollTimeRef = useRef(0)
   const runningRef = useRef(false)
+  const sessionRef = useRef(0)
 
     useImperativeHandle(ref, () => ({
       startCamera,
@@ -53,6 +54,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
   const startCamera = async () => {
     if (runningRef.current) return
     runningRef.current = true
+    const session = ++sessionRef.current
 
     try {
       if (!detectorRef.current) {
@@ -66,6 +68,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
           }
         )
       }
+      if (!runningRef.current || session !== sessionRef.current) return
 
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
@@ -76,25 +79,39 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
         },
       })
 
+      if (!runningRef.current || session !== sessionRef.current) {
+        stream.getTracks().forEach((track) => track.stop())
+        return
+      }
+
       streamRef.current = stream
       onStreamChange?.(stream)
 
       if (!videoRef.current) {
         runningRef.current = false
+        stream.getTracks().forEach((track) => track.stop())
+        streamRef.current = null
+        onStreamChange?.(null)
         return
       }
 
       videoRef.current.srcObject = stream
       await videoRef.current.play()
+      if (!runningRef.current || session !== sessionRef.current) {
+        stream.getTracks().forEach((track) => track.stop())
+        streamRef.current = null
+        onStreamChange?.(null)
+        return
+      }
       processFrame()
     } catch (error) {
       console.error("Error starting hand tracking:", error)
-      runningRef.current = false
-      stopCamera()
+      if (session === sessionRef.current) stopCamera()
     }
   }
 
   const stopCamera = () => {
+    sessionRef.current += 1
     runningRef.current = false
 
     if (animationFrameRef.current !== null) {
@@ -114,6 +131,7 @@ const HandTrackingMouse = forwardRef<HandTrackingHandle, HandTrackingProps>(
     setIsClicking(false)
     lastYRef.current = null
     lastScrollTimeRef.current = 0
+    lastClickRef.current = 0
   }
 
   const processFrame = async () => {

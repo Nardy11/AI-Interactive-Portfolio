@@ -33,8 +33,50 @@
 .infoCard li svg{color:#70a5ff;flex:0 0 auto}
 .panelFooter{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:11px}
 .panelAction,.exitButton{height:39px;border-radius:10px;cursor:pointer;font-size:11px;font-weight:750;display:flex;align-items:center;justify-content:center;gap:7px}
-.panelAction{border:1px solid #6f67d9;color:#fff;background:rgba(34,31,90,.42)}
-.exitButton{border:1px solid rgba(255,89,112,.65);color:#ff9baa;background:rgba(106,25,40,.22)}
+ .panelAction{
+  border:1px solid #4d8dff;
+  color:#fff;
+  background:linear-gradient(135deg,#2f74ff,#5b5eea);
+  box-shadow:0 7px 18px rgba(47,116,255,.22);
+}
+.exitButton{
+  border:1px solid #e05a6a;
+  color:#fff;
+  background:#a92f43;
+  box-shadow:0 7px 18px rgba(169,47,67,.18);
+}
+.panelAction:hover{border-color:#83b2ff;box-shadow:0 9px 22px rgba(47,116,255,.28)}
+.exitButton:hover{border-color:#ff8794;background:#c33a50;box-shadow:0 9px 22px rgba(169,47,67,.25)}
+.panelAction:active,.exitButton:active{transform:translateY(1px)}
+.panelAction:focus-visible,.exitButton:focus-visible,.panelIcon:focus-visible{
+  outline:2px solid #7fb0ff;
+  outline-offset:2px;
+}
+:global(html[data-theme="light"]) .panelAction{
+  border-color:#2f67d8;
+  color:#fff;
+  background:linear-gradient(135deg,#2f6fe4,#4f55d8);
+  box-shadow:0 7px 18px rgba(47,103,216,.2);
+}
+:global(html[data-theme="light"]) .panelAction:hover{
+  border-color:#2455b8;
+  background:linear-gradient(135deg,#285fc9,#464bc4);
+}
+:global(html[data-theme="light"]) .exitButton{
+  border-color:#b62f43;
+  color:#fff;
+  background:#b62f43;
+}
+:global(html[data-theme="light"]) .exitButton:hover{
+  background:#9e2739;
+  border-color:#8e2032;
+}
+.panelAction:disabled{
+  opacity:.65;
+  cursor:wait;
+  transform:none;
+  box-shadow:none;
+}
 
 .nlpPanel{
   position:fixed;
@@ -127,12 +169,14 @@
 
 /* Final camera-status badge: lighter, readable, and consistent in both themes. */
 .cameraBadge{
-  background:rgba(36,55,82,.9);
-  border-color:rgba(137,166,207,.42);
-  color:#f2f6ff;
+  background:rgba(30,50,78,.92);
+  border-color:rgba(151,184,226,.48);
+  color:#f6f9ff;
+  box-shadow:0 5px 16px rgba(0,0,0,.18);
 }
 :global(html[data-theme="light"]) .cameraBadge{
-  background:rgba(255,255,255,.92);
-  border-color:#c1d2e4;
-  color:#304b68;
+  background:rgba(255,255,255,.96);
+  border-color:#b9cde2;
+  color:#294765;
+  box-shadow:0 5px 16px rgba(42,70,105,.12);
 }
