@@ -111,7 +111,7 @@
   .messageForm button{align-self:stretch}
 }
 
-:global(html[data-theme="light"]) .messageForm button{border-color:#6680d6;box-shadow:0 8px 18px rgba(60,92,255,.13)}
+[data-theme="light"] .messageForm button{border-color:#6680d6;box-shadow:0 8px 18px rgba(60,92,255,.13)}
 
 /* Light mode uses the same daylight visual language as the rest of the portfolio. */
 :global(html[data-theme="light"]) .contactPage{
@@ -157,5 +157,5 @@
 .messageForm button:hover{transform:translateY(-1px);box-shadow:0 11px 24px rgba(60,92,255,.25);filter:brightness(1.04)}
 .messageForm button:active{transform:translateY(0)}
 .messageForm button svg{width:15px}
-:global(html[data-theme="light"]) .messageForm button{border-color:#6680d6;box-shadow:0 8px 18px rgba(60,92,255,.13)}
+[data-theme="light"] .messageForm button{border-color:#6680d6;box-shadow:0 8px 18px rgba(60,92,255,.13)}
 @media(max-width:650px){.messageForm button{align-self:stretch}}
