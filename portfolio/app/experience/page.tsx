@@ -140,7 +140,7 @@ export default function Experience() {
               into Machine Learning and AI — every step has shaped who I am today
               and where I want to go next.
             </p>
-            <div className={styles.experienceHeroButtons}>
+            <div className={`${styles.experienceHeroButtons} portfolioHeroActions`}>
               <a href="/full_stack_cv_edited.pdf" target="_blank" rel="noreferrer" className={styles.button}>
                 ↓&nbsp; Download CV
               </a>
