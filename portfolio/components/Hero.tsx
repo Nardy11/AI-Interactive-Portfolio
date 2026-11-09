@@ -29,7 +29,7 @@ function useTheme() {
 function ModeNavbar({ mode, dark, setDark }: { mode: Mode; dark: boolean; setDark: React.Dispatch<React.SetStateAction<boolean>> }) {
   const links = [["Home","/home"],["Projects","/projects"],["Experience","/experience"],["Skills","/skills"],["About","/about"],["Contact","/contact"]] as const;
   return <header className={styles.modeNavbar}>
-    <a href="/home" className={styles.modeBrand}><span>NA</span><div><b>Nardy Attalla</b><small>CS Engineer | Aspiring ML Engineer</small></div></a>
+    <a href="/home" className={styles.modeBrand}><span>NA</span><div><b>Nardy Attalla</b><small>ML Engineer | CV · NLP · GenAI</small></div></a>
     <nav>{links.map(([label, href]) => <a key={label} href={href}>{label}</a>)}</nav>
     <div className={styles.modeActions}>
       <button className={styles.modeTheme} onClick={() => setDark(v => !v)} aria-label="Toggle theme">{dark ? <Sun size={16}/> : <Moon size={16}/>}</button>

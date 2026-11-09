@@ -27,8 +27,8 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nardy Attalla — Software & ML Engineer",
-  description: "Portfolio of Nardy Attalla: full-stack engineering, machine learning and computer vision. Browse it normally, by hand gesture, or by asking the assistant.",
+  title: "Nardy Attalla — ML Engineer (Computer Vision · NLP · Generative AI)",
+  description: "Portfolio of Nardy Attalla, ML Engineer: computer vision, NLP and generative AI, shipped in full-stack products. Browse it normally, by hand gesture, or by asking the assistant.",
 };
 
 export default function RootLayout({

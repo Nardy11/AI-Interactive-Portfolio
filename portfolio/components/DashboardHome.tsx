@@ -131,16 +131,16 @@ export default function DashboardHome() {
           <div className={styles.homeContainer}>
             <div className={styles.heroGrid}>
               <div className={styles.heroCopy}>
-                <span className={styles.kicker}>COMPUTER SCIENCE ENGINEER</span>
+                <span className={styles.kicker}>ML ENGINEER · CV · NLP · GENAI</span>
                 <h1>
                   Building Solutions
                   <br />
                   with <span>Code &amp; AI</span>
                 </h1>
                 <p>
-                  I&apos;m Nardy Attalla, a Computer Science Engineer based in Egypt. I build
-                  full-stack web and mobile applications while developing practical skills in{" "}
-                  <strong>Machine Learning, Computer Vision</strong> and AI.
+                  I&apos;m Nardy Attalla, an ML Engineer based in Egypt working in{" "}
+                  <strong>Computer Vision, NLP and Generative AI</strong>, and I build the
+                  full-stack web and mobile applications those models ship in.
                 </p>
 
                 <div className={styles.heroActions}>

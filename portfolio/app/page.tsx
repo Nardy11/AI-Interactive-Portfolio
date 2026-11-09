@@ -13,7 +13,7 @@ export default function Landing() {
         <PageHero
           eyebrow="Interactive portfolio"
           title={<>Same Engineer.<br /><em>More Possibilities.</em></>}
-          lead={<>I&apos;m Nardy Attalla, a Computer Science Engineer based in Egypt. I build full-stack applications while developing practical skills in <strong>machine learning, computer vision and AI</strong>.</>}
+          lead={<>I&apos;m Nardy Attalla, an ML Engineer based in Egypt working in <strong>computer vision, NLP and generative AI</strong>, and I build the full-stack applications those models ship in.</>}
           actions={<>
             <HeroPrimary href="/home">Start exploring <ArrowRight size={15} /></HeroPrimary>
             <HeroGhost href="/full_stack_cv_edited.pdf" external><Download size={15} /> Download CV</HeroGhost>

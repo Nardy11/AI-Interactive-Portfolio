@@ -18,9 +18,11 @@ type Project = {
   year: number;
   repo: string;
   repoFallback?: boolean;
+  live?: string;
 };
 
 const projects: Project[] = [
+  { img: "/velvet-mirror.png", title: "Velvet Mirror", cat: "Computer Vision", badge: "Generative AI", desc: "Self-hosted virtual try-on: upload a photo or use your camera and see yourself in the outfit, in the size you'd really get. FLUX.2 Klein on your own GPU, safety-checked, nothing stored.", tags: ["PyTorch", "FLUX", "MediaPipe", "FastAPI"], year: 2026, repo: "https://github.com/Nardy11/velvet-mirror", live: "https://nardy11.github.io/velvet-mirror/" },
   { img: "/Distance_stereo.jpeg", title: "Cooperative Perception and Control (CPAC)", cat: "Computer Vision", badge: "Computer Vision", desc: "Real-time multi-sensor perception system for connected autonomous vehicles using YOLOv5/YOLOv8, ROS and sensor fusion.", tags: ["Python", "YOLOv8", "ROS", "OpenCV"], year: 2025, repo: "https://github.com/Nardy11/CPAC-Bachelor-Project" },
   { img: "/data analysis.png", title: "Heart Failure Prediction", cat: "Machine Learning", badge: "Machine Learning", desc: "Predicting heart failure risk using classical ML models with feature engineering, visualization and evaluation.", tags: ["Python", "Scikit-learn", "Pandas"], year: 2025, repo: "https://github.com/Nardy11/Heart_Failure_prediction" },
   { img: "/ML.png", title: "Gold Price Prediction", cat: "Machine Learning", badge: "Machine Learning", desc: "Time series forecasting using ML models and feature engineering to predict gold prices.", tags: ["Python", "XGBoost", "Scikit-learn"], year: 2025, repo: "https://github.com/MYoussef885/Gold_Price_Prediction" },
@@ -104,7 +106,7 @@ export default function Projects() {
                     <GitHubLink href={project.repo} className={styles.projectDetails}>View Details <ArrowRight size={12} /></GitHubLink>
                     <div className={styles.projectIconLinks}>
                       <GitHubLink href={project.repo} ariaLabel={project.title + " GitHub repository"}><Github size={14} /></GitHubLink>
-                      <GitHubLink href={project.repo} ariaLabel={project.title + " repository"}><ExternalLink size={14} /></GitHubLink>
+                      <GitHubLink href={project.live ?? project.repo} ariaLabel={project.title + (project.live ? " live demo" : " repository")}><ExternalLink size={14} /></GitHubLink>
                     </div>
                   </div>
                 </div>

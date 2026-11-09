@@ -17,7 +17,7 @@ export default function About() {
     <PageHero
       eyebrow="About me"
       title={<>More Than<br />Just <em>Code</em></>}
-      lead="I'm Nardy Attalla, a Full-Stack Software Engineer and Computer Science Engineer from Egypt. I build and deploy web and mobile applications with modern JavaScript/TypeScript stacks, while developing practical expertise in Machine Learning, Computer Vision and AI."
+      lead="I'm Nardy Attalla, an ML Engineer (Computer Vision, NLP, Generative AI) and Full-Stack Software Engineer from Egypt. I build and deploy web and mobile applications with modern JavaScript/TypeScript stacks, and put Machine Learning, Computer Vision and AI into them."
       actions={<>
         <HeroPrimary href="/full_stack_cv_edited.pdf" download><Download size={15} />Download CV</HeroPrimary>
         <HeroGhost href="/contact">Let&apos;s connect <ArrowRight size={15} /></HeroGhost>
