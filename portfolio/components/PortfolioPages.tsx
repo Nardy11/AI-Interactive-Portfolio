@@ -42,7 +42,7 @@ export default function SiteHeader({
         <span className={styles.brandMark}>NA</span>
         <span className={styles.brandText}>
           <b>Nardy Attalla</b>
-          <small>CS Engineer | Aspiring ML Engineer</small>
+          <small>ML Engineer | CV · NLP · GenAI</small>
         </span>
       </a>
 
@@ -94,7 +94,7 @@ export function Footer({ variant = "default" }: { variant?: "default" | "dashboa
         <span className={styles.brandMark}>NA</span>
         <div>
           <b>Nardy Attalla</b>
-          <small>CS Engineer | Aspiring ML Engineer</small>
+          <small>ML Engineer | CV · NLP · GenAI</small>
         </div>
       </div>
       <div className={styles.footerQuote}>“The important thing is to never stop questioning.” — Albert Einstein</div>
